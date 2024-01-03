@@ -1,6 +1,7 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTag, faCubes, faMoneyBill, faLayerGroup, faMoneyBillAlt, faBuilding, faUser, faInfoCircle,faClock } from '@fortawesome/free-solid-svg-icons';
+
 const ProductDetails = ({ product }) => {
   const entryDate = new Date(product.date);
   const formattedDate = entryDate.toLocaleDateString();

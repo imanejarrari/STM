@@ -13,7 +13,6 @@ const ProductList = () => {
         const response = await fetch('http://localhost:5000/api/products/productlist');
         const data = await response.json();
         setProducts(data);
-        console.log(data);
       } catch (error) {
         console.error('Error fetching products:', error);
       }

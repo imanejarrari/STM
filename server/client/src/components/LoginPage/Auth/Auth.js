@@ -1,8 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState} from 'react';
 import axios from 'axios';
-import "./Auth.css"
+import "./Auth.css";
+import { useUser } from './UserContext';
 
-const AuthForm = ({ setLoggedIn }) => {
+
+
+const AuthForm = ({ setisLoggedIn}) => {
+
+  const { updateUserFullName } = useUser();
 
   const [authMode, setAuthMode] = useState('signin');
   const [formData, setFormData] = useState({
@@ -39,8 +44,10 @@ const AuthForm = ({ setLoggedIn }) => {
       const response = await axios.post(apiUrl, formData);
       console.log(`${authMode} successful!`, response.data);
 
-      setLoggedIn(true);  
-      
+      localStorage.setItem('authToken', response.data.token);
+      updateUserFullName(response.data.name);
+      setisLoggedIn(true);
+
       setFormData({
         name: '',
         email: '',

@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const passport = require("passport");
 const keys = require("../../config/keys");
 // Load input validation
 const validateRegisterInput = require("../../validation/register");
@@ -81,7 +82,8 @@ const { errors, isValid } = validateLoginInput(req.body);
           (err, token) => {
             res.json({
               success: true,
-              token: "Bearer " + token
+              token: "Bearer " + token,
+              name: user.name,
             });
           }
         );
