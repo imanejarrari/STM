@@ -25,18 +25,19 @@ const Sidebar = () => {
       <CDBSidebar textColor="#fff" backgroundColor="royalblue">
         <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>
           <a href="/" className="text-decoration-none" style={{ color: 'inherit' }}>
-            Sidebar
+            ST-MG
           </a>
         </CDBSidebarHeader>
 
         <CDBSidebarContent className="sidebar-content">
           <CDBSidebarMenu>
-            <NavLink exact to="/" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon='list'>Products</CDBSidebarMenuItem>
-            </NavLink>
             <NavLink exact to="/main" activeClassName="activeClicked">
               <CDBSidebarMenuItem icon='chart-line'>Dashboard</CDBSidebarMenuItem>
             </NavLink>
+            <NavLink exact to="/" activeClassName="activeClicked">
+              <CDBSidebarMenuItem icon='list'>Products</CDBSidebarMenuItem>
+            </NavLink>
+            
             <NavLink exact to="/stockIn" activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="list-alt">Stock In</CDBSidebarMenuItem>
             </NavLink>
@@ -56,7 +57,7 @@ const Sidebar = () => {
         </CDBSidebarContent>
 
         <CDBSidebarFooter style={{ textAlign: 'center' }}>
-          <div style={{ padding: '20px 5px' }}>{userFullName}</div>
+          <div style={{ padding: '20px 5px'} }><CDBSidebarMenuItem icon="user">{userFullName}</CDBSidebarMenuItem></div>
         </CDBSidebarFooter>
       </CDBSidebar>
     </div>
