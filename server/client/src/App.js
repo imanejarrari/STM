@@ -1,12 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect,useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { UserProvider } from './components/LoginPage/Auth/UserContext';
 import LoginPage from './components/LoginPage/LoginPage';
 import StockPage from './components/stock/productsIn/StockPage';
 import MainPage from './components/stock/products/MainPage';
 
 function App() {
-  const [isLoggedIn, setisLoggedIn] = React.useState(false);
+  const [isLoggedIn, setisLoggedIn] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem('authToken');
@@ -16,7 +15,6 @@ function App() {
   }, []);
 
   return (
-    <UserProvider>
       <Router>
         <div className="App">
           <Routes>
@@ -33,7 +31,6 @@ function App() {
           </Routes>
         </div>
       </Router>
-    </UserProvider>
   );
 }
 

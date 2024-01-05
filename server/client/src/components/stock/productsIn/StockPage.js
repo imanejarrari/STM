@@ -1,5 +1,7 @@
 import React from 'react';
 import NewProductForm from './ProductForm';
+import Sidebar from '../../side-bar/Sidebar';
+import './StockPage.css'
 
 function StockPage() {
   const handleNewProductSubmit = (newProductData) => {
@@ -7,7 +9,10 @@ function StockPage() {
   };
 
   return (
-    <NewProductForm onSubmit={handleNewProductSubmit} />  
+    <div className='stock-page'>
+      <Sidebar/>
+      <NewProductForm onSubmit={handleNewProductSubmit} />  
+    </div>
   );
 }
 

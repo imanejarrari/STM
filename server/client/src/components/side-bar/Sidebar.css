@@ -1,0 +1,7 @@
+.sidebar-link li:hover {
+  background-color: #89cff0;
+  color: #fff;
+  cursor: pointer;
+  border: #fff 1px solid;
+
+}

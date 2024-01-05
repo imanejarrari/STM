@@ -7,7 +7,6 @@ const ProductDetails = ({ product }) => {
   const formattedDate = entryDate.toLocaleDateString();
   return (
     <div className="container mt-4">
-      <h2 className="mb-4">Product Details</h2>
       <div className="card">
         <div className="card-body">
           <p className="card-text">

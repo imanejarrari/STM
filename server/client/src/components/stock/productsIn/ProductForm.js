@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faSquarePlus } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
+import "./StockPage.css";
 
 function NewProductForm() {
   const [formData, setFormData] = useState({
@@ -79,13 +80,12 @@ function NewProductForm() {
   };
 
   return (
-    <div className="">
-      <h2>
-        <FontAwesomeIcon icon={faPlus} className="mr-2" />
+    <div className="container mt-4">
+      <h2 className='mb-4'>
         Add New Product
       </h2>
       <form onSubmit={handleSubmit} method="POST" className="row g-3">
-        <div className="col-md-6">
+        <div className="col-md-6 mb-3">
           <label className="form-label">Name:</label>
           <input
             type="text"
@@ -97,7 +97,7 @@ function NewProductForm() {
           />
           {validationErrors.name && <div className="text-danger">{validationErrors.name}</div>}
         </div>
-        <div className="col-md-6">
+        <div className="col-md-6 mb-3">
           <label className="form-label">Category:</label>
           <input
             type="text"
@@ -113,7 +113,7 @@ function NewProductForm() {
             ))}
           </datalist>
         </div>
-        <div className="mb-3">
+        <div className="col-md-6 mb-3">
           <label className="form-label">Brand:</label>
           <input
             type="text"
@@ -131,7 +131,7 @@ function NewProductForm() {
           </datalist>
           {validationErrors.brand && <div className="text-danger">{validationErrors.brand}</div>}
         </div>
-        <div className="mb-3">
+        <div className="col-md-6 mb-3">
           <label className="form-label">Description:</label>
           <textarea
             className="form-control"
@@ -142,7 +142,7 @@ function NewProductForm() {
           />
           {validationErrors.description && <div className="text-danger">{validationErrors.description}</div>}
         </div>
-        <div className="col-md-6">
+        <div className="col-md-6 mb-3">
           <label className="form-label">Supplier Name:</label>
           <input
             type="text"
@@ -159,7 +159,7 @@ function NewProductForm() {
           </datalist>
           {validationErrors.supplierName && <div className="text-danger">{validationErrors.supplierName}</div>}
         </div>
-        <div className="col-md-6">
+        <div className="col-md-6 mb-3">
           <label className="form-label">Supplier Contact Info:</label>
           <input
             type="text"
@@ -178,7 +178,7 @@ function NewProductForm() {
             <div className="text-danger">{validationErrors.supplierContactInfo}</div>
           )}
         </div>
-        <div className="col-md-6">
+        <div className="col-md-6 mb-3">
           <label className="form-label">Cost Price:</label>
           <input
             type="number"
@@ -190,7 +190,7 @@ function NewProductForm() {
           />
           {validationErrors.costPrice && <div className="text-danger">{validationErrors.costPrice}</div>}
         </div>
-        <div className="col-md-6">
+        <div className="col-md-6 mb-3">
           <label className="form-label">Selling Price:</label>
           <input
             type="number"
@@ -202,7 +202,7 @@ function NewProductForm() {
           />
           {validationErrors.sellingPrice && <div className="text-danger">{validationErrors.sellingPrice}</div>}
         </div>
-        <div className="mb-3">
+        <div className="col-md-6 mb-3">
           <label className="form-label">Quantity in Stock:</label>
           <input
             type="number"
@@ -216,10 +216,9 @@ function NewProductForm() {
             <div className="text-danger">{validationErrors.quantityInStock}</div>
           )}
         </div>
-        <div className="mb-3">
-          <button type="submit" className="btn btn-primary">
-            <FontAwesomeIcon icon={faPlus} className="mr-2" />
-            Add Product
+        <div className="col-md-6 mb-3 d-flex justify-content-center">
+          <button type="submit"  id='add-product'>
+            <FontAwesomeIcon icon={faSquarePlus} style={{marginRight:'28px'}} />Add Product
           </button>
         </div>
       </form>
