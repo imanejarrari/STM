@@ -32,11 +32,11 @@ const Sidebar = () => {
 
         <CDBSidebarContent className="sidebar-content">
           <CDBSidebarMenu>
+          <NavLink exact to="/main" className="sidebar-link">
+              <CDBSidebarMenuItem icon='chart-line'>Dashboard</CDBSidebarMenuItem>
+            </NavLink>
             <NavLink exact to="/main" className="sidebar-link" >
               <CDBSidebarMenuItem icon='list'>Products</CDBSidebarMenuItem>
-            </NavLink>
-            <NavLink exact to="/main" className="sidebar-link">
-              <CDBSidebarMenuItem icon='chart-line'>Dashboard</CDBSidebarMenuItem>
             </NavLink>
             <NavLink exact to="/stock"  className="sidebar-link">
               <CDBSidebarMenuItem icon="list-alt">Stock In</CDBSidebarMenuItem>
