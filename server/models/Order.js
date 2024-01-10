@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const OrderSchema = new Schema({
- name:{
+ Name:{
     type:String,
     required:true
  },
@@ -26,10 +26,6 @@ const OrderSchema = new Schema({
  },
 
 Status:{
-    type:String,
-    required:true
-},
-Action:{
     type:String,
     required:true
 }
