@@ -9,7 +9,7 @@ const Order = () => {
 
   useEffect(() => {
     // Fetch orders from the backend
-    fetch('http://localhost:5000/api/orders/order')
+    fetch('http://localhost:5000/api/orders')
       .then((response) => response.json())
       .then((data) => setOrders(data))
       .catch((error) => console.error('Error fetching orders:', error));
