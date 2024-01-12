@@ -1,6 +1,6 @@
 import Sidebar from "../side-bar/Sidebar";
 import Supplier from "../Suppliers/Supplier";
-import './order.css'
+import './supplier.css'
 
 const  MainSupp = () => {
     return (
