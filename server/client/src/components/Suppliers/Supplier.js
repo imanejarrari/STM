@@ -4,7 +4,7 @@ import "./supplier.css";
 
 
 
-const supplier = () => {
+const Supplier = () => {
     const [Suppliers, setSuppliers] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
   
@@ -25,3 +25,6 @@ const supplier = () => {
     }, []);
 
 }
+
+
+export default Supplier;
