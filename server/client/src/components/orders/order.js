@@ -4,7 +4,7 @@ import './order.css';
 
 
 
-const Order = () => {
+const Ordr = () => {
   const [orders, setOrders] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -56,4 +56,4 @@ const Order = () => {
   );
 };
 
-export default Order;
+export default Ordr;

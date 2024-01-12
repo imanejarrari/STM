@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import LoginPage from './components/LoginPage/LoginPage';
 import StockPage from './components/stock/productsIn/StockPage';
 import MainPage from './components/stock/products/MainPage';
+import MainOrder from './components/orders/orderMain';
 
 function App() {
   const [isLoggedIn, setisLoggedIn] = useState(false);
@@ -26,6 +27,7 @@ function App() {
               <>
                 <Route path="/main" element={<MainPage />} />
                 <Route path="/stock" element={<StockPage />}  />
+                <Route path='/orders' element={<MainOrder /> } />
               </>
             )}
           </Routes>

@@ -1,14 +1,15 @@
 import Sidebar from "../side-bar/Sidebar";
+import Ordr from "../orders/order";
 import './order.css'
 
-const  Main = () => {
+const  MainOrder = () => {
     return (
         <div className="main-page">
             <Sidebar />
-            <Order/>
+            <Ordr/>
         
         </div>
     );
 }
 
-export default Main; 
+export default MainOrder; 
