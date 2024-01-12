@@ -26,7 +26,7 @@ const Ordr = () => {
 
   return (
     <div>
-      <h2>Order Table</h2>
+      <h2>Orders</h2>
       <table className="table">
       <thead>
           <tr>
@@ -40,7 +40,7 @@ const Ordr = () => {
           </tr>
         </thead>
         <tbody>
-        {Order.map((order) => (
+        {orders.map((order) => (
             <tr key={order._id}>
               <td>{order.Name}</td>
               <td>{order.Email}</td>
