@@ -6,13 +6,22 @@ import './order.css';
 
 const Order = () => {
   const [orders, setOrders] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     // Fetch orders from the backend
-    fetch('http://localhost:5000/api/orders')
-      .then((response) => response.json())
-      .then((data) => setOrders(data))
-      .catch((error) => console.error('Error fetching orders:', error));
+   const fetchOrder= async () => {
+    try{
+      const response = await fetch('http://localhost:5000/api/order');
+      const data = await response.json();
+      setOrders(data);
+
+    }catch(error){
+      console.error('Error fetching orders:', error);
+
+    }
+   };
+    fetchOrder();
   }, []);
 
   return (
