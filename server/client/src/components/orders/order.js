@@ -7,6 +7,8 @@ import './order.css';
 const Ordr = () => {
   const [orders, setOrders] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const [sortOption, setSortOption] = useState({ value: 'za', label: <i className="fas fa-sort-alpha-up-alt"></i> });
+  const [checkboxVisible, setCheckboxVisible] = useState(false);
 
   useEffect(() => {
     // Fetch orders from the backend
@@ -25,8 +27,25 @@ const Ordr = () => {
   }, []);
 
   return (
-    <div>
-      <h2>Orders</h2>
+    <div className="container mt-4">
+        <div className="p-1 bg-light rounded rounded-pill shadow-sm mb-4 ml-5 " style={{ marginRight: "250px", marginLeft: "250px" }}>
+          <div className="input-group">
+            <input
+              type="search"
+              placeholder="What're you searching for?"
+              aria-describedby="button-addon1"
+              className="form-control border-0 bg-light"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <div className="input-group-append">
+              <button id="button-addon1" type="submit" className="btn btn-link text-primary"><i className="fa fa-search"></i></button>
+            </div>
+          </div>
+        </div>
+        <div className="row" style={{ marginTop: "10px" }}>
+        
+        <h2>Orders</h2>
       <table className="table">
       <thead>
           <tr>
@@ -52,7 +71,10 @@ const Ordr = () => {
           ))}
         </tbody>
       </table>
-    </div>
+          
+        </div>
+      </div>
+    
   );
 };
 
