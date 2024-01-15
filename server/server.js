@@ -5,7 +5,7 @@ const passport = require("passport");
 const users = require("./routes/api/Users");
 const products = require("./routes/api/Products");
 const orders=require("./routes/api/orders");
-const suppliers=require("./routes/api/Supplier");
+const suppliers=require("./routes/api/supplier");
 
 const app = express();
 
@@ -45,7 +45,7 @@ app.use("/api/users", users);
 
 app.use("/api/products", products);
 app.use("/api/orders",orders);
-app.use("/api/Suppliers",suppliers)
+app.use("/api/supplier",suppliers)
 
 
 const port = process.env.PORT || 5000;
