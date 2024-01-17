@@ -17,10 +17,13 @@
    
 }
 
-.link.selected {
+.link .selected {
     color:#89cff0;
 }
 .table{
     margin-top:50px;
     
+}
+.table th{
+    background-color: rgb(250, 249, 249);
 }

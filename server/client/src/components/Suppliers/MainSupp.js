@@ -1,5 +1,6 @@
 import Sidebar from "../side-bar/Sidebar";
 import Supplier from "../Suppliers/Supplier";
+import AddSupplier from "./AddSupplier";
 
 import './supplier.css'
 
@@ -8,7 +9,7 @@ const  MainSupp = () => {
         <div className="main-page">
             <Sidebar />
             <Supplier/>
-            
+            <AddSupplier/>
         
         </div>
     );

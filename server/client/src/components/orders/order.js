@@ -49,22 +49,22 @@ const Ordr = () => {
       <table className="table">
       <thead>
           <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Total</th>
+            <th>Supplier</th>
+            <th>Quantity</th>
+            <th>Total Price</th>
             <th>Paid</th>
-            <th>Date</th>
+            <th>deliverey Date</th>
             <th>Status</th>
-            <th>Actions</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
         {orders.map((order) => (
             <tr key={order._id}>
-              <td>{order.Name}</td>
-              <td>{order.Email}</td>
-              <td>${order.Total}</td>
-              <td>{order.Paid}</td>
+              <td>{order.suppliers.Supplier_Name}</td>
+              <td>{order.Quantity}</td>
+              <td>{order.Total}$</td>
+              <td>{order.deliveryDate}</td>
               <td>{order.Status}</td>
               <td>*</td>
             </tr>

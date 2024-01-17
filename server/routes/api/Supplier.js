@@ -1,12 +1,12 @@
 const express = require("express");
 const router = express.Router();
 
-const supplier = require("../../models/supplier");
+const suppliers = require("../../models/supplier");
 const validateNewSupplierInput = require("../../validation/supplierValidation");
 
 // GET all suppliers
 router.get("/suppliers", (req, res) => {
-  supplier.find()
+  suppliers.find()
     .then((suppliers) => res.json(suppliers))
     .catch((err) => res.status(500).json({ error: "Internal Server Error" }));
 });
@@ -23,7 +23,7 @@ router.post("/newsupplier", (req, res) => {
 
   newSupplier
     .save()
-    .then((supplier) => res.json(supplier))
+    .then((suppliers) => res.json(suppliers))
     .catch((err) => {
       console.error(err);
       res.status(400).json({ error: 'Bad Request' });

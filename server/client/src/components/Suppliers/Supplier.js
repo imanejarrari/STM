@@ -47,7 +47,7 @@ const Supplier = () => {
             <NavLink
               to="/suppliers"
               className={`link ${selectedLink === 'All Suppliers' ? 'selected' : ''}`}
-              style={{ textDecoration: "none", color: "grey" }}
+              style={{ textDecoration: "none", color: "black" }}
               onMouseEnter={() => setSelectedLink('All Suppliers')}
             >
               All Suppliers
@@ -55,9 +55,9 @@ const Supplier = () => {
           </li>
           <li>
             <NavLink
-              to="/suppliers/AddSupplier"
+              to="/AddSupplier"
               className={`link ${selectedLink === 'Add New Supplier' ? 'selected' : ''}`}
-              style={{ marginRight: "400px", textDecoration: "none", color: "grey" }}
+              style={{ marginRight: "400px", textDecoration: "none", color: "black" }}
               onMouseEnter={() => setSelectedLink('Add New Supplier')}
             >
               Add New Supplier
@@ -68,20 +68,25 @@ const Supplier = () => {
     
       </div>
       <table className="table" border={1}>
-      <thead >
+      <thead>
           <tr>
             <th>Supplier Name</th>
             <th>Email</th>
             <th>Phone</th>
             <th>Address</th>
-            <th></th>
-            <th></th>
+            <th>Registration date</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-        {suppliers.map((Suppliers) => (
-            <tr key={Suppliers._id}>
+        {suppliers.map((suppliers) => (
+            <tr key={suppliers._id}>
+              <td>{suppliers.Supplier_Name}</td>
+              <td>{suppliers.Email}</td>
+              <td>{suppliers.phone}</td>
+              <td>{suppliers.address}</td>
+              <td>{suppliers.date}</td>
+              <td>*</td>
               
             </tr>
           ))}
