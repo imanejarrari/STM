@@ -61,7 +61,7 @@ setInterval(async () => {
 // Get all orders with supplier details
 router.get('/', async (req, res) => {
   try {
-    const orders = await Order.find().populate('suppliers');
+    const orders = await Order.find().populate('supplier');
     res.json(orders);
   } catch (err) {
     res.status(500).json({ message: err.message });

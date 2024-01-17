@@ -55,7 +55,7 @@ const Supplier = () => {
           </li>
           <li>
             <NavLink
-              to="/AddSupplier"
+              to="/newsupplier"
               className={`link ${selectedLink === 'Add New Supplier' ? 'selected' : ''}`}
               style={{ marginRight: "400px", textDecoration: "none", color: "black" }}
               onMouseEnter={() => setSelectedLink('Add New Supplier')}

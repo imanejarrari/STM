@@ -5,7 +5,7 @@ const passport = require("passport");
 const users = require("./routes/api/Users");
 const products = require("./routes/api/Products");
 const orders=require("./routes/api/orders");
-const suppliers=require("./routes/api/supplier");
+const suppliers=require("./routes/api/Supplier");
 
 const app = express();
 

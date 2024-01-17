@@ -14,7 +14,7 @@ const Ordr = () => {
     // Fetch orders from the backend
    const fetchOrder= async () => {
     try{
-      const response = await fetch('http://localhost:5000/api/order');
+      const response = await fetch('http://localhost:5000/api/orders');
       const data = await response.json();
       setOrders(data);
 

@@ -1,33 +1,35 @@
 const express = require("express");
 const router = express.Router();
-
-const suppliers = require("../../models/supplier");
+const Supplier = require("../../models/supplier");
 const validateNewSupplierInput = require("../../validation/supplierValidation");
 
 // GET all suppliers
-router.get("/suppliers", (req, res) => {
-  suppliers.find()
-    .then((suppliers) => res.json(suppliers))
-    .catch((err) => res.status(500).json({ error: "Internal Server Error" }));
+router.get("/", async (req, res) => {
+  try {
+    const allSuppliers = await Supplier.find();
+    res.json(allSuppliers);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 });
 
 // POST a new supplier
-router.post("/newsupplier", (req, res) => {
+router.post("/newsupplier", async (req, res) => {
   const { errors, isValid } = validateNewSupplierInput(req.body);
 
   if (!isValid) {
     return res.status(400).json({ error: 'Validation Error', validationErrors: errors });
   }
 
-  const newSupplier = new supplier(req.body);
-
-  newSupplier
-    .save()
-    .then((suppliers) => res.json(suppliers))
-    .catch((err) => {
-      console.error(err);
-      res.status(400).json({ error: 'Bad Request' });
-    });
+  try {
+    const newSupplier = new Supplier(req.body);
+    const savedSupplier = await newSupplier.save();
+    res.json(savedSupplier);
+  } catch (err) {
+    console.error(err);
+    res.status(400).json({ error: 'Bad Request' });
+  }
 });
 
 module.exports = router;

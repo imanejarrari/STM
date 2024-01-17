@@ -22,7 +22,7 @@ const AddSupplier = () => {
   
       try {
         // Send a POST request to your backend endpoint
-        const response = await axios.post('http://localhost:5000/api/suppliers/AddSupplier', formData);
+        const response = await axios.post('http://localhost:5000/api/Suppliers', formData);
   
         // Handle the response as needed (e.g., show a success message)
         console.log('New supplier added:', response.data);
