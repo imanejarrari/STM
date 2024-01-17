@@ -6,6 +6,15 @@ const SupplierSchema = new Schema({
     type: String,
     required: true
   },
+  Email:{
+    type:String,
+     required:true
+
+ },
+ phone: {
+  type: String,
+  required: true
+},
   address: {
     street: {
       type: String,
@@ -23,10 +32,6 @@ const SupplierSchema = new Schema({
       type: String,
       required: true
     }
-  },
-  phone: {
-    type: String,
-    required: true
   },
   products: [
     {

@@ -1,5 +1,26 @@
-.main-page{
+.main-page {
     display: flex;
 }
 
-  
+.navigation {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid whitesmoke;
+    margin-top: 50px;
+    height: 40px;
+    width: 700px;
+    list-style-type: none;
+}
+
+.link:hover {
+    color:black;
+   
+}
+
+.link.selected {
+    color:#89cff0;
+}
+.table{
+    margin-top:50px;
+    
+}

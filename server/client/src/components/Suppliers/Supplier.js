@@ -1,58 +1,98 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { NavLink } from 'react-router-dom';
 import "./supplier.css";
 
-
-
 const Supplier = () => {
-    const [Suppliers, setSuppliers] = useState([]);
-    const [searchTerm, setSearchTerm] = useState('');
-    const [sortOption, setSortOption] = useState({ value: 'za', label: <i className="fas fa-sort-alpha-up-alt"></i> });
-  const [checkboxVisible, setCheckboxVisible] = useState(false);
-  
-    useEffect(() => {
-      // Fetch suppliers from the backend
-     const fetchSupplier= async () => {
-      try{
+  const [suppliers, setSuppliers] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+ 
+  const [selectedLink, setSelectedLink] = useState('All Suppliers');
+ 
+
+  useEffect(() => {
+    // Fetch suppliers from the backend
+    const fetchSupplier = async () => {
+      try {
         const response = await fetch('http://localhost:5000/api/Suppliers');
         const data = await response.json();
         setSuppliers(data);
-  
-      }catch(error){
+      } catch (error) {
         console.error('Error fetching Supplier:', error);
-  
       }
-     };
-      fetchSupplier();
-    }, []);
+    };
+    fetchSupplier();
+  }, []);
 
-
-    return (
-      <div className="container mt-4">
-        <div className="p-1 bg-light rounded rounded-pill shadow-sm mb-4 ml-5 " style={{ marginRight: "250px", marginLeft: "250px" }}>
-          <div className="input-group">
-            <input
-              type="search"
-              placeholder="What're you searching for?"
-              aria-describedby="button-addon1"
-              className="form-control border-0 bg-light"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-            <div className="input-group-append">
-              <button id="button-addon1" type="submit" className="btn btn-link text-primary"><i className="fa fa-search"></i></button>
-            </div>
+  return (
+    <div className="container mt-4">
+      <div className="p-1 bg-light rounded rounded-pill shadow-sm mb-4 ml-5 " style={{ marginRight: "250px", marginLeft: "250px" }}>
+        <div className="input-group">
+          <input
+            type="search"
+            placeholder="What're you searching for?"
+            aria-describedby="button-addon1"
+            className="form-control border-0 bg-light"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+          <div className="input-group-append">
+            <button id="button-addon1" type="submit" className="btn btn-link text-primary"><i className="fa fa-search"></i></button>
           </div>
         </div>
-        <div className="row" style={{ marginTop: "10px" }}>
-        
-          
-          
-        </div>
       </div>
-    );
+      <div className="row" style={{ marginTop: "10px" }}>
+        <ul className='navigation'>
+          <li>
+            <NavLink
+              to="/suppliers"
+              className={`link ${selectedLink === 'All Suppliers' ? 'selected' : ''}`}
+              style={{ textDecoration: "none", color: "grey" }}
+              onMouseEnter={() => setSelectedLink('All Suppliers')}
+            >
+              All Suppliers
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/suppliers/AddSupplier"
+              className={`link ${selectedLink === 'Add New Supplier' ? 'selected' : ''}`}
+              style={{ marginRight: "400px", textDecoration: "none", color: "grey" }}
+              onMouseEnter={() => setSelectedLink('Add New Supplier')}
+            >
+              Add New Supplier
+            </NavLink>
+          </li>
+        </ul>
+        
+    
+      </div>
+      <table className="table" border={1}>
+      <thead >
+          <tr>
+            <th>Supplier Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Address</th>
+            <th></th>
+            <th></th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+        {suppliers.map((Suppliers) => (
+            <tr key={Suppliers._id}>
+              
+            </tr>
+          ))}
+        </tbody>
+      </table>
+          
 
-}
 
+
+    </div>
+  );
+};
 
 export default Supplier;
