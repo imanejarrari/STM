@@ -19,7 +19,10 @@ const Sidebar = () => {
     localStorage.removeItem('authToken');
     localStorage.removeItem("userName");
     window.location.href = "/";
-  };
+    };
+
+   
+
   
   return (
     <div style={{ display: 'flex', height: '100vh', overflow: 'scroll initial' }}>
@@ -44,8 +47,9 @@ const Sidebar = () => {
             <NavLink exact to="/orders"  className="sidebar-link">
               <CDBSidebarMenuItem icon="file-alt">Orders</CDBSidebarMenuItem>
             </NavLink>
-            <NavLink exact to="/suppliers"  className="sidebar-link">
+            <NavLink exact to="/suppliers"   className="sidebar-link">
               <CDBSidebarMenuItem icon="users">Suppliers</CDBSidebarMenuItem>
+      
             </NavLink>
             <NavLink exact to="/convert" className="sidebar-link">
               <CDBSidebarMenuItem icon="file-excel">Convert Excel File</CDBSidebarMenuItem>
