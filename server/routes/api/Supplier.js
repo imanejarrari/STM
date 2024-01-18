@@ -15,7 +15,7 @@ router.get("/", async (req, res) => {
 });
 
 // POST a new supplier
-router.post("/newsupplier", async (req, res) => {
+router.post("/newSupplier", async (req, res) => {
   const { errors, isValid } = validateNewSupplierInput(req.body);
 
   if (!isValid) {

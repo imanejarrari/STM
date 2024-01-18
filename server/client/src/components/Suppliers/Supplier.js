@@ -44,10 +44,10 @@ const Supplier = () => {
       <div className="row" style={{ marginTop: "10px" }}>
       <ul className='navigation'>
         <li>
-          <NavLink to="/suppliers" className={"link"} style={{textDecoration: "none" ,color:"grey"}}>All Suppliers</NavLink>
+          <NavLink to="/suppliers"  exact={true} className={"link"} style={{textDecoration: "none" ,color:"grey"}}>All Suppliers</NavLink>
         </li>
         <li>
-          <NavLink to="/NewSupplier" className={"link"} style={{marginRight:"400px",    textDecoration: "none", color:"grey"}}>Add New Supplier</NavLink>
+          <NavLink to="/newsupplier"  exact={true} className={"link"} style={{marginRight:"400px",    textDecoration: "none", color:"grey"}}>Add New Supplier</NavLink>
         </li>
       </ul>
         

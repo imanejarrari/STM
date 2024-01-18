@@ -24,7 +24,7 @@ function AddSupplier() {
   useEffect(() => {
     const fetchSupplier = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/NewSupplier');
+        const response = await axios.get('http://localhost:5000/api/Suppliers');
         const FromServer = response.data; 
         setSupplier_Name(FromServer.map(Obj => Obj.Supplier_Name));
         setphone(FromServer.map(Obj => Obj.phone));
@@ -46,9 +46,10 @@ function AddSupplier() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log('handleSubmit triggered');
 
     try {
-      const response = await axios.post('http://localhost:5000/api/Suppliers/newsupplier', formData, {
+      const response = await axios.post('http://localhost:5000/api/Suppliers/newSupplier/AddSupplier', formData, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -84,7 +85,7 @@ return(
       <input
         type="text"
         className="form-control"
-        name="name"
+        name="Supplier_Name"
         value={formData.Supplier_Name}
         onChange={handleChange}
         required
@@ -104,7 +105,7 @@ return(
      
     </div>
     <div className="col-md-6 mb-3">
-      <label className="form-label">Email:</label>
+      <label className="form-label"  >Email:</label>
       <input
         type="text"
         className="form-control"
@@ -118,21 +119,23 @@ return(
     </div>
     <div className="col-md-6 mb-3">
       <label className="form-label">Address:</label>
-      <textarea
-        className="form-control"
-        name="description"
-        value={formData.address}
-        onChange={handleChange}
-        required
-      />
-      {validationErrors.address && <div className="text-danger">{validationErrors.address}</div>}
-    </div>
-    <div className="col-md-6 mb-3">
-      <label className="form-label">Date:</label>
       <input
         type="text"
         className="form-control"
-        name="supplierName"
+        name="address"
+        value={formData.address}
+        onChange={handleChange}
+        
+      />
+     
+      {validationErrors.address && <div className="text-danger">{validationErrors.address}</div>}
+    </div>
+    <div className="col-md-6 mb-3">
+      <label className="form-label" >Date:</label>
+      <input
+        type="text"
+        className="form-control"
+        name="date"
         value={formData.date}
         onChange={handleChange}
         
@@ -141,9 +144,10 @@ return(
     </div>
     
     <div className="col-md-6 mb-3 d-flex justify-content-center">
-      <button type="submit"  id='add-supplier'>
-        <FontAwesomeIcon icon={faSquarePlus} style={{marginRight:'28px'}} />Add Supplier
-      </button>
+    <button type="submit" id="add-supplier">
+  <FontAwesomeIcon icon={faSquarePlus} style={{ marginRight: '28px' }} /> Add Supplier
+</button>
+
     </div>
   </form>
 </div>

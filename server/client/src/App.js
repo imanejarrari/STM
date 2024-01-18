@@ -6,6 +6,7 @@ import MainPage from './components/stock/products/MainPage';
 import MainOrder from './components/orders/orderMain';
 import MainSupp from './components/Suppliers/MainSupp';
 
+
 function App() {
   const [isLoggedIn, setisLoggedIn] = useState(false);
 
@@ -30,6 +31,8 @@ function App() {
                 <Route path="/stock" element={<StockPage />}  />
                 <Route path='/orders' element={<MainOrder /> } />
                 <Route path='/suppliers' element={<MainSupp /> } />
+               
+                
               </>
             )}
           </Routes>

@@ -1,5 +1,6 @@
 import Sidebar from "../side-bar/Sidebar";
 import Supplier from "../Suppliers/Supplier";
+import AddSupplier from "./NewSupplier/AddSupplier";
 
 
 
@@ -10,7 +11,8 @@ const  MainSupp = () => {
         <div className="main-page">
             <Sidebar />
              <Supplier />
-             
+             <AddSupplier/>
+            
         </div>
 
     );
