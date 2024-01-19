@@ -5,3 +5,24 @@
   border: #fff 1px solid;
 
 }
+#dropdown-basic-button{
+  width:100px;
+  position: relative;
+  bottom:50px;
+  left:60px;
+  background-color: rgb(67, 111, 255);
+  border-color: rgb(67, 111, 255);
+  cursor: pointer;
+}
+#dropdown-basic-button :hover{
+  background-color: #89cff0;
+  color: #fff;
+  cursor: pointer;
+ 
+}
+.customDropdownItem{
+  background-color: rgb(67, 111, 255) ;
+  color: white;
+  position: relative;
+  
+}

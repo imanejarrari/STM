@@ -8,6 +8,8 @@ import {
   CDBSidebarMenuItem,
 } from 'cdbreact';
 import { NavLink } from 'react-router-dom';
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
 import "./Sidebar.css";
 
 
@@ -47,12 +49,16 @@ const Sidebar = () => {
             <NavLink exact to="/orders"  className="sidebar-link">
               <CDBSidebarMenuItem icon="file-alt">Orders</CDBSidebarMenuItem>
             </NavLink>
-            <NavLink exact to="/suppliers"   className="sidebar-link">
-              <CDBSidebarMenuItem icon="users">Suppliers</CDBSidebarMenuItem>
+           
+            <CDBSidebarMenuItem icon="users"> </CDBSidebarMenuItem> 
+       <DropdownButton id="dropdown-basic-button" title="Suppliers">
+      <Dropdown.Item href="/suppliers" className="customDropdownItem">All Suppliers</Dropdown.Item>
+      <Dropdown.Item href="/newsupplier"className="customDropdownItem">Add New Supplier</Dropdown.Item>
       
-            </NavLink>
+    </DropdownButton>
+      
             <NavLink exact to="/convert" className="sidebar-link">
-              <CDBSidebarMenuItem icon="file-excel">Convert Excel File</CDBSidebarMenuItem>
+              <CDBSidebarMenuItem icon="file-excel" >Convert Excel File</CDBSidebarMenuItem>
             </NavLink>
             <NavLink  onClick={LogOut}  className="sidebar-link">
               <CDBSidebarMenuItem icon="door-open">Log Out</CDBSidebarMenuItem>

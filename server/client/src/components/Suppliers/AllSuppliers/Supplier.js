@@ -8,7 +8,7 @@ const Supplier = () => {
   const [suppliers, setSuppliers] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
  
-  const [selectedLink, setSelectedLink] = useState('All Suppliers');
+  
  
 
   useEffect(() => {
@@ -43,17 +43,8 @@ const Supplier = () => {
         </div>
       </div>
       <div className="row" style={{ marginTop: "10px" }}>
-      <ul className='navigation'>
-        <li>
-          <Link to="/suppliers"   className={"link"} style={{textDecoration: "none" ,color:"grey"}}>All Suppliers</Link>
-        </li>
-        <li>
-          <Link to="/Suppliers/newSupplier/AddSupplier"   className={"link"} style={{marginRight:"400px",    textDecoration: "none", color:"grey"}}>Add New Supplier</Link>
-        </li>
-      </ul>
-        
     
-      </div>
+    </div>
       <table className="table" border={1}>
       <thead>
           <tr>

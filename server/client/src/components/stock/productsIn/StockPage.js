@@ -4,14 +4,14 @@ import Sidebar from '../../side-bar/Sidebar';
 import './StockPage.css'
 
 function StockPage() {
-  const handleNewProductSubmit = (newProductData) => {
+  const handleNewSupplierSubmit = (newProductData) => {
     console.log('New Product Data:', newProductData);
   };
 
   return (
     <div className='stock-page'>
       <Sidebar/>
-      <NewProductForm onSubmit={handleNewProductSubmit} />  
+      <NewProductForm onSubmit={handleNewSupplierSubmit} />  
     </div>
   );
 }
