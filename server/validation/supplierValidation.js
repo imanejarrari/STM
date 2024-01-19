@@ -9,7 +9,7 @@ module.exports = function validateAddSupplierInput(data) {
   data.phone = !isEmpty(data.phone) ? data.phone : "";
   data.Email = !isEmpty(data.Email) ? data.Email : "";
   data.address = !isEmpty(data.address) ? data.address : "";
-  data.date = !isEmpty(data.date) ? data.date : "";
+
 
   // Supplier Name checks
   if (Validator.isEmpty(data.Supplier_Name)) {
@@ -31,11 +31,6 @@ module.exports = function validateAddSupplierInput(data) {
   // Address checks
   if (Validator.isEmpty(data.address)) {
     errors.address = "Address field is required";
-  }
-
-  // Date checks
-  if (Validator.isEmpty(data.date)) {
-    errors.date = "Date field is required";
   }
 
   return {

@@ -1,18 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Link } from 'react-router-dom';
-
 import "./supplier.css";
 
 const Supplier = () => {
   const [suppliers, setSuppliers] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
- 
-  
- 
 
   useEffect(() => {
-    // Fetch suppliers from the backend
     const fetchSupplier = async () => {
       try {
         const response = await fetch('http://localhost:5000/api/Suppliers');
@@ -24,6 +18,11 @@ const Supplier = () => {
     };
     fetchSupplier();
   }, []);
+
+  // Filter suppliers based on the search term
+  const filteredSuppliers = suppliers.filter((supplier) =>
+    supplier.Supplier_Name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <div className="container mt-4">
@@ -43,10 +42,10 @@ const Supplier = () => {
         </div>
       </div>
       <div className="row" style={{ marginTop: "10px" }}>
-    
-    </div>
+        {/* Your other components or elements */}
+      </div>
       <table className="table" border={1}>
-      <thead>
+        <thead>
           <tr>
             <th>Supplier Name</th>
             <th>Email</th>
@@ -57,23 +56,18 @@ const Supplier = () => {
           </tr>
         </thead>
         <tbody>
-        {suppliers.map((suppliers) => (
-            <tr key={suppliers._id}>
-              <td>{suppliers.Supplier_Name}</td>
-              <td>{suppliers.Email}</td>
-              <td>{suppliers.phone}</td>
-              <td>{suppliers.address}</td>
-              <td>{suppliers.date}</td>
+          {filteredSuppliers.map((supplier) => (
+            <tr key={supplier._id}>
+              <td>{supplier.Supplier_Name}</td>
+              <td>{supplier.Email}</td>
+              <td>{supplier.phone}</td>
+              <td>{supplier.address}</td>
+              <td>{supplier.date}</td>
               <td>*</td>
-              
             </tr>
           ))}
         </tbody>
       </table>
-          
-
-
-
     </div>
   );
 };

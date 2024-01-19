@@ -19,12 +19,6 @@ const SupplierSchema = new Schema({
     type:String,
     required:true
   },
-
-  Action :{
-    type:String,
-    required:true
-
-  },
   date: {
     type: Date,
     default: Date.now

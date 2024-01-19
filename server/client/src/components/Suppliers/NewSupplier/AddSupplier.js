@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import '/NewSupplier.css'
 
 
 const AddSupplier = () => {
@@ -12,7 +13,7 @@ const AddSupplier = () => {
     phone: '',
     Email: '',
     address: '',
-    date: '',
+    
   });
 
   const [validationErrors, setValidationErrors] = useState({});
@@ -60,7 +61,7 @@ const AddSupplier = () => {
         phone: '',
         Email: '',
         address: '',
-        date: '',
+        
       });
 
       // Redirect to a different page after successful submission
@@ -140,19 +141,6 @@ const AddSupplier = () => {
           )}
         </div>
 
-        <div>
-          <label>Date:</label>
-          <input
-            type="text"
-            name="date"
-            value={formData.date}
-            onChange={handleChange}
-            required
-          />
-          {validationErrors.date && (
-            <div style={{ color: 'red' }}>{validationErrors.date}</div>
-          )}
-        </div>
 
         <button type="submit">Add Supplier</button>
       </form>
