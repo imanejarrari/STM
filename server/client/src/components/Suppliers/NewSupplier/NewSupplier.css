@@ -1,0 +1,75 @@
+.form{
+    display:block;
+    margin-top:50px;
+    margin-left:400px;
+    border:1px solid rgb(67, 111, 255);
+    border-radius:15px;
+    width:500px;
+    height:550px;
+    padding:100px;
+    
+}
+.Supplier{
+      margin-left:40px;
+     
+}
+.Supplier input{
+    width:300px;
+    height:40px;
+    border-radius:15px;
+    border-color: #89cff0;
+    padding-left:100px;
+    font-family:'Times New Roman', Times, serif;
+}
+label{
+    position: relative;
+    right:60px;
+    top:30px;
+    font-family:'Times New Roman', Times, serif;
+}
+
+.Phone input{
+    width:300px;
+    height:40px;
+    margin-left:40px;
+    padding-left:100px;
+    border-radius:15px;
+    border-color: #89cff0;
+    font-family:'Times New Roman', Times, serif;
+}
+.email input{
+    width:300px;
+    height:40px;
+    margin-left:40px;
+    padding-left:70px;
+    border-radius:15px;
+    border-color: #89cff0;
+    font-family:'Times New Roman', Times, serif;
+}
+.address input{
+    width:300px;
+    height:40px;
+    margin-left:40px;
+    padding-left:40px;
+    border-radius:15px;
+    border-color: #89cff0;
+    font-family:'Times New Roman', Times, serif;
+}
+button{
+    margin-top:30px;
+    margin-left:100px;
+    width:160px;
+    height:40px;
+    border-radius:50px;
+    border-color:rgb(67, 111, 255) ;
+    background-color: rgb(67, 111, 255);
+    font-family:'Times New Roman', Times, serif;
+    color: white;
+}
+.form h4{
+    font-family:'Times New Roman', Times, serif;
+    color: rgb(67, 111, 255);
+    margin-left:80px;
+    margin-bottom:20px;
+
+}

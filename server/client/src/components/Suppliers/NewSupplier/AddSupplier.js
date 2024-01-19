@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import '/NewSupplier.css'
+import './NewSupplier.css';
 
 
 const AddSupplier = () => {
@@ -79,18 +79,19 @@ const AddSupplier = () => {
   };
 
   return (
-    <div>
-      <h2>Add New Supplier</h2>
+    <div className='form'>
+      <h4>Add New Supplier</h4>
       {validationErrors.serverError && (
         <div style={{ color: 'red' }}>{validationErrors.serverError}</div>
       )}
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Supplier Name:</label>
+      <form onSubmit={handleSubmit} > 
+      <label>Name:</label>
+        <div className='Supplier'>
           <input
             type="text"
             name="Supplier_Name"
             value={formData.Supplier_Name}
+            placeholder=' Full Name'
             onChange={handleChange}
             required
           />
@@ -98,13 +99,14 @@ const AddSupplier = () => {
             <div style={{ color: 'red' }}>{validationErrors.Supplier_Name}</div>
           )}
         </div>
-
-        <div>
-          <label>Phone:</label>
+         <label>Phone:</label>
+        <div className='Phone'>
+          
           <input
             type="text"
             name="phone"
             value={formData.phone}
+            placeholder='00000000'
             onChange={handleChange}
             required
           />
@@ -112,13 +114,14 @@ const AddSupplier = () => {
             <div style={{ color: 'red' }}>{validationErrors.phone}</div>
           )}
         </div>
-
-        <div>
-          <label>Email:</label>
+         <label>Email:</label>
+        <div className='email'>
+          
           <input
             type="text"
             name="Email"
             value={formData.Email}
+            placeholder='Example@gmail.com'
             onChange={handleChange}
             required
           />
@@ -126,13 +129,14 @@ const AddSupplier = () => {
             <div style={{ color: 'red' }}>{validationErrors.Email}</div>
           )}
         </div>
-
-        <div>
-          <label>Address:</label>
+         <label>Address:</label>
+        <div className='address'>
+          
           <input
             type="text"
             name="address"
             value={formData.address}
+            placeholder='City-Street-Code Postal-country'
             onChange={handleChange}
             required
           />
