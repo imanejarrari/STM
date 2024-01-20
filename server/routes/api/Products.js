@@ -10,6 +10,15 @@ router.get("/productlist", (req, res) => {
     .catch((err) => res.status(500).json({ error: "Internal Server Error" }));
 });
 
+// Fetch products by supplier
+router.get("/productsBySupplier/:supplierId", (req, res) => {
+  const supplierId = req.params.supplierId;
+
+  Product.find({ supplierName: supplierId })
+    .then((products) => res.json(products))
+    .catch((err) => res.status(500).json({ error: "Internal Server Error" }));
+});
+
 router.post("/newproduct", (req, res) => {
   const { errors, isValid } = validateNewProductInput(req.body);
 

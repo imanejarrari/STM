@@ -28,10 +28,10 @@ function App() {
             />
             {isLoggedIn && (
               <>
-                <Route path="/main" element={<MainPage />} />
+                <Route path="/productlist" element={<MainPage />} />
                 <Route path="/stock" element={<StockPage />}  />
                 <Route path='/orders' element={<MainOrder /> } />
-                <Route path='/suppliers' element={<MainSupp /> } />
+                <Route path='/productsBySupplier' element={<MainSupp /> } />
                
                
         

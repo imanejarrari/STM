@@ -40,7 +40,7 @@ const Sidebar = () => {
           <NavLink exact to="/dashbord" className="sidebar-link">
               <CDBSidebarMenuItem icon='chart-line'>Dashboard</CDBSidebarMenuItem>
             </NavLink>
-            <NavLink exact to="/main" className="sidebar-link" >
+            <NavLink exact to="/productlist" className="sidebar-link" >
               <CDBSidebarMenuItem icon='list'>Products</CDBSidebarMenuItem>
             </NavLink>
             <NavLink exact to="/stock"  className="sidebar-link">
@@ -49,7 +49,7 @@ const Sidebar = () => {
             <NavLink exact to="/orders"  className="sidebar-link">
               <CDBSidebarMenuItem icon="file-alt">Orders</CDBSidebarMenuItem>
             </NavLink>
-           <NavLink  exact to={"/suppliers"} className="sidebar-link">
+           <NavLink  exact to={"/productsBySupplier"} className="sidebar-link">
             <CDBSidebarMenuItem icon="users">All Suppliers </CDBSidebarMenuItem> 
            </NavLink>
             

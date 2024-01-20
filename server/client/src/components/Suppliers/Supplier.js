@@ -1,31 +1,49 @@
 import React, { useState, useEffect } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import "./supplier.css";
+import Modal from 'react-modal';
 
-const Supplier = () => {
-  const [suppliers, setSuppliers] = useState([]);
+const SuppliersList = () => {
+  const [uniqueSuppliers, setUniqueSuppliers] = useState([]);
+  const [selectedSupplier, setSelectedSupplier] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [supplierProducts, setSupplierProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
-    const fetchSupplier = async () => {
+    const fetchData = async () => {
       try {
         const response = await fetch('http://localhost:5000/api/products/productlist');
         const data = await response.json();
-        setSuppliers(data);
+        setUniqueSuppliers(data);
+        setLoading(false);
       } catch (error) {
-        console.error('Error fetching Supplier:', error);
+        console.error('Error fetching data:', error);
+        setLoading(false);
       }
     };
-    fetchSupplier();
+
+    fetchData();
   }, []);
 
-  // Filter suppliers based on the search term
-  const filteredSuppliers = suppliers.filter((supplier) =>
-    supplier.Supplier_Name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const fetchProductsBySupplier = async (supplierId) => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/products/productsBySupplier/${supplierId}`);
+      const data = await response.json();
+      setSupplierProducts(data);
+    } catch (error) {
+      console.error('Error fetching products:', error);
+    }
+  };
+
+  const handleSupplierClick = (supplier) => {
+    setSelectedSupplier(supplier);
+    fetchProductsBySupplier(supplier._id);
+    setIsModalOpen(true);
+  };
 
   return (
-    <div className="container mt-4">
+      
+       <div className="container mt-4">
       <div className="p-1 bg-light rounded rounded-pill shadow-sm mb-4 ml-5 " style={{ marginRight: "250px", marginLeft: "250px" }}>
         <div className="input-group">
           <input
@@ -42,34 +60,53 @@ const Supplier = () => {
         </div>
       </div>
       <div className="row" style={{ marginTop: "10px" }}>
-        {/* Your other components or elements */}
+
       </div>
-      <table className="table" border={1}>
-        <thead>
-          <tr>
-            <th>Supplier Name</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Address</th>
-            <th>Registration date</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredSuppliers.map((supplier) => (
-            <tr key={supplier._id}>
-              <td>{supplier.Supplier_Name}</td>
-              <td>{supplier.Email}</td>
-              <td>{supplier.phone}</td>
-              <td>{supplier.address}</td>
-              <td>{supplier.date}</td>
-              <td>*</td>
+      <h2>Suppliers List</h2>
+      {loading ? (
+        <div>Loading...</div>
+      ) : (
+
+        <table >
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Contact info</th>
+              <th>Address</th>
+              <th>Product List</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {uniqueSuppliers.map((supplier) => (
+              <tr key={supplier._id}>
+                <td>{supplier.supplierName}</td>
+                <td>{supplier.supplierContactInfo}</td>
+                <td>{supplier.supplierAddress}</td>
+                <td>
+                  <button onClick={() => handleSupplierClick(supplier)}>
+                    View Products
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+
+      {isModalOpen && (
+        <Modal onClose={() => setIsModalOpen(false)}>
+          <h2>Products by {selectedSupplier?.supplierName}</h2>
+          <ul>
+            {supplierProducts.map((product) => (
+              <li key={product._id}>
+                {product.name} - {product.description}
+              </li>
+            ))}
+          </ul>
+        </Modal>
+      )}
     </div>
   );
 };
 
-export default Supplier;
+export default SuppliersList;

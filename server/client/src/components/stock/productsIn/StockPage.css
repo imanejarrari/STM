@@ -22,7 +22,8 @@
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
-  margin-left:300px;
+  margin-left:50px;
+  
 }
 
 #add-product:hover {
