@@ -22,6 +22,7 @@
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
+  margin-left:300px;
 }
 
 #add-product:hover {

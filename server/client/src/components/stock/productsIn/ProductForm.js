@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSquarePlus } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import "./StockPage.css";
 
 function NewProductForm() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: '',
     description: '',
@@ -12,6 +14,7 @@ function NewProductForm() {
     brand: '',
     supplierName: '',
     supplierContactInfo: '',
+    supplierAddress:'',
     costPrice: '',
     sellingPrice: '',
     quantityInStock: '',
@@ -21,6 +24,7 @@ function NewProductForm() {
   const [brands, setBrands] = useState([]);
   const [suppliers, setSuppliers] = useState([]);
   const [suppliersInfo, setSuppliersInfo] = useState([]);
+  const [supplierAddress, setSuppliersAddress] = useState([]);
 
   const [validationErrors, setValidationErrors] = useState({});
 
@@ -33,6 +37,7 @@ function NewProductForm() {
         setBrands(FromServer.map(Obj => Obj.brand));
         setSuppliers(FromServer.map(Obj => Obj.supplierName));
         setSuppliersInfo(FromServer.map(Obj => Obj.supplierContactInfo));
+        setSuppliersAddress(FromServer.map(Obj => Obj.supplierAddress));
       } catch (error) {
         console.error('Error fetching categories:', error);
       }
@@ -65,10 +70,13 @@ function NewProductForm() {
         brand: '',
         supplierName: '',
         supplierContactInfo: '',
+        supplierAddress:'',
         costPrice: '',
         sellingPrice: '',
         quantityInStock: '',
       });
+      // Redirect to a Product page after successful submission
+      navigate('/main');
       setValidationErrors({});
     } catch (error) {
       if (error.response && error.response.status === 400 && error.response.data.validationErrors) {
@@ -81,10 +89,8 @@ function NewProductForm() {
 
   return (
     <div className="container mt-4">
-      <h2 className='mb-4'>
-        Add New Product
-      </h2>
       <form onSubmit={handleSubmit} method="POST" className="row g-3">
+          
         <div className="col-md-6 mb-3">
           <label className="form-label">Name:</label>
           <input
@@ -131,7 +137,7 @@ function NewProductForm() {
           </datalist>
           {validationErrors.brand && <div className="text-danger">{validationErrors.brand}</div>}
         </div>
-        <div className="col-md-6 mb-3">
+        <div className="col-md-6 mb-3" style={{height:"1em"}}>
           <label className="form-label">Description:</label>
           <textarea
             className="form-control"
@@ -176,6 +182,25 @@ function NewProductForm() {
           </datalist>
           {validationErrors.supplierContactInfo && (
             <div className="text-danger">{validationErrors.supplierContactInfo}</div>
+          )}
+        </div>
+        <div className="col-md-6 mb-3">
+          <label className="form-label">Supplier Address:</label>
+          <input
+            type="text"
+            className="form-control"
+            name="supplierAddress"
+            value={formData.supplierAddress}
+            onChange={handleChange}
+            list="supplierAddressList"
+          />
+          <datalist id="supplierAddressList">
+            {suppliersInfo.map((supplierAddress) => (
+              <option key={supplierAddress} value={supplierAddress} />
+            ))}
+          </datalist>
+          {validationErrors.supplierAddress && (
+            <div className="text-danger">{validationErrors.supplierAddress}</div>
           )}
         </div>
         <div className="col-md-6 mb-3">

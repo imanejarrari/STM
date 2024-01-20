@@ -26,6 +26,10 @@ const ProductSchema = new Schema({
       type: String,
       required: true
     }, 
+    supplierAddress:{
+          type:String,
+          required:true
+    },
     costPrice: {
         type: Number,
         required: true

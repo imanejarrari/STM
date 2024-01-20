@@ -9,7 +9,7 @@ const Supplier = () => {
   useEffect(() => {
     const fetchSupplier = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/Suppliers');
+        const response = await fetch('http://localhost:5000/api/products/productlist');
         const data = await response.json();
         setSuppliers(data);
       } catch (error) {

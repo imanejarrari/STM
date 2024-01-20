@@ -27,11 +27,11 @@ const Sidebar = () => {
 
   
   return (
-    <div style={{ display: 'flex', height: '100vh', overflow: 'scroll initial' }}>
+    <div style={{ display: 'flex', height: '100vh', overflow: 'scroll initial'}}>
       <CDBSidebar textColor="#fff" backgroundColor="rgb(67, 111, 255)">
         <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>
           <a href="/" className="text-decoration-none" style={{ color: 'inherit' }}>
-            Sidebar
+            ST-MG
           </a>
         </CDBSidebarHeader>
 
@@ -49,13 +49,11 @@ const Sidebar = () => {
             <NavLink exact to="/orders"  className="sidebar-link">
               <CDBSidebarMenuItem icon="file-alt">Orders</CDBSidebarMenuItem>
             </NavLink>
-           
-            <CDBSidebarMenuItem icon="users"> </CDBSidebarMenuItem> 
-       <DropdownButton id="dropdown-basic-button" title="Suppliers">
-      <Dropdown.Item href="/suppliers" className="customDropdownItem">All Suppliers</Dropdown.Item>
-      <Dropdown.Item href="/newsupplier"className="customDropdownItem">Add New Supplier</Dropdown.Item>
-      
-    </DropdownButton>
+           <NavLink  exact to={"/suppliers"} className="sidebar-link">
+            <CDBSidebarMenuItem icon="users">All Suppliers </CDBSidebarMenuItem> 
+           </NavLink>
+            
+       
       
             <NavLink exact to="/convert" className="sidebar-link">
               <CDBSidebarMenuItem icon="file-excel" >Convert Excel File</CDBSidebarMenuItem>

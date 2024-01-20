@@ -38,6 +38,10 @@ module.exports = function validateNewProductInput(data) {
   if (Validator.isEmpty(data.supplierContactInfo)) {
     errors.supplierContactInfo = "Supplier Contact Info field is required";
   }
+// Supplier Address checks
+if (Validator.isEmpty(data.supplierAddress)) {
+  errors.supplierAddress = "Supplier Address field is required";
+}
 
   // Cost Price checks
   if (Validator.isEmpty(data.costPrice)) {

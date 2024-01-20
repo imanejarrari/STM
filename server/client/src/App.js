@@ -4,8 +4,8 @@ import LoginPage from './components/LoginPage/LoginPage';
 import StockPage from './components/stock/productsIn/StockPage';
 import MainPage from './components/stock/products/MainPage';
 import MainOrder from './components/orders/orderMain';
-import MainSupp from './components/Suppliers/AllSuppliers/MainSupp';
-import SuppIn from './components/Suppliers/NewSupplier/suppIn';
+import MainSupp from './components/Suppliers/MainSupp';
+
 
 
 function App() {
@@ -32,7 +32,7 @@ function App() {
                 <Route path="/stock" element={<StockPage />}  />
                 <Route path='/orders' element={<MainOrder /> } />
                 <Route path='/suppliers' element={<MainSupp /> } />
-                <Route path='/newSupplier' element={<SuppIn /> } />
+               
                
         
 

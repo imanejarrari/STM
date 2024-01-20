@@ -1,28 +1,17 @@
 .sidebar-link li:hover {
-  background-color: #89cff0;
   color: #fff;
   cursor: pointer;
-  border: #fff 1px solid;
+  background-color: #89cff0;
+  border-radius:30px;
+  font-size:large;
+  font-weight: bold;
+  
+
 
 }
-#dropdown-basic-button{
-  width:100px;
-  position: relative;
-  bottom:80px;
-  right:30px;
-  background-color: rgb(67, 111, 255);
-  border-color: rgb(67, 111, 255);
-  cursor: pointer;
-}
-#dropdown-basic-button :hover{
-  background-color: #89cff0;
-  color: #fff;
-  cursor: pointer;
- 
-}
-.customDropdownItem{
-  background-color: rgb(67, 111, 255) ;
-  color: white;
-  position: relative;
+.sidebar-link li{
+  transition: all .3s linear;
+  
   
 }
+

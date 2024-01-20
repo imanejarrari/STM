@@ -1,5 +1,5 @@
-import Sidebar from "../../side-bar/Sidebar";
-import Supplier from "../AllSuppliers/Supplier";
+import Sidebar from "../side-bar/Sidebar";
+import Supplier from "./Supplier";
 import './supplier.css'
 
 const  MainSupp = () => {
