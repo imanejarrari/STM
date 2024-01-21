@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import LoginPage from './components/LoginPage/LoginPage';
 import StockPage from './components/stock/productsIn/StockPage';
 import MainPage from './components/stock/products/MainPage';
-import MainOrder from './components/orders/orderMain';
+import MainOrder from './components/orders/allOrders/orderMain';
 import MainSupp from './components/Suppliers/MainSupp';
 
 

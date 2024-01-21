@@ -1,6 +1,6 @@
-import Sidebar from "../side-bar/Sidebar";
-import Ordr from "../orders/order";
-import './order.css'
+import './order.css';
+import Ordr from '../allOrders/order';
+
 
 const  MainOrder = () => {
     return (

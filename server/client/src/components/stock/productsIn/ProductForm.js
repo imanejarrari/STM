@@ -90,7 +90,7 @@ function NewProductForm() {
   return (
     <div className="container mt-4">
       <form onSubmit={handleSubmit} method="POST" className="row g-3">
-          
+          <h3>Add New Product</h3>
         <div className="col-md-6 mb-3">
           <label className="form-label">Name:</label>
           <input

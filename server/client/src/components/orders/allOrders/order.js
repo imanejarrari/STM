@@ -49,7 +49,7 @@ const Ordr = () => {
       <table className="table">
       <thead>
           <tr>
-            <th>Supplier</th>
+            <th>Client</th>
             <th>Quantity</th>
             <th>Total Price</th>
             <th>Paid</th>
