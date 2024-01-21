@@ -11,13 +11,14 @@ router.get("/productlist", (req, res) => {
 });
 
 // Fetch products by supplier
-router.get("/productsBySupplier/:supplierId", (req, res) => {
-  const supplierId = req.params.supplierId;
+router.get("/productsBySupplier/:supplierName", (req, res) => {
+  const supplierName = req.params.supplierName;
 
-  Product.find({ supplierName: supplierId })
+  Product.find({ supplierName: supplierName })  // Corrected field to supplierId
     .then((products) => res.json(products))
     .catch((err) => res.status(500).json({ error: "Internal Server Error" }));
 });
+
 
 router.post("/newproduct", (req, res) => {
   const { errors, isValid } = validateNewProductInput(req.body);

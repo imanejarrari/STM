@@ -76,7 +76,7 @@ function NewProductForm() {
         quantityInStock: '',
       });
       // Redirect to a Product page after successful submission
-      navigate('/main');
+      navigate('/productlist');
       setValidationErrors({});
     } catch (error) {
       if (error.response && error.response.status === 400 && error.response.data.validationErrors) {
