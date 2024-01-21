@@ -1,5 +1,6 @@
 import './order.css';
 import Ordr from '../allOrders/order';
+import Sidebar from '../../side-bar/Sidebar';
 
 
 const  MainOrder = () => {

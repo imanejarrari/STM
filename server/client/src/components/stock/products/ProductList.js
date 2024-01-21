@@ -33,11 +33,9 @@ const ProductList = () => {
 
   const handleProductDoubleClick = (product) => {
     if (selectedProducts.includes(product)) {
-      // If the product is already selected, double-click to deselect all
       setSelectedProducts([]);
-      setCheckboxVisible(false); // Hide checkboxes when nothing is selected
+      setCheckboxVisible(false);
     } else {
-      // If not selected, proceed with the regular selection
       handleSelectProduct(product);
       setCheckboxVisible(true);
     }
@@ -55,17 +53,19 @@ const ProductList = () => {
   ];
 
   const sortedProducts = (products, sortOption) => {
+    const sortedArray = [...products];
+
     switch (sortOption.value) {
       case 'za':
-        return products.sort((a, b) => a.name.localeCompare(b.name));
+        return sortedArray.sort((a, b) => a.name.localeCompare(b.name));
       case 'az':
-        return products.sort((a, b) => b.name.localeCompare(a.name));
+        return sortedArray.sort((a, b) => b.name.localeCompare(a.name));
       case 'topQuantity':
-        return products.sort((a, b) => b.quantityInStock - a.quantityInStock);
+        return sortedArray.sort((a, b) => b.quantityInStock - a.quantityInStock);
       case 'lowQuantity':
-        return products.sort((a, b) => a.quantityInStock - b.quantityInStock);
+        return sortedArray.sort((a, b) => a.quantityInStock - b.quantityInStock);
       default:
-        return products;
+        return sortedArray;
     }
   };
 
@@ -91,14 +91,10 @@ const ProductList = () => {
   };
 
   const handleDeleteSelected = () => {
-    // Implement the logic to delete selected products (e.g., send a request to the server)
-    // After deletion, you may want to refetch the updated list of products
     console.log('Deleting selected products:', selectedProducts);
-    // For demonstration purposes, let's clear the selection after deletion
     setSelectedProducts([]);
     setCheckboxVisible(false);
   };
-
 
   return (
     <div className="container mt-4">
@@ -167,16 +163,16 @@ const ProductList = () => {
           </ol>
         </div>
         <div className="col-md-6" >
-        {checkboxVisible && (
-              <div>
-                <button className="btn btn-primary" onClick={handleSelectAll}>
-                  Select All
-                </button>
-                <button className="btn btn-danger ms-2" onClick={handleDeleteSelected}>
-                  Delete Selected
-                </button>
-              </div>
-            )}
+          {checkboxVisible && (
+            <div>
+              <button className="btn btn-primary" onClick={handleSelectAll}>
+                Select All
+              </button>
+              <button className="btn btn-danger ms-2" onClick={handleDeleteSelected}>
+                Delete Selected
+              </button>
+            </div>
+          )}
           {selectedProduct && <ProductDetails product={selectedProduct} />}
           {selectedProduct && <h3 style={{ textAlign: "center" }}>Product Details</h3>}
         </div>
