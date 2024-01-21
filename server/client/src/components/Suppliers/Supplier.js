@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
+import { FaTimes } from 'react-icons/fa';
 
 const SuppliersList = () => {
   const [uniqueSuppliers, setUniqueSuppliers] = useState([]);
@@ -38,7 +39,9 @@ const SuppliersList = () => {
       const response = await fetch(`http://localhost:5000/api/products/productsBySupplier/${supplierName}`);
       const data = await response.json();
       console.log('Fetched products:', data);
-      setSupplierProducts(data);
+
+      // Append the new products to the existing list
+      setSupplierProducts((prevProducts) => [...prevProducts, ...data]);
     } catch (error) {
       console.error('Error fetching products:', error);
     }
@@ -55,15 +58,15 @@ const SuppliersList = () => {
     setSelectedSupplier(null);
     setSupplierProducts([]);
   };
+  const totalProducts = supplierProducts.length;
+  const totalQuantityInStock = supplierProducts.reduce((total, product) => total + product.quantityInStock, 0);
 
   const filteredSuppliers = uniqueSuppliers.filter((supplier) =>
     supplier.supplierName.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
-    
-
-<div className="container mt-4">
+    <div className="container mt-4">
       <div className="p-1 bg-light rounded rounded-pill shadow-sm mb-4 ml-5 " style={{ marginRight: "250px", marginLeft: "250px" }}>
         <div className="input-group">
           <input
@@ -79,7 +82,7 @@ const SuppliersList = () => {
           </div>
         </div>
       </div>
-      <h2>Suppliers List</h2>
+      <h3><u>Suppliers List</u></h3>
       {loading ? (
         <div>Loading...</div>
       ) : error ? (
@@ -134,34 +137,35 @@ const SuppliersList = () => {
           },
         }}
       >
-        <h4>{selectedSupplier && selectedSupplier.supplierName} Product List :</h4>
-        {supplierProducts.map((product) => (
-          <div key={product.supplierName}>
-            <table>
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Brand</th>
-                  <th>Description</th>
-                  <th>costPrice</th>
-                  <th>selling Price</th>
-                  <th>Quantity</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>{product.name}</td>
-                  <td>{product.brand}</td>
-                  <td>{product.description}</td>
-                  <td>{product._costPrice}</td>
-                  <td>{product.sellingPrice}</td>
-                  <td>{product.quantityInStock}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        ))}
-        <button onClick={closeModal}>Close</button>
+        <div className="modal-header">
+        <h4> {selectedSupplier && selectedSupplier.supplierName}'s Product List :</h4>
+        
+            <button className="close-icon" onClick={closeModal} ><FaTimes /></button>
+        </div>
+        <table className='table'>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Category</th>
+              <th>costPrice</th>
+              <th>selling Price</th>
+              <th>Quantity</th>
+            </tr>
+          </thead>
+          <tbody>
+            {supplierProducts.map((product) => (
+              <tr key={product.supplierName}>
+                <td>{product.name}</td>
+                <td>{product.category}</td>
+                <td>{product.costPrice}</td>
+                <td>{product.sellingPrice}</td>
+                <td>{product.quantityInStock}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <div className='total'>Total Products: {totalProducts}</div>
+        <div className='quantity'>Total Quantity in Stock: {totalQuantityInStock}</div>
       </Modal>
     </div>
   );

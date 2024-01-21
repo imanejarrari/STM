@@ -24,13 +24,29 @@
     margin-top:50px;
     
 }
-.table th{
-    background-color: rgb(250, 249, 249);
-}
+
 .view{
     border: none;
     border-radius: 50px;
     background-color:#89cff0;
     font-family: 'Times New Roman', Times, serif;
     font-size: small;
+}
+.total{
+    width:150px;
+    padding-left:20px;
+    border: 1px solid whitesmoke;
+    border-radius:30px;
+    background-color: whitesmoke;
+    color: black;
+    
+}
+.quantity{
+    width:220px;
+    padding-left:20px;
+    border: 1px solid whitesmoke;
+    border-radius:30px;
+    background-color: whitesmoke;
+    color: black;
+    margin-top:10px;
 }

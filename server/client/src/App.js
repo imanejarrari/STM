@@ -24,7 +24,7 @@ function App() {
           <Routes>
             <Route
               path="/"
-              element={isLoggedIn ? <Navigate to="/main" /> : <LoginPage setisLoggedIn={setisLoggedIn} />}
+              element={isLoggedIn ? <Navigate to="/productlist" /> : <LoginPage setisLoggedIn={setisLoggedIn} />}
             />
             {isLoggedIn && (
               <>
