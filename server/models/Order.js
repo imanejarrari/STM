@@ -2,20 +2,20 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const OrderSchema = new Schema({
-   supplier: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'suppliers'
-    },
-    Quantity:{
-       type:Number,
-       required:true
-
-    },
- Total:{
-   type:Number,
-   required:true
-
- },
+   
+   customerName: String,
+   customerAddress: String,
+   CodePostal:Number,
+   products: [
+     {
+       productId: {
+         type: mongoose.Schema.Types.ObjectId,
+         ref: 'Product',
+       },
+       quantity: Number,
+     },
+   ],
+   totalPrice: Number,
  Paid:{
     type:String,
     required:true
