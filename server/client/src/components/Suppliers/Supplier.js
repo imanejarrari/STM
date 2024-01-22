@@ -93,7 +93,7 @@ const SuppliersList = () => {
             <tr>
               <th>Name</th>
               <th>Contact info</th>
-              <th>Address</th>
+              <th>Registration Date</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -102,7 +102,7 @@ const SuppliersList = () => {
               <tr key={supplier._id}>
                 <td>{supplier.supplierName}</td>
                 <td>{supplier.supplierContactInfo}</td>
-                <td>{supplier.supplierAddress}</td>
+                <td>{supplier.date}</td>
                 <td>
                   <button onClick={() => openModal(supplier)} className='view'>
                     View Products

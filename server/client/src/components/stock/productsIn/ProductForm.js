@@ -14,7 +14,6 @@ function NewProductForm() {
     brand: '',
     supplierName: '',
     supplierContactInfo: '',
-    supplierAddress:'',
     costPrice: '',
     sellingPrice: '',
     quantityInStock: '',
@@ -24,7 +23,7 @@ function NewProductForm() {
   const [brands, setBrands] = useState([]);
   const [suppliers, setSuppliers] = useState([]);
   const [suppliersInfo, setSuppliersInfo] = useState([]);
-  const [supplierAddress, setSuppliersAddress] = useState([]);
+ 
 
   const [validationErrors, setValidationErrors] = useState({});
 
@@ -37,7 +36,6 @@ function NewProductForm() {
         setBrands(FromServer.map(Obj => Obj.brand));
         setSuppliers(FromServer.map(Obj => Obj.supplierName));
         setSuppliersInfo(FromServer.map(Obj => Obj.supplierContactInfo));
-        setSuppliersAddress(FromServer.map(Obj => Obj.supplierAddress));
       } catch (error) {
         console.error('Error fetching categories:', error);
       }
@@ -70,7 +68,6 @@ function NewProductForm() {
         brand: '',
         supplierName: '',
         supplierContactInfo: '',
-        supplierAddress:'',
         costPrice: '',
         sellingPrice: '',
         quantityInStock: '',
@@ -182,25 +179,6 @@ function NewProductForm() {
           </datalist>
           {validationErrors.supplierContactInfo && (
             <div className="text-danger">{validationErrors.supplierContactInfo}</div>
-          )}
-        </div>
-        <div className="col-md-6 mb-3">
-          <label className="form-label">Supplier Address:</label>
-          <input
-            type="text"
-            className="form-control"
-            name="supplierAddress"
-            value={formData.supplierAddress}
-            onChange={handleChange}
-            list="supplierAddressList"
-          />
-          <datalist id="supplierAddressList">
-            {suppliersInfo.map((supplierAddress) => (
-              <option key={supplierAddress} value={supplierAddress} />
-            ))}
-          </datalist>
-          {validationErrors.supplierAddress && (
-            <div className="text-danger">{validationErrors.supplierAddress}</div>
           )}
         </div>
         <div className="col-md-6 mb-3">
