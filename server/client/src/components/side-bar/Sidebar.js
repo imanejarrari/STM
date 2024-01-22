@@ -44,7 +44,7 @@ const Sidebar = () => {
             <NavLink exact to="/stock"  className="sidebar-link">
               <CDBSidebarMenuItem icon="list-alt">Stock In</CDBSidebarMenuItem>
             </NavLink>
-            <NavLink exact to="/orders"  className="sidebar-link">
+            <NavLink exact to="/allOrders"  className="sidebar-link">
               <CDBSidebarMenuItem icon="file-alt">Orders</CDBSidebarMenuItem>
             </NavLink>
            <NavLink  exact to={"/productsBySupplier"} className="sidebar-link">

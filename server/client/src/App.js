@@ -5,6 +5,7 @@ import StockPage from './components/stock/productsIn/StockPage';
 import MainPage from './components/stock/products/MainPage';
 import MainOrder from './components/orders/allOrders/orderMain';
 import MainSupp from './components/Suppliers/MainSupp';
+import NewOrderPage from './components/orders/NewOrder/NewOrderpage';
 
 
 
@@ -30,8 +31,9 @@ function App() {
               <>
                 <Route path="/productlist" element={<MainPage />} />
                 <Route path="/stock" element={<StockPage />}  />
-                <Route path='/orders' element={<MainOrder /> } />
+                <Route path='/allOrders' element={<MainOrder /> } />
                 <Route path='/productsBySupplier' element={<MainSupp /> } />
+                <Route path='/NewOrder' element={<NewOrderPage/>} />
                
                
         

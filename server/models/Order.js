@@ -16,10 +16,7 @@ const OrderSchema = new Schema({
      },
    ],
    totalPrice: Number,
- Paid:{
-    type:String,
-    required:true
- },
+
  delivereyDate:{
     type:Date,
     required:true
