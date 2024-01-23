@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './AddOrder.css';
 
 const NewOrderForm = ({ products, onSubmit }) => {
   const [customerName, setCustomerName] = useState('');
-  const [customerAddress, setcustomerAddress] = useState('');
-  const [CodePostal, setCodePostal] = useState('');
+  const [customerAddress, setCustomerAddress] = useState('');
+  const [codePostal, setCodePostal] = useState('');
   const [selectedProducts, setSelectedProducts] = useState([]);
   const [quantity, setQuantity] = useState('');
-  const [delivereyDate, setdelivereyDate] = useState('');
+  const [deliveryDate, setDeliveryDate] = useState('');
   const [selectedProductId, setSelectedProductId] = useState('');
 
   const handleProductChange = (e) => {
@@ -40,8 +40,11 @@ const NewOrderForm = ({ products, onSubmit }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (customerName && selectedProducts.length > 0) {
-      onSubmit({ customerName, products: selectedProducts });
+      onSubmit({ customerName, customerAddress, codePostal, delivereyDate: new Date(deliveryDate), products: selectedProducts });
       setCustomerName('');
+      setCustomerAddress('');
+      setCodePostal('');
+      setDeliveryDate('');
       setSelectedProducts([]);
     }
   };
@@ -64,27 +67,27 @@ const NewOrderForm = ({ products, onSubmit }) => {
           type="text"
           id="customerAddress"
           value={customerAddress}
-          onChange={(e) => setcustomerAddress(e.target.value)}
+          onChange={(e) => setCustomerAddress(e.target.value)}
           required
         />
       </div>
       <div>
-        <label htmlFor="CodePostal">Code Postal:</label>
+        <label htmlFor="codePostal">Code Postal:</label>
         <input
-          type="Number"
-          id="CodePostal"
-          value={CodePostal}
+          type="number"
+          id="codePostal"
+          value={codePostal}
           onChange={(e) => setCodePostal(e.target.value)}
           required
         />
       </div>
       <div>
-        <label htmlFor="delivereyDate">Deliverey Date:</label>
+        <label htmlFor="deliveryDate">Delivery Date:</label>
         <input
           type="date"
-          id="delivereyDate"
-          value={delivereyDate}
-          onChange={(e) => setdelivereyDate(e.target.value)}
+          id="deliveryDate"
+          value={deliveryDate}
+          onChange={(e) => setDeliveryDate(e.target.value)}
           required
         />
       </div>
