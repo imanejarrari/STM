@@ -23,10 +23,14 @@ const OrderSchema = new Schema({
          type: mongoose.Schema.Types.ObjectId,
          ref: 'Product',
        },
-       quantityInStockity: Number,
+       quantity: Number,
      },
    ],
-   totalPrice: Number,
+
+   totalPrice:{
+         type:String,
+         require:true
+   },
 
  delivereyDate:{
     type:Date,

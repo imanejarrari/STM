@@ -37,17 +37,31 @@ const NewOrderForm = ({ products, onSubmit }) => {
     setSelectedProducts(updatedProducts);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (customerName && selectedProducts.length > 0) {
-      onSubmit({ customerName, customerAddress, codePostal, delivereyDate: new Date(deliveryDate), products: selectedProducts });
+    if (customerName && selectedProducts.length > 0 && deliveryDate && codePostal) {
+      const isoDeliveryDate = deliveryDate !== "" ? new Date(deliveryDate).toISOString() : "";
+      console.log('ISO Delivery Date:', isoDeliveryDate);
+
+
+      onSubmit({
+        customerName,
+        customerAddress,
+        codePostal,
+        deliveryDate: isoDeliveryDate,
+        products: selectedProducts,
+      });
       setCustomerName('');
       setCustomerAddress('');
       setCodePostal('');
       setDeliveryDate('');
       setSelectedProducts([]);
+    } else {
+      console.error('Please fill in all required fields');
+      // Optionally, you can display an error message to the user
     }
   };
+  
 
   return (
     <form onSubmit={handleSubmit} className='form'>
@@ -83,13 +97,14 @@ const NewOrderForm = ({ products, onSubmit }) => {
       </div>
       <div>
         <label htmlFor="deliveryDate">Delivery Date:</label>
-        <input
-          type="date"
-          id="deliveryDate"
-          value={deliveryDate}
-          onChange={(e) => setDeliveryDate(e.target.value)}
-          required
-        />
+       <input
+  type="date"
+  id="deliveryDate"
+  value={deliveryDate}
+  onChange={(e) => setDeliveryDate(e.target.value)}
+  required
+/>
+
       </div>
 
       <div>
