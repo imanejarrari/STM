@@ -5,15 +5,17 @@ const Product = require("../../models/Product");
 
 
 
-router.get('/allOrders', async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const orders = await Order.find();
+    console.log('Fetched orders:', orders); 
     res.json(orders);
   } catch (error) {
     console.error('Error fetching orders:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
 
 // API endpoint for placing an order
 router.post('/placeOrder', async (req, res) => {

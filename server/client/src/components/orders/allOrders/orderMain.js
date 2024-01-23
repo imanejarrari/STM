@@ -1,12 +1,14 @@
 import './order.css';
 import Sidebar from '../../side-bar/Sidebar';
-import NewOrderPage from '../NewOrder/NewOrderpage';
+import OrdersList from './order';
 
 const  MainOrder = () => {
     return (
         <div className="main-page">
             <Sidebar />
-            <NewOrderPage/>
+            
+            <OrdersList/>
+            
         
         </div>
     );

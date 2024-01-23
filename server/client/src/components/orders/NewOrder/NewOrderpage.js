@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import NewOrderForm from './addOrder';
-import Sidebar from '../../side-bar/Sidebar';
+
+import { Link } from 'react-router-dom';
 
 const NewOrderPage = () => {
   const [products, setProducts] = useState([]); // Fetch products from the server
@@ -44,9 +45,10 @@ const NewOrderPage = () => {
 
   return (
     <div>
+     
       <h2>New Order</h2>
       <NewOrderForm products={products} onSubmit={handlePlaceOrder} />
-     
+      
     </div>
   );
 };
