@@ -31,9 +31,9 @@ function App() {
               <>
                 <Route path="/productlist" element={<MainPage />} />
                 <Route path="/stock" element={<StockPage />}  />
-                <Route path='/OrderList' element={<MainOrder /> } />
+                <Route path='/orders' element={<MainOrder /> } />
                 <Route path='/productsBySupplier' element={<MainSupp /> } />
-                <Route path='/NewOrder' element={<NewOrderPage/>} />
+                <Route path='/placeOrder' element={<NewOrderPage/>} />
                
                
         

@@ -29,19 +29,22 @@ const NewOrderPage = () => {
         },
         body: JSON.stringify(orderData),
       });
-
+  
       if (response.ok) {
         const result = await response.json();
         console.log('Order placed successfully:', result.order);
         // Handle success, e.g., redirect to order details page
       } else {
-        console.error('Failed to place order:', response.statusText);
-        // Handle failure, e.g., show an error message
+        const errorData = await response.json(); // Parse error response
+        console.error('Failed to place order:', errorData.error);
+        // Handle failure, e.g., show an error message to the user
       }
     } catch (error) {
       console.error('Error placing order:', error);
     }
   };
+  
+  
 
   return (
     <div>

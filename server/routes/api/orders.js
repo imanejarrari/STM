@@ -5,13 +5,28 @@ const Product = require("../../models/Product");
 
 
 
+// API endpoint for fetching all orders
 router.get('/', async (req, res) => {
   try {
     const orders = await Order.find();
-    console.log('Fetched orders:', orders); 
+    console.log('Fetched all orders:', orders); 
     res.json(orders);
   } catch (error) {
     console.error('Error fetching orders:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+// API endpoint for fetching orders by customer name
+router.get('/customerOrders/:customerName', async (req, res) => {
+  const { customerName } = req.params;
+
+  try {
+    const customerOrders = await Order.find({ customerName });
+    console.log(`Fetched orders for ${customerName}:`, customerOrders);
+    res.json(customerOrders);
+  } catch (error) {
+    console.error(`Error fetching orders for ${customerName}:`, error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
@@ -22,8 +37,6 @@ router.post('/placeOrder', async (req, res) => {
   const { customerName, products } = req.body;
 
   try {
-   
-
     // Update product quantities
     for (const { productId, quantity } of products) {
       const product = await Product.findById(productId);
@@ -50,17 +63,6 @@ router.post('/placeOrder', async (req, res) => {
   }
 });
 
-// Helper function to calculate total price
-const calculateTotalPrice = async (products) => {
-  return products.reduce(async (totalPromise, { productId, quantity }) => {
-    const total = await totalPromise;
-
-    // Fetch the product price from the database
-    const product = await Product.findById(productId);
-
-    return total + product.sellingPrice * quantity;
-  }, Promise.resolve(0));
-};
 
 
 module.exports = router;
