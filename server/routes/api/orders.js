@@ -3,21 +3,28 @@ const router = express.Router();
 const Order = require('../../models/Order');
 const Product = require('../../models/Product');
 
-// API endpoint for fetching orders by customer name
-router.get('/customerOrders/:customerName', async (req, res) => {
-  const { customerName } = req.params;
 
+
+// API endpoint for fetching all orders
+router.get('/allOrders', async (req, res) => {
   try {
-    const customerOrders = await Order.find({ customerName });
+    // Fetch all orders from the database
+    const allOrders = await Order.find();
 
-    console.log(`Fetched orders for ${customerName}:`, customerOrders);
+    // Calculate total quantity for each order
+    const ordersWithTotalQuantity = allOrders.map(order => {
+      const totalQuantity = order.products.reduce((acc, product) => acc + product.quantity, 0);
+      return { ...order.toObject(), totalQuantity };
+    });
 
-    res.json(customerOrders);
+    // Return the orders with total quantity as a JSON response
+    res.json(ordersWithTotalQuantity);
   } catch (error) {
-    console.error(`Error fetching orders for ${customerName}:`, error);
+    console.error('Error fetching all orders:', error);
     res.status(500).json({ error: `Internal Server Error: ${error.message}` });
   }
 });
+
 
 // API endpoint for fetching products by order
 router.get('/orderProducts/:orderId', async (req, res) => {
@@ -49,8 +56,6 @@ router.get('/orderProducts/:orderId', async (req, res) => {
 // API endpoint for placing an order
 router.post('/placeOrder', async (req, res) => {
   const { customerName, customerAddress, codePostal, delivereyDate, products } = req.body;
-  console.log('Received data:', req.body);
-
 
   try {
     // Check if required fields are missing or empty
@@ -64,6 +69,25 @@ router.post('/placeOrder', async (req, res) => {
     // Validate deliveryDate, customerAddress, and codePostal
     if (!delivereyDate || !customerAddress || !codePostal) {
       return res.status(400).json({ error: 'Delivery date, customer address, and code postal are required fields.' });
+    }
+
+    // Validate and update product quantities in stock
+    for (const { productId, quantity } of products) {
+      const product = await Product.findById(productId);
+
+      if (!product) {
+        return res.status(404).json({ error: `Product with ID ${productId} not found.` });
+      }
+
+      if (quantity > product.quantityInStock) {
+        return res.status(400).json({ error: `Not enough stock for product ${productId}. Available stock: ${product.quantityInStock}` });
+      }
+
+      // Update the quantity in stock
+      product.quantityInStock -= quantity;
+
+      // Save the updated product
+      await product.save();
     }
 
     const order = new Order({ customerName, customerAddress, codePostal, delivereyDate, products, totalPrice });
@@ -83,6 +107,7 @@ router.post('/placeOrder', async (req, res) => {
   }
 });
 
+
 // Function to calculate the total price of products in an order
 async function calculateTotalPrice(products) {
   const productIds = products.map(product => product.productId);
@@ -94,6 +119,11 @@ async function calculateTotalPrice(products) {
   }, 0);
 
   return totalPrice;
+  
 }
+
+
+
+
 
 module.exports = router;

@@ -2,4 +2,45 @@
     display: flex;
 }
 
+.Eye{
+    border:none;
+    background-color:white;
+    color: blue;
+
+
+}
+.table th{
+    background-color: whitesmoke;
+}
+.orders{
+    color:black;
+    text-decoration: none;
+    font-family: cursive;
+    font-size:100%; 
+    cursor: pointer;
   
+}
+.orders:hover{
+    color: rgb(67, 111, 255);
+}
+.div1{
+    border-bottom:2px solid rgb(67, 111, 255);
+    width:100px;
+    padding-left:10px;
+    margin-top:60px;
+}
+.div2{
+    
+    width:150px;
+    padding-left:10px;
+    margin-left:110px;
+    position: absolute;
+    top:131px;
+}
+.add{
+    color:grey;
+    text-decoration: none;
+    font-family: cursive;
+    font-size:100%; 
+    cursor: pointer;
+}

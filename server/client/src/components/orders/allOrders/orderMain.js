@@ -6,8 +6,8 @@ const  MainOrder = () => {
     return (
         <div className="main-page">
             <Sidebar />
-            
             <CustomerOrdersList/>
+           
             
         
         </div>

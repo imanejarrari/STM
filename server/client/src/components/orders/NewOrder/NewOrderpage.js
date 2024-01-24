@@ -44,7 +44,7 @@ const NewOrderPage = () => {
         const result = await response.json();
         console.log('Order placed successfully:', result.order);
         // Handle success, e.g., redirect to order details page
-        navigate('/productsByOrder');
+        navigate('/allOrders');
       } else {
         const errorData = await response.json(); // Parse error response
         console.error('Failed to place order:', errorData.error);
