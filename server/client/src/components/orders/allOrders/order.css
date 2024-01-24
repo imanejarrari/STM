@@ -44,3 +44,12 @@
     font-size:100%; 
     cursor: pointer;
 }
+.add:hover{
+    color:black;
+}
+.stt{
+    padding-left:25px;
+    border-radius:60px;
+    width:150px;
+    
+}

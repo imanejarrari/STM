@@ -46,6 +46,23 @@ const CustomerOrdersList = () => {
     }
   };
 
+    // Function to check if the delivery date is the current date
+    const isDeliveryToday = (deliveryDate) => {
+      const today = new Date();
+      const formattedToday = `${today.getFullYear()}-${(today.getMonth() + 1)
+        .toString()
+        .padStart(2, '0')}-${today.getDate().toString().padStart(2, '0')}`;
+      return formattedToday === deliveryDate;
+    };
+  
+    // Update the status automatically based on delivery date
+    const updateStatusBasedOnDeliveryDate = (order) => {
+      if (isDeliveryToday(order.delivereyDate)) {
+        // If delivery date is today, update the status
+        order.Status = 'Delivered';
+      }
+  
+    };
 
   const filteredOrders = allOrders.filter((order) =>
     order.customerName.toLowerCase().includes(searchTerm.toLowerCase())
@@ -91,20 +108,25 @@ const CustomerOrdersList = () => {
             </tr>
           </thead>
           <tbody>
-            {filteredOrders.map((order) => (
+          {filteredOrders.map((order) => {
+            // Update status based on delivery date
+            updateStatusBasedOnDeliveryDate(order);
+
+            return (
               <tr key={order._id}>
                 <td>{order.customerName}</td>
                 <td>{order.delivereyDate}</td>
-                <td>{order.totalQuantity}</td>
-                <td>${order.totalPrice}</td>
-                <td>{order.Status}</td>
-                <td>
-                  <button className='Eye'>
+                <td>{order.totalPrice}</td>
+                <td style={{ color: order.Status === 'Delivered' ? 'green' : 'red' }}>
+                  {order.Status}
+                </td>
+                <td> <button className='Eye'>
                   <FaEye />
                   </button>
                 </td>
               </tr>
-            ))}
+            );
+          })}
           </tbody>
         </table>
       )}
