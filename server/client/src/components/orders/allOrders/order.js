@@ -116,9 +116,13 @@ const CustomerOrdersList = () => {
               <tr key={order._id}>
                 <td>{order.customerName}</td>
                 <td>{order.delivereyDate}</td>
-                <td>{order.totalPrice}</td>
-                <td style={{ color: order.Status === 'Delivered' ? 'green' : 'red' }}>
-                  {order.Status}
+                <td>{order.totalQuantity}</td>
+                <td>${order.totalPrice}</td>
+                <td >
+                  <div className='stt' style={{ backgroundColor: order.Status === 'Delivered' ? 'green' : 'red' }} >
+                     {order.Status}
+                  </div>
+                 
                 </td>
                 <td> <button className='Eye'>
                   <FaEye />
