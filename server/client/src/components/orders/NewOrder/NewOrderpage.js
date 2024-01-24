@@ -22,8 +22,11 @@ const NewOrderPage = () => {
 
   const handlePlaceOrder = async (orderData) => {
     console.log('Order Data:', orderData); 
+    console.log('Deliverey Date:', orderData.delivereyDate);
+  console.log('Code Postal:', orderData.codePostal);
+
     try {
-      if (!orderData.deliveryDate || !orderData.CodePostal) {
+      if (!orderData.delivereyDate || !orderData.codePostal) {
         console.error('Please provide deliveryDate and CodePostal');
         // Optionally, you can display an error message to the user
         return;
@@ -41,7 +44,7 @@ const NewOrderPage = () => {
         const result = await response.json();
         console.log('Order placed successfully:', result.order);
         // Handle success, e.g., redirect to order details page
-        navigate('/orders');
+        navigate('/productsByOrder');
       } else {
         const errorData = await response.json(); // Parse error response
         console.error('Failed to place order:', errorData.error);

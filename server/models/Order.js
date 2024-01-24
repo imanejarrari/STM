@@ -12,8 +12,8 @@ const OrderSchema = new Schema({
     type:String,
     required:true
    },
-   CodePostal:{
-    type:String,
+   codePostal:{
+    type:Number,
     required:true
 
    },
@@ -28,7 +28,7 @@ const OrderSchema = new Schema({
    ],
 
    totalPrice:{
-         type:String,
+         type:Number,
          require:true
    },
 

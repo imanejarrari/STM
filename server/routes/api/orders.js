@@ -48,11 +48,13 @@ router.get('/orderProducts/:orderId', async (req, res) => {
 
 // API endpoint for placing an order
 router.post('/placeOrder', async (req, res) => {
-  const { customerName, customerAddress, codePostal, deliveryDate, products } = req.body;
+  const { customerName, customerAddress, codePostal, delivereyDate, products } = req.body;
+  console.log('Received data:', req.body);
+
 
   try {
     // Check if required fields are missing or empty
-    if (!customerName || !customerAddress || !codePostal || !deliveryDate || !products || products.length === 0) {
+    if (!customerName || !customerAddress || !codePostal || !delivereyDate || !products || products.length === 0) {
       return res.status(400).json({ error: 'Missing or invalid order data.' });
     }
 
@@ -60,11 +62,11 @@ router.post('/placeOrder', async (req, res) => {
     const totalPrice = await calculateTotalPrice(products);
 
     // Validate deliveryDate, customerAddress, and codePostal
-    if (!deliveryDate || !customerAddress || !codePostal) {
+    if (!delivereyDate || !customerAddress || !codePostal) {
       return res.status(400).json({ error: 'Delivery date, customer address, and code postal are required fields.' });
     }
 
-    const order = new Order({ customerName, customerAddress, codePostal, deliveryDate, products, totalPrice });
+    const order = new Order({ customerName, customerAddress, codePostal, delivereyDate, products, totalPrice });
     await order.save();
 
     res.status(201).json({ success: true, order });
@@ -84,11 +86,11 @@ router.post('/placeOrder', async (req, res) => {
 // Function to calculate the total price of products in an order
 async function calculateTotalPrice(products) {
   const productIds = products.map(product => product.productId);
-  const productPrices = await Product.find({ _id: { $in: productIds } }, { _id: 1, price: 1 });
+  const productPrices = await Product.find({ _id: { $in: productIds } }, { _id: 1, sellingPrice: 1 });
 
   const totalPrice = products.reduce((acc, { productId, quantity }) => {
     const product = productPrices.find(product => product._id.equals(productId));
-    return product ? acc + (product.price * quantity) : acc;
+    return product ? acc + (product.sellingPrice * quantity) : acc;
   }, 0);
 
   return totalPrice;

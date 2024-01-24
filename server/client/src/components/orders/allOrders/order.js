@@ -13,10 +13,10 @@ const CustomerOrdersList = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchData = async (customerName) => {
       try {
         // Replace the URL with your actual API endpoint for fetching customer orders
-        const response = await fetch('http://localhost:5000/api/orders/customerOrders/:customerName');
+        const response = await fetch(`http://localhost:5000/api/orders/customerOrders/${customerName}`);
         const data = await response.json();
 
         setCustomerOrders(data);
@@ -58,8 +58,7 @@ const CustomerOrdersList = () => {
     setOrderProducts([]);
   };
 
-  const totalProducts = orderProducts.length;
-  const totalQuantityInStock = orderProducts.reduce((total, product) => total + product.quantityInStock, 0);
+  
 
   const filteredOrders = customerOrders.filter((order) =>
     order.customerName.toLowerCase().includes(searchTerm.toLowerCase())
@@ -84,7 +83,7 @@ const CustomerOrdersList = () => {
       </div>
       
       <h3><u>Customer Orders List</u></h3>
-      <Link to={`/placeOrder`}>Add New Order</Link>
+      <Link to="/placeOrder">Add New Order</Link>
 
       {loading ? (
         <div>Loading...</div>
@@ -168,8 +167,7 @@ const CustomerOrdersList = () => {
             ))}
           </tbody>
         </table>
-        <div className='total'>Total Products: {totalProducts}</div>
-        <div className='quantity'>Total Quantity in Stock: {totalQuantityInStock}</div>
+       
       </Modal>
     </div>
   );

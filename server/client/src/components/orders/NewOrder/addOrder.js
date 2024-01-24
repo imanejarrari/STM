@@ -7,7 +7,7 @@ const NewOrderForm = ({ products, onSubmit }) => {
   const [codePostal, setCodePostal] = useState('');
   const [selectedProducts, setSelectedProducts] = useState([]);
   const [quantity, setQuantity] = useState('');
-  const [deliveryDate, setDeliveryDate] = useState('');
+  const [delivereyDate, setDeliveryDate] = useState('');
   const [selectedProductId, setSelectedProductId] = useState('');
 
   const handleProductChange = (e) => {
@@ -39,16 +39,23 @@ const NewOrderForm = ({ products, onSubmit }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (customerName && selectedProducts.length > 0 && deliveryDate && codePostal) {
-      const isoDeliveryDate = deliveryDate !== "" ? new Date(deliveryDate).toISOString() : "";
-      console.log('ISO Delivery Date:', isoDeliveryDate);
+    if (customerName && selectedProducts.length > 0 && delivereyDate && codePostal) {
+      const formattedDate = new Date(delivereyDate).toISOString().split('T')[0];
+      setDeliveryDate(formattedDate);
+      
+      console.log('ISO Delivery Date:', formattedDate);
 
+      console.log('Customer Name:', customerName);
+      console.log('Customer Address:', customerAddress);
+      console.log('Code Postal:', codePostal);
+      console.log('Delivery Date:', formattedDate);
+      console.log('Selected Products:', selectedProducts); 
 
       onSubmit({
         customerName,
         customerAddress,
         codePostal,
-        deliveryDate: isoDeliveryDate,
+        delivereyDate: formattedDate,
         products: selectedProducts,
       });
       setCustomerName('');
@@ -96,11 +103,11 @@ const NewOrderForm = ({ products, onSubmit }) => {
         />
       </div>
       <div>
-        <label htmlFor="deliveryDate">Delivery Date:</label>
+        <label htmlFor="delivereyDate">Delivery Date:</label>
        <input
   type="date"
-  id="deliveryDate"
-  value={deliveryDate}
+  id="delivereyDate"
+  value={delivereyDate}
   onChange={(e) => setDeliveryDate(e.target.value)}
   required
 />
