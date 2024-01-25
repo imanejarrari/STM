@@ -28,6 +28,7 @@
     width:100px;
     padding-left:10px;
     margin-top:60px;
+    margin-bottom:50px;
 }
 .div2{
     
@@ -45,7 +46,7 @@
     cursor: pointer;
 }
 .add:hover{
-    color:black;
+    color:rgb(67, 111, 255);
 }
 .stt{
     padding-left:25px;

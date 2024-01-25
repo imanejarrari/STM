@@ -11,6 +11,8 @@ const CustomerOrdersList = () => {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [error, setError] = useState(null);
+  const [selectedStatus, setSelectedStatus] = useState('All');
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -68,6 +70,14 @@ const CustomerOrdersList = () => {
     order.customerName.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+   // Function to filter orders based on status
+   const filterOrdersByStatus = (orders) => {
+    if (selectedStatus === 'All') {
+      return orders;
+    } else {
+      return orders.filter((order) => order.Status === selectedStatus);
+    }
+  };
 
   return (
     <div className="container mt-4">
@@ -90,15 +100,32 @@ const CustomerOrdersList = () => {
       <div className='div1'><Link to="/AllOrders"  className='orders'>All Orders</Link></div> 
      <div className='div2'><Link to="/placeOrder" className='add'> New Order</Link></div> 
 
+  <div className='select'>
+        <label htmlFor="statusFilter" className="form-label"> Filter by Status:</label>
+        <select
+          id="statusFilter"
+          className="form-select"
+          value={selectedStatus}
+          onChange={(e) => setSelectedStatus(e.target.value)}
+        >
+          <option value="All">All</option>
+          <option value="Delivered">Delivered</option>
+          <option value="Not Delivered">Not Delivered</option>
+          {/* Add more status options as needed */}
+        </select>
+      </div>
+
       {loading ? (
         <div>Loading...</div>
       ) : error ? (
         <div className="text-danger">{error}</div>
       ) : (
+      
         <table className='table'>
-          <thead>
+          <thead> 
+      
             <tr>
-              
+       
               <th>Customer Name</th>
               <th>Delivery Date</th>
               <th>Quantity</th>
@@ -108,7 +135,7 @@ const CustomerOrdersList = () => {
             </tr>
           </thead>
           <tbody>
-          {filteredOrders.map((order) => {
+          {filterOrdersByStatus(filteredOrders).map((order) => {
             // Update status based on delivery date
             updateStatusBasedOnDeliveryDate(order);
 
@@ -119,7 +146,7 @@ const CustomerOrdersList = () => {
                 <td>{order.totalQuantity}</td>
                 <td>${order.totalPrice}</td>
                 <td >
-                  <div className='stt' style={{ backgroundColor: order.Status === 'Delivered' ? 'green' : 'red' }} >
+                  <div className='stt' style={{ backgroundColor: order.Status === 'Delivered' ? 'greenyellow' : 'red' }} >
                      {order.Status}
                   </div>
                  

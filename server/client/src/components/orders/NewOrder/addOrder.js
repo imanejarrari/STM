@@ -71,22 +71,29 @@ const NewOrderForm = ({ products, onSubmit }) => {
   
 
   return (
-    <form onSubmit={handleSubmit} className='form'>
-      <div>
+    <form onSubmit={handleSubmit}  className='New'>
+      <table>
+       
+        <tr>
+          <th className='frm'>
+          <div>
         <label htmlFor="customerName">Customer Name:</label>
         <input
           type="text"
           id="customerName"
           value={customerName}
+          placeholder='Customer Name'
           onChange={(e) => setCustomerName(e.target.value)}
           required
         />
       </div>
+      
       <div>
         <label htmlFor="customerAddress">Customer Address:</label>
         <input
           type="text"
           id="customerAddress"
+          placeholder='Customer Address'
           value={customerAddress}
           onChange={(e) => setCustomerAddress(e.target.value)}
           required
@@ -98,6 +105,7 @@ const NewOrderForm = ({ products, onSubmit }) => {
           type="number"
           id="codePostal"
           value={codePostal}
+          placeholder='codePostal'
           onChange={(e) => setCodePostal(e.target.value)}
           required
         />
@@ -130,34 +138,45 @@ const NewOrderForm = ({ products, onSubmit }) => {
             </option>
           ))}
         </select>
+        <div>
         <label htmlFor="quantity">Quantity:</label>
-        <input
+        
+           <input
           type="number"
           id="quantity"
+          placeholder='quantity'
           value={quantity}
           onChange={handleQuantityChange}
         />
-        <button type="button" onClick={handleAddProduct}>
+        </div>
+       
+        <button type="button" onClick={handleAddProduct} className='addProduct'>
           Add Product
         </button>
       </div>
-
-      <div>
+          </th>
+          <th className='selected'>
+      <div >
         <h3>Selected Products:</h3>
         <ul>
           {selectedProducts.map((product, index) => (
             <li key={index}>
               {products.find((p) => p._id === product.productId)?.name} -{' '}
               {product.quantity}{' '}
-              <button type="button" onClick={() => handleRemoveProduct(index)}>
+              <button type="button" onClick={() => handleRemoveProduct(index)} className='remove'>
                 Remove
               </button>
             </li>
           ))}
         </ul>
       </div>
+      <button type="submit" className='place'>New Order</button>
+          </th>
+        </tr>
 
-      <button type="submit">Place Order</button>
+      </table>
+      
+      
     </form>
   );
 };

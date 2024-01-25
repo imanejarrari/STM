@@ -5,7 +5,7 @@ import StockPage from './components/stock/productsIn/StockPage';
 import MainPage from './components/stock/products/MainPage';
 import MainOrder from './components/orders/allOrders/orderMain';
 import MainSupp from './components/Suppliers/MainSupp';
-import NewOrderPage from './components/orders/NewOrder/NewOrderpage';
+import NewOrder from './components/orders/NewOrder/NewOrderMain';
 
 
 
@@ -33,7 +33,7 @@ function App() {
                 <Route path="/stock" element={<StockPage />}  />
                 <Route path='/allOrders' element={<MainOrder /> } />
                 <Route path='/productsBySupplier' element={<MainSupp /> } />
-                <Route path='/placeOrder' element={<NewOrderPage/>} />
+                <Route path='/placeOrder' element={<NewOrder/>} />
                
                
         
