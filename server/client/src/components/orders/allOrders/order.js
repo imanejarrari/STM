@@ -37,20 +37,6 @@ const CustomerOrdersList = () => {
     fetchData();
   }, []);
 
-  const fetchProductsByOrder = async (orderId) => {
-    try {
-      console.log('Fetching products for order with ID:', orderId);
-      // Replace the URL with your actual API endpoint for fetching products by order
-      const response = await fetch(`http://localhost:5000/api/products/productsByOrder/${orderId}`);
-      const data = await response.json();
-      console.log('Fetched products:', data);
-
-      // Append the new products to the existing list
-      setOrderProducts((prevProducts) => [...prevProducts, ...data]);
-    } catch (error) {
-      console.error('Error fetching products:', error);
-    }
-  };
 
 // Function to check if the delivery date is the current day or in the past
 const isDeliveryDelivered = (deliveryDate) => {
@@ -98,6 +84,14 @@ useEffect(() => {
 
   filterOrders();
 }, [allOrders, searchTerm, selectedStatus, startDate, endDate]);
+
+const handleViewDetails = (orderId) => {
+  // You can navigate to the new page using the Link component
+  // You can replace '/order-details' with the actual path of your order details page
+  // and pass the orderId as a parameter
+  setSelectedOrder(orderId);
+};
+ 
 
   return (
     <div className="container mt-4">
@@ -152,7 +146,7 @@ useEffect(() => {
           <option value="All">All</option>
           <option value="Delivered">Delivered</option>
           <option value="Not Delivered">Not Delivered</option>
-          {/* Add more status options as needed */}
+         
         </select>
       </div>
     </div>
@@ -195,7 +189,12 @@ useEffect(() => {
                  
                 </td>
                 <td> <button className='Eye'>
-                  <FaEye />
+                <Link to={`/orderDetails/${order._id}`}
+                   onClick={() => handleViewDetails(order._id)}
+                >
+                    <FaEye />
+                  </Link>
+
                   </button>
                 </td>
               </tr>

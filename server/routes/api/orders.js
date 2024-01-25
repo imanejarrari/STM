@@ -25,33 +25,27 @@ router.get('/allOrders', async (req, res) => {
   }
 });
 
-
-// API endpoint for fetching products by order
-router.get('/orderProducts/:orderId', async (req, res) => {
+// API endpoint for fetching order details by orderId
+router.get('/orderDetails/:orderId', async (req, res) => {
   const { orderId } = req.params;
 
   try {
-    // Find the order based on the provided order ID
-    const order = await Order.findById(orderId);
+    // Fetch order details based on orderId from the database
+    const orderDetails = await Order.findById(orderId);
 
     // If the order is not found, return an error
-    if (!order) {
-      return res.status(404).json({ error: 'Order not found' });
+    if (!orderDetails) {
+      return res.status(404).json({ error: 'Order details not found' });
     }
 
-    // Extract the product IDs from the order
-    const productIds = order.products.map(product => product.productId);
-
-    // Fetch the product details based on the product IDs
-    const products = await Product.find({ _id: { $in: productIds } });
-
-    // Return the products as a JSON response
-    res.json({ products });
+    // Return the order details as a JSON response
+    res.json(orderDetails);
   } catch (error) {
-    console.error(`Error fetching products for order ${orderId}:`, error);
+    console.error(`Error fetching order details for order ${orderId}:`, error);
     res.status(500).json({ error: `Internal Server Error: ${error.message}` });
   }
 });
+
 
 // API endpoint for placing an order
 router.post('/placeOrder', async (req, res) => {
