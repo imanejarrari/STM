@@ -12,6 +12,10 @@ const CustomerOrdersList = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [error, setError] = useState(null);
   const [selectedStatus, setSelectedStatus] = useState('All');
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
+  const [filteredOrders, setFilteredOrders] = useState([]);
+
 
 
   useEffect(() => {
@@ -62,18 +66,38 @@ const updateStatusBasedOnDeliveryDate = (order) => {
   }
 };
 
-  const filteredOrders = allOrders.filter((order) =>
-    order.customerName.toLowerCase().includes(searchTerm.toLowerCase())
-  );
 
-   // Function to filter orders based on status
-   const filterOrdersByStatus = (orders) => {
-    if (selectedStatus === 'All') {
-      return orders;
-    } else {
-      return orders.filter((order) => order.Status === selectedStatus);
+useEffect(() => {
+  // Function to filter orders based on status and date range
+  const filterOrders = () => {
+    let filtered = allOrders;
+
+    // Filter by customer name
+    filtered = filtered.filter((order) =>
+      order.customerName.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    // Filter by status
+    if (selectedStatus !== 'All') {
+      filtered = filtered.filter((order) => order.Status === selectedStatus);
     }
+
+    // Filter by date range
+    if (startDate && endDate) {
+      filtered = filtered.filter((order) => {
+        const orderDate = new Date(order.delivereyDate).getTime();
+        const start = new Date(startDate).getTime();
+        const end = new Date(endDate).getTime();
+
+        return orderDate >= start && orderDate <= end;
+      });
+    }
+
+    setFilteredOrders(filtered);
   };
+
+  filterOrders();
+}, [allOrders, searchTerm, selectedStatus, startDate, endDate]);
 
   return (
     <div className="container mt-4">
@@ -95,8 +119,29 @@ const updateStatusBasedOnDeliveryDate = (order) => {
       
       <div className='div1'><Link to="/AllOrders"  className='orders'>All Orders</Link></div> 
      <div className='div2'><Link to="/placeOrder" className='add'> New Order</Link></div> 
+    <div className='huh'>
+       <div className="range">
+        <label htmlFor="startDate"></label>
+        <input
+        style={{paddingLeft:'30px' , marginRight:'5px'}}
+          type="date"
+          id="startDate"
+          value={startDate}
+          onChange={(e) => setStartDate(e.target.value)}
+        />
 
-  <div className='select'>
+        <label htmlFor="endDate"> To</label>
+        <input
+        style={{paddingLeft:'30px' , marginLeft:'5px'}}
+          type="date"
+          id="endDate"
+          value={endDate}
+          onChange={(e) => setEndDate(e.target.value)}
+        />
+      </div>
+
+  <div className='filter'>
+
         <label htmlFor="statusFilter" className="form-label"> Filter by Status:</label>
         <select
           id="statusFilter"
@@ -110,6 +155,8 @@ const updateStatusBasedOnDeliveryDate = (order) => {
           {/* Add more status options as needed */}
         </select>
       </div>
+    </div>
+    
 
       {loading ? (
         <div>Loading...</div>
@@ -131,7 +178,7 @@ const updateStatusBasedOnDeliveryDate = (order) => {
             </tr>
           </thead>
           <tbody>
-          {filterOrdersByStatus(filteredOrders).map((order) => {
+          {filteredOrders.map((order) => {
             // Update status based on delivery date
             updateStatusBasedOnDeliveryDate(order);
 

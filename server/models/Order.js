@@ -40,6 +40,10 @@ const OrderSchema = new Schema({
 Status:{
     type:String,
     default: 'Not Delivered'
+},
+date: {
+  type: Date,
+  default: Date.now
 }
 });
 

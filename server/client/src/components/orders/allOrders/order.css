@@ -28,7 +28,7 @@
     width:100px;
     padding-left:10px;
     margin-top:60px;
-    margin-bottom:50px;
+    margin-bottom:30px;
 }
 .div2{
     
@@ -54,3 +54,24 @@
     width:130px;
     
 }
+.filter{
+    width:300px;
+    height:30px;
+}
+#statusFilter{
+  height:35px;
+  border-color: black;
+ 
+}
+.range{
+    position: absolute;
+    margin-left:640px;
+    top:220px;
+    
+}
+.range >input{
+    height:35px;
+    width: 200px;
+    
+}
+
