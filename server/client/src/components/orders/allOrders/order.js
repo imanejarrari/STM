@@ -142,7 +142,7 @@ const updateStatusBasedOnDeliveryDate = (order) => {
                 <td>{order.totalQuantity}</td>
                 <td>${order.totalPrice}</td>
                 <td >
-                  <div className='stt' style={{ backgroundColor: order.Status === 'Delivered' ? 'greenyellow' : 'red' }} >
+                  <div className='stt' style={{ backgroundColor: order.Status === 'Delivered' ? 'greenyellow' : 'red' , paddingLeft: order.Status === 'Delivered' ? '30px' : '20px' }} >
                      {order.Status}
                   </div>
                  
