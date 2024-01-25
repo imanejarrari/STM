@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './AddOrder.css';
+import { FaTimes } from 'react-icons/fa';
 
 const NewOrderForm = ({ products, onSubmit }) => {
   const [customerName, setCustomerName] = useState('');
@@ -73,8 +74,8 @@ const NewOrderForm = ({ products, onSubmit }) => {
   return (
     <form onSubmit={handleSubmit}  className='New'>
       <table>
-       
-        <tr>
+       <thead>
+          <tr>
           <th className='frm'>
           <div>
         <label htmlFor="customerName">Customer Name:</label>
@@ -151,7 +152,7 @@ const NewOrderForm = ({ products, onSubmit }) => {
         </div>
        
         <button type="button" onClick={handleAddProduct} className='addProduct'>
-          Add Product
+          Add
         </button>
       </div>
           </th>
@@ -164,7 +165,7 @@ const NewOrderForm = ({ products, onSubmit }) => {
               {products.find((p) => p._id === product.productId)?.name} -{' '}
               {product.quantity}{' '}
               <button type="button" onClick={() => handleRemoveProduct(index)} className='remove'>
-                Remove
+                <FaTimes/>
               </button>
             </li>
           ))}
@@ -173,7 +174,7 @@ const NewOrderForm = ({ products, onSubmit }) => {
       <button type="submit" className='place'>New Order</button>
           </th>
         </tr>
-
+       </thead>
       </table>
       
       

@@ -48,23 +48,19 @@ const CustomerOrdersList = () => {
     }
   };
 
-    // Function to check if the delivery date is the current date
-    const isDeliveryToday = (deliveryDate) => {
-      const today = new Date();
-      const formattedToday = `${today.getFullYear()}-${(today.getMonth() + 1)
-        .toString()
-        .padStart(2, '0')}-${today.getDate().toString().padStart(2, '0')}`;
-      return formattedToday === deliveryDate;
-    };
-  
-    // Update the status automatically based on delivery date
-    const updateStatusBasedOnDeliveryDate = (order) => {
-      if (isDeliveryToday(order.delivereyDate)) {
-        // If delivery date is today, update the status
-        order.Status = 'Delivered';
-      }
-  
-    };
+// Function to check if the delivery date is the current day or in the past
+const isDeliveryDelivered = (deliveryDate) => {
+  const formattedToday = new Date().toISOString().split('T')[0];
+  return formattedToday >= deliveryDate.split('T')[0];
+};
+
+// Update the status automatically based on delivery date
+const updateStatusBasedOnDeliveryDate = (order) => {
+  if (isDeliveryDelivered(order.delivereyDate)) {
+    // If delivery date is today or in the past, update the status to 'Delivered'
+    order.Status = 'Delivered';
+  }
+};
 
   const filteredOrders = allOrders.filter((order) =>
     order.customerName.toLowerCase().includes(searchTerm.toLowerCase())
