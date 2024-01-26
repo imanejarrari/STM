@@ -51,28 +51,34 @@ const OrderDetails = () => {
                  </div>     
 
             </div>
-                <table>
+                <table className='table' border={1}>
                   <thead>
-                     <th>Products</th>
+                    <tr>
+                      <th>Products</th>
                      <th>Quantity</th>
                      <th>Total Price</th>
                      <th>Edit</th>
+                    </tr>
+                     
                   </thead>
                   <tbody>
-                     <td>
+                    <tr>
+                    <td>
                       <ul>
                       {orderDetails.products.map((product) => (
                         <li key={product.productId}>
-                          {product.quantity} x {product.productName}
+                          {product.quantity} x {product.productId}
                         </li>
                       ))}
 
                       </ul>
                      </td>
                      <td>
-            
+                     {orderDetails.totalQuantity}
                       </td>
                      <td>{orderDetails.totalPrice}</td>
+                    </tr>
+                 
                   </tbody>
                  </table>
 

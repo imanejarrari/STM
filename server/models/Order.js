@@ -3,19 +3,17 @@ const Schema = mongoose.Schema;
 
 const OrderSchema = new Schema({
     
-   customerName:{
-     type:String,
-     required:true
-
+   customerName: {
+     type: String,
+     required: true
    },
-   customerAddress:{
-    type:String,
-    required:true
+   customerAddress: {
+     type: String,
+     required: true
    },
-   codePostal:{
-    type:Number,
-    required:true
-
+   codePostal: {
+     type: Number,
+     required: true
    },
    products: [
      {
@@ -24,28 +22,34 @@ const OrderSchema = new Schema({
          ref: 'Product',
        },
        quantity: Number,
-       name:String,
      },
    ],
 
-   totalPrice:{
-         type:Number,
-         require:true
+   productNames: [
+     {
+       type: String,
+       required: true
+     },
+   ],
+
+   totalPrice: {
+     type: Number,
+     require: true
    },
 
- delivereyDate:{
-    type:Date,
-    required:true
- },
+   delivereyDate: {
+     type: Date,
+     required: true
+   },
 
-Status:{
-    type:String,
-    default: 'Not Delivered'
-},
-date: {
-  type: Date,
-  default: Date.now
-}
+   Status: {
+     type: String,
+     default: 'Not Delivered'
+   },
+   date: {
+     type: Date,
+     default: Date.now
+   }
 });
 
-module.exports = Order= mongoose.model("Order", OrderSchema);
+module.exports = Order = mongoose.model("Order", OrderSchema);
