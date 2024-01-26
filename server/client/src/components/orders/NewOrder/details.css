@@ -1,0 +1,39 @@
+.customer{
+    border:2px solid rgb(67, 111, 255);
+    border-radius:20px;
+    width:1070px;
+    height:200px;
+    margin-left:20px;
+    margin-top:130px;
+}
+.FaUser{
+    color:  rgb(67, 111, 255);
+    background-color:whitesmoke;
+    width:25px;
+    height:25px;
+    border-radius:50%;
+    margin-right:10px;
+}
+.User{
+ padding-left:50px;
+ padding-top:50px;
+}
+
+.Info{
+    margin-left:350px;
+    position: absolute;
+    top:180px;
+}
+p{
+    margin-top:10px;
+    margin-left:30px;
+    color: black;
+    font-family:'Times New Roman', Times, serif;
+    
+    font-weight:unset;
+}
+.Deliver{
+    margin-left:800px;
+    position: absolute;
+    top:180px;
+}
