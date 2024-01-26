@@ -83,10 +83,9 @@ router.post('/placeOrder', async (req, res) => {
       // Save the updated product
       await product.save();
     }
-     // Get product names based on product IDs
-     const productNames = await Product.find({ _id: { $in: products.map(product => product.productId) } }, { _id: 0, productName: 1 });   
+     
 
-    const order = new Order({ customerName, customerAddress, codePostal, delivereyDate, products, productNames  });
+    const order = new Order({ customerName, customerAddress, codePostal, delivereyDate, products, totalPrice  });
     await order.save();
 
     res.status(201).json({ success: true, order });
