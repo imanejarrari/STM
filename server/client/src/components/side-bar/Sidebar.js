@@ -35,7 +35,7 @@ const Sidebar = () => {
 
         <CDBSidebarContent className="sidebar-content">
           <CDBSidebarMenu>
-          <NavLink exact to="/dashbord" className="sidebar-link">
+          <NavLink exact to="/dashboard" className="sidebar-link">
               <CDBSidebarMenuItem icon='chart-line'>Dashboard</CDBSidebarMenuItem>
             </NavLink>
             <NavLink exact to="/productlist" className="sidebar-link" >
