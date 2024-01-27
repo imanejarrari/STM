@@ -7,7 +7,7 @@ import MainOrder from './components/orders/allOrders/orderMain';
 import MainSupp from './components/Suppliers/MainSupp';
 import NewOrder from './components/orders/NewOrder/NewOrderMain';
 import Details from './components/orders/NewOrder/DetailsMain';
-import MainDash from './components/dashbord/mainDash';
+
 
 
 
@@ -38,7 +38,7 @@ function App() {
                 <Route path='/productsBySupplier' element={<MainSupp /> } />
                 <Route path='/placeOrder' element={<NewOrder/>} />
                 <Route path='/orderDetails/:orderId' element={<Details/>} />
-                <Route path='/dashboard' element={<MainDash />} />
+               
                
                
         
