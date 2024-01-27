@@ -78,7 +78,7 @@ const OrderDetails = () => {
                 <table className='table'  id='display'>
                   <thead>
                     <tr>
-                      <th>Product Id</th>
+                      <th>Product info</th>
                      <th>Total Quantity</th>
                      <th>Total Price</th>
                      <th>Action</th>
