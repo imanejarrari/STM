@@ -38,8 +38,17 @@ router.get('/orderDetails/:orderId', async (req, res) => {
       return res.status(404).json({ error: 'Order details not found' });
     }
 
-    // Return the order details as a JSON response
-    res.json(orderDetails);
+      // Calculate total quantity for the order
+      const totalQuantity = orderDetails.products.reduce((acc, product) => acc + product.quantity, 0);
+
+      // Include total quantity in the response
+      const orderDetailsWithTotalQuantity = {
+        ...orderDetails.toObject(),
+        totalQuantity,
+      };
+  
+      // Return the order details with total quantity as a JSON response
+      res.json(orderDetailsWithTotalQuantity);
   } catch (error) {
     console.error(`Error fetching order details for order ${orderId}:`, error);
     res.status(500).json({ error: `Internal Server Error: ${error.message}` });
@@ -117,6 +126,24 @@ async function calculateTotalPrice(products) {
   
 }
 
+// API endpoint for deleting an order by orderId
+router.delete('/deleteOrder/:orderId', async (req, res) => {
+  const { orderId } = req.params;
+
+  try {
+    // Find and delete the order
+    const deletedOrder = await Order.findByIdAndDelete(orderId);
+
+    if (!deletedOrder) {
+      return res.status(404).json({ error: 'Order not found' });
+    }
+
+    res.json({ success: true, deletedOrder });
+  } catch (error) {
+    console.error(`Error deleting order ${orderId}:`, error);
+    res.status(500).json({ error: `Internal Server Error: ${error.message}` });
+  }
+});
 
 
 

@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams ,useNavigate } from 'react-router-dom';
 import './details.css';
-import { FaUser ,FaInfoCircle ,FaTruck } from 'react-icons/fa';
+import { FaUser ,FaInfoCircle ,FaTruck  ,FaTrash  } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 
 const OrderDetails = () => {
   const { orderId } = useParams();
   const [orderDetails, setOrderDetails] = useState({});
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     const fetchOrderDetails = async () => {
@@ -24,6 +26,27 @@ const OrderDetails = () => {
 
     fetchOrderDetails();
   }, [orderId]);
+  const handleDeleteOrder = async () => {
+    try {
+      // Make a request to delete the order
+      const response = await fetch(`http://localhost:5000/api/orders/deleteOrder/${orderId}`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        // Handle successful deletion (e.g., redirect to a different page)
+        console.log('Order deleted successfully');
+        navigate('/allOrders'); 
+      } else {
+        console.error('Failed to delete order:', response.statusText);
+        // Handle error
+      }
+    } catch (error) {
+      console.error('Error deleting order:', error);
+      // Handle error
+    }
+  };
+
 
   return (
     <div>
@@ -31,6 +54,7 @@ const OrderDetails = () => {
         <div>Loading...</div>
       ) : (
         <div>
+          <button className='nag'><Link to='/allOrders' className='link'>Back To Orders</Link></button> 
           
             <div className='customer'> 
                
@@ -51,13 +75,13 @@ const OrderDetails = () => {
                  </div>     
 
             </div>
-                <table className='table' border={1}>
+                <table className='table'  id='display'>
                   <thead>
                     <tr>
-                      <th>Products</th>
-                     <th>Quantity</th>
+                      <th>Product Id</th>
+                     <th>Total Quantity</th>
                      <th>Total Price</th>
-                     <th>Edit</th>
+                     <th>Action</th>
                     </tr>
                      
                   </thead>
@@ -67,7 +91,7 @@ const OrderDetails = () => {
                       <ul>
                       {orderDetails.products.map((product) => (
                         <li key={product.productId}>
-                          {product.quantity} x {product.productId}
+                          {product.quantity} <b>products of </b> {product.productId}
                         </li>
                       ))}
 
@@ -76,7 +100,9 @@ const OrderDetails = () => {
                      <td>
                      {orderDetails.totalQuantity}
                       </td>
-                     <td>{orderDetails.totalPrice}</td>
+                     <td>${orderDetails.totalPrice}</td>
+                     <td> <FaTrash  className='trash'   onClick={handleDeleteOrder} />  
+                    </td>
                     </tr>
                  
                   </tbody>

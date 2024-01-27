@@ -9,6 +9,7 @@ const ProductList = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [selectedProducts, setSelectedProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
   const [sortOption, setSortOption] = useState({ value: 'za', label: <i className="fas fa-sort-alpha-up-alt"></i> });
   const [checkboxVisible, setCheckboxVisible] = useState(false);
 
@@ -33,11 +34,9 @@ const ProductList = () => {
 
   const handleProductDoubleClick = (product) => {
     if (selectedProducts.includes(product)) {
-      // If the product is already selected, double-click to deselect all
       setSelectedProducts([]);
-      setCheckboxVisible(false); // Hide checkboxes when nothing is selected
+      setCheckboxVisible(false);
     } else {
-      // If not selected, proceed with the regular selection
       handleSelectProduct(product);
       setCheckboxVisible(true);
     }
@@ -71,7 +70,7 @@ const ProductList = () => {
 
   const filteredAndSortedProducts = sortedProducts(
     products.filter((product) =>
-      product.name.toLowerCase().includes(searchTerm.toLowerCase())
+      product._id.includes(searchQuery) || product.name.toLowerCase().includes(searchTerm.toLowerCase())
     ),
     sortOption
   );
@@ -99,21 +98,22 @@ const ProductList = () => {
     setCheckboxVisible(false);
   };
 
-
   return (
     <div className="container mt-4">
       <div className="p-1 bg-light rounded rounded-pill shadow-sm mb-4 ml-5 " style={{ marginRight: "250px", marginLeft: "250px" }}>
         <div className="input-group">
           <input
             type="search"
-            placeholder="What're you searching for?"
+            placeholder="Search by ID or Name"
             aria-describedby="button-addon1"
             className="form-control border-0 bg-light"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
           <div className="input-group-append">
-            <button id="button-addon1" type="submit" className="btn btn-link text-primary"><i className="fa fa-search"></i></button>
+            <button id="button-addon1" type="submit" className="btn btn-link text-primary" onClick={() => setSearchQuery(searchTerm)}>
+              <i className="fa fa-search"></i>
+            </button>
           </div>
         </div>
       </div>
@@ -167,16 +167,16 @@ const ProductList = () => {
           </ol>
         </div>
         <div className="col-md-6" >
-        {checkboxVisible && (
-              <div>
-                <button className="btn btn-primary" onClick={handleSelectAll}>
-                  Select All
-                </button>
-                <button className="btn btn-danger ms-2" onClick={handleDeleteSelected}>
-                  Delete Selected
-                </button>
-              </div>
-            )}
+          {checkboxVisible && (
+            <div>
+              <button className="btn btn-primary" onClick={handleSelectAll}>
+                Select All
+              </button>
+              <button className="btn btn-danger ms-2" onClick={handleDeleteSelected}>
+                Delete Selected
+              </button>
+            </div>
+          )}
           {selectedProduct && <ProductDetails product={selectedProduct} />}
           {selectedProduct && <h3 style={{ textAlign: "center" }}>Product Details</h3>}
         </div>
