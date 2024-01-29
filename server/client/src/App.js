@@ -7,7 +7,7 @@ import MainOrder from './components/orders/allOrders/orderMain';
 import MainSupp from './components/Suppliers/MainSupp';
 import NewOrder from './components/orders/NewOrder/NewOrderMain';
 import Details from './components/orders/NewOrder/DetailsMain';
-import MainDash from './components/dashbord/mainDash';
+import MainDash from './components/dashboard/mainDash';
 
 
 
