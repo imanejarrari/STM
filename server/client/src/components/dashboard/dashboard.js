@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDashboard } from './context';
-import StockChart from './stockChart';
+
 
 const Dashboard = () => {
   const { state, dispatch } = useDashboard();
@@ -25,9 +25,8 @@ const Dashboard = () => {
       <h2>Earnings: {state.earnings}</h2>
       <h2>Sales: {state.sales}</h2>
       {/* Display other data as needed */}
-      <StockChart stockData={state.stockGraphData} />
+      
     </div>
   );
 };
-
 export default Dashboard;

@@ -14,6 +14,27 @@ router.get('/dashboardData', async (req, res) => {
     const stockGraphData = await getStockGraphData();
     const latestOrders = await Order.find().sort({ date: -1 }).limit(5);
     const latestCustomers = await getLatestCustomers ();
+       // Log the data being sent in the response
+       console.log('Sending response:', {
+        earnings,
+        sales,
+        totalOrders,
+        totalCustomers,
+        stockGraphData,
+        latestOrders,
+        latestCustomers,
+      });
+  
+      // Return the dashboard data as a JSON response
+      res.json({
+        earnings,
+        sales,
+        totalOrders,
+        totalCustomers,
+        stockGraphData,
+        latestOrders,
+        latestCustomers,
+      });
 
     // Return the dashboard data as a JSON response
     res.json({

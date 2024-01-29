@@ -14,7 +14,7 @@ export const DashboardProvider = ({ children }) => {
   };
 
   const reducer = (state, action) => {
-    switch (action.type) {
+    switch (action.typxe) {
       case 'UPDATE_DASHBOARD':
         return { ...state, ...action.payload };
       default:

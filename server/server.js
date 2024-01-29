@@ -5,6 +5,7 @@ const passport = require("passport");
 const users = require("./routes/api/Users");
 const products = require("./routes/api/Products");
 const orders=require("./routes/api/orders");
+const dashboard=require("./routes/api/dashbord");
 
 
 const app = express();
@@ -45,6 +46,7 @@ app.use("/api/users", users);
 
 app.use("/api/products", products);
 app.use("/api/orders",orders);
+app.use("/api/dashboard",dashboard);
 
 
 

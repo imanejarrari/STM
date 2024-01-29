@@ -38,7 +38,7 @@ function App() {
                 <Route path='/productsBySupplier' element={<MainSupp /> } />
                 <Route path='/placeOrder' element={<NewOrder/>} />
                 <Route path='/orderDetails/:orderId' element={<Details/>} />
-                <Route path='/dashbord' element={<MainDash/>} />
+                <Route path='/dashboard' element={<MainDash/>} />
                
                
                
