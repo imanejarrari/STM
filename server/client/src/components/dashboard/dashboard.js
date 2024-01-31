@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import './dashboard.css';
 import {FaUser ,FaDollarSign ,FaCartArrowDown,FaMoneyBillWave } from 'react-icons/fa';
-import StockChart from './StockChart';
 
 
 const Dashboard = () => {
@@ -11,8 +9,9 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/dashboard/dashboardData');
-        setDashboardData(response.data);
+        const response = await fetch('http://localhost:5000/api/dashboard/dashboardData');
+        const data = await response.json();
+        setDashboardData(data);
       } catch (error) {
         console.error('Error fetching dashboard data:', error);
       }
@@ -87,10 +86,7 @@ const Dashboard = () => {
         </div>
        
           
-      <div className='stock-chart'>
-        <h3>Stock Levels</h3>
-        <StockChart />
-      </div>
+      
 
        
 

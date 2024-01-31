@@ -1,10 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Line } from 'react-chartjs-2';
-import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
-export const options = {
+const options = {
   responsive: true,
   interaction: {
     mode: 'index',
@@ -28,31 +37,38 @@ export const options = {
 
 const StockChart = () => {
   const [data, setData] = useState({});
+  const isMounted = useRef(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/dashboard/stockGraphData'); // Adjust the API endpoint
+        const response = await fetch('http://localhost:5000/api/dashboard/stockGraphData');
         const result = await response.json();
 
-        setData({
-          labels: result.map(product => product.name),
-          datasets: [
-            {
-              label: 'Stock Levels',
-              data: result.map(product => product.quantityInStock),
-              borderColor: 'rgb(255, 99, 132)',
-              backgroundColor: 'rgba(255, 99, 132, 0.5)',
-              yAxisID: 'y',
-            },
-          ],
-        });
+        if (isMounted.current) {
+          setData({
+            labels: result.map(product => product.name),
+            datasets: [
+              {
+                label: 'Stock Levels',
+                data: result.map(product => product.quantityInStock),
+                borderColor: 'rgb(255, 99, 132)',
+                backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                yAxisID: 'y',
+              },
+            ],
+          });
+        }
       } catch (error) {
         console.error('Error fetching stock data:', error);
       }
     };
 
     fetchData();
+
+    return () => {
+      isMounted.current = false;
+    };
   }, []);
 
   return <Line options={options} data={data} />;
