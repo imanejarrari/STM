@@ -54,7 +54,7 @@ const OrderDetails = () => {
         <div>Loading...</div>
       ) : (
         <div>
-          <button className='nag'><Link to='/allOrders' className='link'>Back To Orders</Link></button> 
+          <button className='nag'><Link to='/allOrders' exact={true}  className='link'>Back To Orders</Link></button> 
           
             <div className='customer'> 
                

@@ -35,16 +35,16 @@ const Sidebar = () => {
 
         <CDBSidebarContent className="sidebar-content">
           <CDBSidebarMenu>
-          <NavLink exact to="/dashboard" className="sidebar-link">
+          <NavLink exact to={"/dashboard"} className="sidebar-link">
               <CDBSidebarMenuItem icon='chart-line'>Dashboard</CDBSidebarMenuItem>
             </NavLink>
-            <NavLink exact to="/productlist" className="sidebar-link" >
+            <NavLink exact to={"/productlist"} className="sidebar-link" >
               <CDBSidebarMenuItem icon='list'>Products</CDBSidebarMenuItem>
             </NavLink>
-            <NavLink exact to="/stock"  className="sidebar-link">
+            <NavLink exact to={"/stock"}  className="sidebar-link">
               <CDBSidebarMenuItem icon="list-alt">Stock In</CDBSidebarMenuItem>
             </NavLink>
-            <NavLink exact to="/allOrders"  className="sidebar-link">
+            <NavLink exact to={"/allOrders"}  className="sidebar-link">
               <CDBSidebarMenuItem icon="file-alt">Orders</CDBSidebarMenuItem>
             </NavLink>
            <NavLink  exact to={"/productsBySupplier"} className="sidebar-link">
@@ -53,7 +53,7 @@ const Sidebar = () => {
             
        
       
-            <NavLink exact to="/convert" className="sidebar-link">
+            <NavLink exact to={"/convert"} className="sidebar-link">
               <CDBSidebarMenuItem icon="file-excel" >Convert Excel File</CDBSidebarMenuItem>
             </NavLink>
             <NavLink  onClick={LogOut}  className="sidebar-link">

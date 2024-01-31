@@ -59,7 +59,7 @@ const NewOrderPage = () => {
 
   return (
     <div>
-            <div className='div1'><Link to="/allOrders"  className='orders' style={{fontFamily:'sans-serif' , fontWeight:'bold' , color:'black' }}>BACK</Link></div>
+            <div className='div1'><Link to="/allOrders" exact={true}  className='orders' style={{fontFamily:'sans-serif' , fontWeight:'bold' , color:'black' }}>BACK</Link></div>
       <NewOrderForm products={products} onSubmit={handlePlaceOrder} />
     </div>
   );

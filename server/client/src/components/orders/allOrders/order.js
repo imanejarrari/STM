@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-
 import { FaEye  } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import './order.css';
@@ -111,8 +110,8 @@ const handleViewDetails = (orderId) => {
         </div>
       </div>
       
-      <div className='div1'><Link to="/AllOrders"  className='orders'>All Orders</Link></div> 
-     <div className='div2'><Link to="/placeOrder" className='add'> New Order</Link></div> 
+      <div className='div1'><Link to="/AllOrders"  exact={true}   className='orders'>All Orders</Link></div> 
+     <div className='div2'><Link to="/placeOrder" exact={true}  className='add'> New Order</Link></div> 
     <div className='huh'>
        <div className="range">
         <label htmlFor="startDate"></label>
