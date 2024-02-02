@@ -168,3 +168,8 @@ p>.totalE{
     background-color: #f5f5f5;
     box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); 
 }
+.chart{
+    width:300px;
+    height:400px;
+    margin-left:50px;
+}

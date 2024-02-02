@@ -1,77 +1,72 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Line } from 'react-chartjs-2';
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend,
-} from 'chart.js';
+import React, { useEffect, useRef, useState } from 'react';
+import Chart from 'chart.js/auto';
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
+const createBackgroundGradient = (ctx) => {
+  if (!ctx) return null;
 
-const options = {
-  responsive: true,
-  interaction: {
-    mode: 'index',
-    intersect: false,
-  },
-  stacked: false,
-  plugins: {
-    title: {
-      display: true,
-      text: 'Stock Levels Chart',
-    },
-  },
-  scales: {
-    y: {
-      type: 'linear',
-      display: true,
-      position: 'left',
-    },
-  },
+  const gradient = ctx.createLinearGradient(0, 0, 0, 300);
+  gradient.addColorStop(0, 'rgba(75, 192, 192, 0.8)');
+  gradient.addColorStop(1, 'rgba(75, 192, 192, 0.2)');
+  return gradient;
 };
 
 const StockChart = () => {
-  const [data, setData] = useState({});
-  const isMounted = useRef(true);
+  const chartRef = useRef(null);
+  const [chartData, setChartData] = useState({
+    labels: [],
+    datasets: [{
+      label: 'Stock Levels',
+      data: [],
+      backgroundColor:null ,
+    }],
+  });
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch('http://localhost:5000/api/dashboard/stockGraphData');
         const result = await response.json();
-
-        if (isMounted.current) {
-          setData({
-            labels: result.map(product => product.name),
-            datasets: [
-              {
+  
+        const labels = result.map(product => product.name);
+        const data = result.map(product => product.quantityInStock);
+  
+        if (chartRef.current) {
+          const ctx = chartRef.current.getContext('2d');
+  
+          // Destroy existing Chart instance
+          if (chartRef.current.chart) {
+            chartRef.current.chart.destroy();
+          }
+  
+          // Create a new Chart instance
+          const newChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+              labels,
+              datasets: [{
                 label: 'Stock Levels',
-                data: result.map(product => product.quantityInStock),
-                borderColor: 'rgb(255, 99, 132)',
-                backgroundColor: 'rgba(255, 99, 132, 0.5)',
-                yAxisID: 'y',
-              },
-            ],
+                data,
+                backgroundColor: createBackgroundGradient(ctx),
+              }],
+            },
+            options: {
+              maintainAspectRatio: false,
+            },
           });
+  
+          // Store the new Chart instance in the ref
+          chartRef.current.chart = newChart;
         }
       } catch (error) {
         console.error('Error fetching stock data:', error);
       }
     };
-
+  
     fetchData();
-
-    return () => {
-      isMounted.current = false;
-    };
   }, []);
+  
 
-  return <Line options={options} data={data} />;
+  return <canvas ref={chartRef} />;
 };
 
 export default StockChart;

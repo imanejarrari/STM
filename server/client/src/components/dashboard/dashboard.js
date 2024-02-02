@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './dashboard.css';
 import {FaUser ,FaDollarSign ,FaCartArrowDown,FaMoneyBillWave } from 'react-icons/fa';
+import StockChart from './StockChart';
 
 
 const Dashboard = () => {
@@ -85,9 +86,11 @@ const Dashboard = () => {
           
         </div>
        
-          
+       <div className='chart'>
+        <StockChart/>
+        </div>   
       
-
+       
        
 
     </div>
