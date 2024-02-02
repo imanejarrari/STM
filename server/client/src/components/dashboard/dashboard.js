@@ -4,6 +4,7 @@ import {FaUser ,FaDollarSign ,FaCartArrowDown,FaMoneyBillWave } from 'react-icon
 import StockChart from './StockChart';
 
 
+
 const Dashboard = () => {
   const [dashboardData, setDashboardData] = useState(null);
 
@@ -53,30 +54,22 @@ const Dashboard = () => {
             <h4>Recent Orders</h4>
            </div>
             
-          <table className='table' id='latestO'> 
+          <table className='table' id='latestOrders'>  
             <thead>
-              <tr>
-                 <th>Order Id</th>
-                <th>Customer</th>
-                <th>Total Price</th>
-                <th>Status</th>
-              </tr>
              
-            </thead>
+             </thead>
             <tbody>
           {dashboardData.latestOrders.map((order) => {
             return(
-              <tr key={order._id}>
-                 <td>{order._id}</td>
-                
-                <td>{order.customerName}</td>
-                <td>${order.totalPrice}</td>
-                <td>
-                  <div className='stt' style={{ backgroundColor: order.Status === 'Delivered' ? 'greenyellow' : 'red' , paddingLeft: order.Status === 'Delivered' ? '30px' : '20px' }} >
-                     {order.Status}
-                  </div>
-                </td>   
-              </tr>
+              <td key={order._id}  id='latestO'>
+                  
+                 <div className='client'>
+                  <div >{order.customerName}</div>
+                  <div>${order.totalPrice}</div>
+                 </div>
+                  
+               
+              </td>
 
             );
              
@@ -85,11 +78,11 @@ const Dashboard = () => {
           </table>
           
         </div>
-       
+
+
        <div className='chart'>
         <StockChart/>
         </div>   
-      
        
        
 

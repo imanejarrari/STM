@@ -1,13 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Chart from 'chart.js/auto';
 
-const createBackgroundGradient = (ctx) => {
-  if (!ctx) return null;
-
-  const gradient = ctx.createLinearGradient(0, 0, 0, 300);
-  gradient.addColorStop(0, 'rgba(75, 192, 192, 0.8)');
-  gradient.addColorStop(1, 'rgba(75, 192, 192, 0.2)');
-  return gradient;
+const determineBackgroundColor = (quantity) => {
+  if (quantity > 20) {
+    return '#86B6F6'; // Blue
+  } else if (quantity > 10) {
+    return '#B4D4FF'; // Yellow (bg-warning)
+  } else {
+    return '#EEF5FF'; // Red (bg-danger)
+  }
 };
 
 const StockChart = () => {
@@ -17,7 +18,7 @@ const StockChart = () => {
     datasets: [{
       label: 'Stock Levels',
       data: [],
-      backgroundColor:null ,
+      backgroundColor: [],
     }],
   });
 
@@ -26,34 +27,35 @@ const StockChart = () => {
       try {
         const response = await fetch('http://localhost:5000/api/dashboard/stockGraphData');
         const result = await response.json();
-  
-        const labels = result.map(product => product.name);
+
+        const labels = result.map(product => product.category);
         const data = result.map(product => product.quantityInStock);
-  
+        const backgroundColor = data.map(determineBackgroundColor);
+
         if (chartRef.current) {
           const ctx = chartRef.current.getContext('2d');
-  
+
           // Destroy existing Chart instance
           if (chartRef.current.chart) {
             chartRef.current.chart.destroy();
           }
-  
-          // Create a new Chart instance
+
+          // Create a new Chart instance with 'doughnut' type
           const newChart = new Chart(ctx, {
-            type: 'bar',
+            type: 'doughnut', // Set chart type to 'doughnut'
             data: {
               labels,
               datasets: [{
                 label: 'Stock Levels',
                 data,
-                backgroundColor: createBackgroundGradient(ctx),
+                backgroundColor,
               }],
             },
             options: {
               maintainAspectRatio: false,
             },
           });
-  
+
           // Store the new Chart instance in the ref
           chartRef.current.chart = newChart;
         }
@@ -61,10 +63,9 @@ const StockChart = () => {
         console.error('Error fetching stock data:', error);
       }
     };
-  
+
     fetchData();
   }, []);
-  
 
   return <canvas ref={chartRef} />;
 };

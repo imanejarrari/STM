@@ -135,7 +135,7 @@ async function getStockGraphData() {
     // Fetch the total quantity in stock for each product
     const products = await Product.find();
     const stockData = products.map((product) => ({
-      name: product.name,
+      category: product.category,
       quantityInStock: product.quantityInStock,
     }));
     return stockData;
@@ -154,5 +154,58 @@ router.get('/stockGraphData', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
+// API endpoint to get orders per week
+router.get('/ordersPerWeek', async (req, res) => {
+  try {
+    const { startDate, endDate } = req.query;
+    const ordersData = await getOrdersPerWeek(startDate, endDate);
+    res.json(ordersData);
+  } catch (error) {
+    console.error('Error fetching orders per week:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+// Function to get data for the total orders per week
+async function getOrdersPerWeek(startDate, endDate) {
+  try {
+    const orders = await Order.find({
+      date: {
+        $gte: new Date(startDate),
+        $lt: new Date(endDate),
+      },
+    });
+
+    const ordersByWeek = {};
+
+    orders.forEach(order => {
+      const weekNumber = getISOWeekNumber(new Date(order.date));
+      if (!ordersByWeek[weekNumber]) {
+        ordersByWeek[weekNumber] = 0;
+      }
+      ordersByWeek[weekNumber]++;
+    });
+
+    const ordersData = Object.keys(ordersByWeek).map(weekNumber => ({
+      week: parseInt(weekNumber),
+      totalOrders: ordersByWeek[weekNumber],
+    }));
+
+    return ordersData;
+  } catch (error) {
+    console.error('Error fetching orders per week:', error);
+    throw error;
+  }
+}
+
+// Helper function to get ISO week number for a given date
+function getISOWeekNumber(date) {
+  const startOfYear = new Date(date.getFullYear(), 0, 1);
+  const diff = (date - startOfYear) / (24 * 3600 * 1000 * 7);
+  return Math.ceil(diff) + 1;
+}
+
+
 
 module.exports = router;
