@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import './dashboard.css';
-import {FaUser ,FaDollarSign ,FaCartArrowDown,FaMoneyBillWave } from 'react-icons/fa';
+import {FaUser ,FaDollarSign ,FaCartArrowDown,FaMoneyBillWave ,FaEllipsisV  } from 'react-icons/fa';
 import StockChart from './StockChart';
-
+import { Link } from 'react-router-dom';
 
 
 const Dashboard = () => {
   const [dashboardData, setDashboardData] = useState(null);
+  const [selectedOrder, setSelectedOrder] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -21,6 +22,13 @@ const Dashboard = () => {
 
     fetchData();
   }, []);
+  const handleViewDetails = (orderId) => {
+    // You can navigate to the new page using the Link component
+    // You can replace '/order-details' with the actual path of your order details page
+    // and pass the orderId as a parameter
+    setSelectedOrder(orderId);
+  };
+   
 
   if (!dashboardData) {
     return <div>Loading...</div>;
@@ -59,13 +67,24 @@ const Dashboard = () => {
              
              </thead>
             <tbody>
-          {dashboardData.latestOrders.map((order) => {
+            {dashboardData.latestOrders.map((order, index) => {
+  const orderId = `#${index + 1}`; 
             return(
+
               <td key={order._id}  id='latestO'>
                   
                  <div className='client'>
-                  <div >{order.customerName}</div>
-                  <div>${order.totalPrice}</div>
+                     {orderId}
+                    <Link to={`/orderDetails/${order._id}`}
+                   onClick={() => handleViewDetails(order._id)}
+                  className='lien'  >
+                    <FaEllipsisV />
+                  </Link>
+
+                  
+                 <p>{order.customerName}</p>
+                  <h6 id='price'>Price : ${order.totalPrice}</h6>
+                  <div className='status' style={{ backgroundColor: order.Status === 'Delivered' ? 'greenyellow' : 'red' , paddingLeft: order.Status === 'Delivered' ? '30px' : '10px' }}>{order.Status}</div>
                  </div>
                   
                
