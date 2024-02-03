@@ -1,15 +1,19 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Chart from 'chart.js/auto';
+import 'chartjs-plugin-datalabels';
 
 const determineBackgroundColor = (quantity) => {
-  if (quantity > 20) {
-    return '#86B6F6'; // Blue
-  } else if (quantity > 10) {
-    return '#B4D4FF'; // Yellow (bg-warning)
+  if (quantity > 50) {
+    return '#365486'; 
+  } else if (quantity > 20) {
+    return '#7FC7D9'; 
+  } else if (quantity > 0) {
+    return '#B4D4FF'; 
   } else {
-    return '#EEF5FF'; // Red (bg-danger)
-  }
+    return '#CCCCCC'; // Color for quantity less than or equal to 0
+  } 
 };
+
 
 const StockChart = () => {
   const chartRef = useRef(null);
@@ -53,6 +57,23 @@ const StockChart = () => {
             },
             options: {
               maintainAspectRatio: false,
+              plugins: {
+                title: {
+                  display: true,
+                  text: 'Stock Level', 
+                  fontSize: 16,
+                },
+                datalabels: {
+                  formatter: (value, context) => {
+                    const { dataIndex } = context.data;
+                    return `${value}\n${labels[dataIndex]}`; // Display quantity and category
+                  },
+                  color: 'blue', // Label text color
+                  anchor: 'end', // Position of the label relative to the data point
+                  align: 'end', // Alignment of the label text
+                  offset: 8, // Offset from the data point
+                },
+              },
             },
           });
 

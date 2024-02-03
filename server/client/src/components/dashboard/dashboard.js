@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import './dashboard.css';
-import {FaUser ,FaDollarSign ,FaCartArrowDown,FaMoneyBillWave ,FaEllipsisV  } from 'react-icons/fa';
+import { FaUser, FaDollarSign, FaCartArrowDown, FaMoneyBillWave, FaEllipsisV, FaBars } from 'react-icons/fa';
 import StockChart from './StockChart';
 import { Link } from 'react-router-dom';
-
+import BarChart from './EarningsChart';
 
 const Dashboard = () => {
   const [dashboardData, setDashboardData] = useState(null);
   const [selectedOrder, setSelectedOrder] = useState(null);
+  const [totalProductsPerSupplier, setTotalProductsPerSupplier] = useState([]); // Initialize as an empty array
 
   useEffect(() => {
     const fetchData = async () => {
@@ -15,6 +16,12 @@ const Dashboard = () => {
         const response = await fetch('http://localhost:5000/api/dashboard/dashboardData');
         const data = await response.json();
         setDashboardData(data);
+
+        // Fetch total products per supplier
+        const totalProductsPerSupplierResponse = await fetch('http://localhost:5000/api/dashboard/totalProductsPerSupplier');
+        const totalProductsPerSupplierData = await totalProductsPerSupplierResponse.json();
+        setTotalProductsPerSupplier(totalProductsPerSupplierData);
+
       } catch (error) {
         console.error('Error fetching dashboard data:', error);
       }
@@ -22,10 +29,8 @@ const Dashboard = () => {
 
     fetchData();
   }, []);
+
   const handleViewDetails = (orderId) => {
-    // You can navigate to the new page using the Link component
-    // You can replace '/order-details' with the actual path of your order details page
-    // and pass the orderId as a parameter
     setSelectedOrder(orderId);
   };
    
@@ -57,6 +62,7 @@ const Dashboard = () => {
         
        </section>
         
+       <div>
        <div className='latestorders'>
            <div className='Obar'>
             <h4>Recent Orders</h4>
@@ -95,15 +101,60 @@ const Dashboard = () => {
            })}
             </tbody>
           </table>
-          
+
+
         </div>
+        <div className='latestcustomers'>
+          <h5>Latest suppliers  <FaBars className='fbars'  /> </h5>
+         
+          
+          <table className='table' id='tbl' >  
+            <thead>
+              <div className='suplr'>
+                <th>Supplier</th>
+                <th>contact</th>
+                <th>total products</th>
+              </div>
+             </thead>
+            <tbody>
+            {dashboardData.latestSupplier?.map((supplier) => {
+              const totalQuantity = totalProductsPerSupplier.find((item) => item._id === supplier.supplierName)?.totalQuantity || 0;
+
+              return (
+               <div className='AllSup'> 
+                 <tr key={supplier._id} id='latestS'>
+             
+             
+                 <td className='icn'>
+                    <FaUser />{' '}
+                  </td>
+                  <td className='name'> {supplier.supplierName} </td>
+                  <td className='contact'>{supplier.supplierContactInfo} </td>
+                  <td>{totalQuantity}</td>
+             
+                 
+                </tr>
+                 </div>
 
 
+            );
+             
+           })}
+            </tbody>
+          </table>
+
+
+        </div>
+       </div>
+ 
+  
        <div className='chart'>
-        <StockChart/>
-        </div>   
-       
-       
+        <StockChart/>  
+        
+      </div> 
+        <div  className='bar'>
+          <BarChart/>
+         </div>
 
     </div>
   );

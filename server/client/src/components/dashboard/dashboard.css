@@ -5,11 +5,11 @@
     border:1px solid #EEF5FF;
     background-color: #EEF5FF;
     justify-content: space-between;
-    margin-top:30px;
+    margin-top:20px;
     margin-left:30px;
     width: 250px;
     height:100px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 1);
+    box-shadow: 0 4px 6px #DCF2F1;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 .customers>p{
@@ -30,13 +30,13 @@ p>.totalC{
 }
 .sales{
     justify-content: space-between;
-    margin-top:30px;
+    margin-top:20px;
     margin-left:50px;
     border:1px solid #EEF5FF;
     background-color: #EEF5FF;
     width: 250px;
     height:100px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 1);
+    box-shadow: 0 4px 6px #DCF2F1;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
     
 }
@@ -57,13 +57,13 @@ p>.totalS{
 }
 .order{
     justify-content: space-between;
-    margin-top:30px;
+    margin-top:20px;
     margin-left:50px;
     border:1px solid #EEF5FF;
     background-color: #EEF5FF;
     width: 250px;
     height:100px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 1);
+    box-shadow: 0 4px 6px #DCF2F1;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 .order>p{
@@ -83,13 +83,13 @@ p>.totalO{
 }
 .earning{
     justify-content: space-between;
-    margin-top:30px;
+    margin-top:20px;
     margin-left:50px;
     border:1px solid #EEF5FF;
     background-color: #EEF5FF;
     width: 250px;
     height:100px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 1);
+    box-shadow: 0 4px 6px #DCF2F1;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 .earning>p{
@@ -122,25 +122,30 @@ p>.totalE{
     background-color: #DCF2F1;
     box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); 
 }
+.Obar >h4{
+    margin-left:20px;
+    margin-top:5px;
+    font-family: 'Times New Roman', Times, serif;
+    color:#365486;
+
+}
 
 .chart{
-    border:1px solid black;
-    width:300px;
+    border:1px solid #DCF2F1;
+    width:400px;
     height:290px;
-    margin-left:50px;
+    margin-left:460px;
+    margin-top:15px;
+    box-shadow: 0 4px 6px #DCF2F1;
 }
-.line{
-  
-    width:300px;
-    height:300px;
-}
+
 .latestorders{
     border:1px solid #DCF2F1;
     width:830px;
-    margin-top:30px;
+    margin-top:20px;
     margin-left:30px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 1);
-    background-color: #DCF2F1;
+    box-shadow: 0 4px 6px #DCF2F1;
+    
    
 }
 #latestOrders{
@@ -152,7 +157,7 @@ p>.totalE{
     width:300px;
 }
 .client{
-    border:1px solid #DCF2F1;
+    border:3px solid #DCF2F1;
     height:150px;
     width:140px;
     margin-left:20px;
@@ -188,4 +193,71 @@ p>.totalE{
     text-decoration: none;
     margin-left:80px;
   
+}
+.latestcustomers{
+    width:300px;
+    margin-left:880px;
+    position: absolute;
+    top:140px;
+    height:530px;
+    border:1px solid #DCF2F1;
+    box-shadow: 0 4px 6px #DCF2F1;
+    
+}
+#latestS{
+   border-bottom: none;
+}
+.AllSup{
+    border:3px solid #DCF2F1;
+    border-radius:10px;
+    margin-bottom:20px;
+    height:40px;
+    margin-left:10px;
+    margin-right:10px;
+    padding-left:10px;
+}
+.icn{
+    color:#365486;
+    
+
+}
+.suplr{
+    border-color:3px solid #365486;
+    margin-bottom:20px;
+    height:40px;
+    margin-left:10px;
+    margin-right:10px;
+    padding-left:10px;
+}
+#tbl th{
+    background-color: white;
+    color: #365486;
+    font-family: 'Times New Roman', Times, serif;
+    
+}
+#tbl td{
+    padding-left:15px;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: 540;
+}
+.fbars{
+    margin-left:110px;
+    margin-top:2px;
+    
+}
+.latestcustomers>h5{
+    margin-left:10px;
+    margin-top:10px;
+    color: #365486;
+}
+.bar{
+    border:1px solid #DCF2F1;
+    width:400px;
+    height:290px;
+    margin-left:40px;
+    position: absolute;
+    top:380px;
+    box-shadow: 0 4px 6px #DCF2F1;
+    padding-top:50px;
+    
 }

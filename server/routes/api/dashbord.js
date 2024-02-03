@@ -13,7 +13,8 @@ router.get('/dashboardData', async (req, res) => {
     const totalCustomers = await getTotalCustomers();
     const stockGraphData = await getStockGraphData();
     const latestOrders = await Order.find().sort({ date: -1 }).limit(5);
-    const latestCustomers = await getLatestCustomers();
+    const latestSupplier = await getLatestSupplier();
+    const salesPerCategory = await getSalesPerCategory(); 
     
     // Log the data being sent in the response
     console.log('Sending response:', {
@@ -23,7 +24,8 @@ router.get('/dashboardData', async (req, res) => {
       totalCustomers,
       stockGraphData,
       latestOrders,
-      latestCustomers,
+      latestSupplier,
+      salesPerCategory, 
     });
 
     // Return the dashboard data as a JSON response
@@ -34,7 +36,8 @@ router.get('/dashboardData', async (req, res) => {
       totalCustomers,
       stockGraphData,
       latestOrders,
-      latestCustomers,
+      latestSupplier,
+      salesPerCategory, 
     });
 
   } catch (error) {
@@ -63,12 +66,12 @@ async function getTotalCustomers() {
 }
 
 // Function to get data for the latest customers
-async function getLatestCustomers() {
+async function getLatestSupplier() {
   try {
-    // Fetch data from the Order model (adjust fields based on your schema)
-    const latestCustomers = await Order.find({}, 'customerName').sort({ date: -1 }).limit(5);
+    // Fetch data from the Product model (adjust fields based on your schema)
+    const latestSupplier = await Product.find({}, 'supplierName supplierContactInfo').sort({ date: -1 }).limit(5);
 
-    return latestCustomers;
+    return latestSupplier;
   } catch (error) {
     console.error('Error fetching latest customers:', error);
     throw error;
@@ -102,8 +105,7 @@ async function calculateEarnings() {
     throw error;
   }
 }
-
-// Function to calculate sales
+//function to calculate total sales :
 async function calculateSales() {
   try {
     // Use Mongoose aggregation to calculate total sales
@@ -167,45 +169,74 @@ router.get('/ordersPerWeek', async (req, res) => {
   }
 });
 
-// Function to get data for the total orders per week
-async function getOrdersPerWeek(startDate, endDate) {
+
+
+// Add a new API endpoint to get total quantity of products for each supplier
+router.get('/totalProductsPerSupplier', async (req, res) => {
   try {
-    const orders = await Order.find({
-      date: {
-        $gte: new Date(startDate),
-        $lt: new Date(endDate),
-      },
-    });
-
-    const ordersByWeek = {};
-
-    orders.forEach(order => {
-      const weekNumber = getISOWeekNumber(new Date(order.date));
-      if (!ordersByWeek[weekNumber]) {
-        ordersByWeek[weekNumber] = 0;
-      }
-      ordersByWeek[weekNumber]++;
-    });
-
-    const ordersData = Object.keys(ordersByWeek).map(weekNumber => ({
-      week: parseInt(weekNumber),
-      totalOrders: ordersByWeek[weekNumber],
-    }));
-
-    return ordersData;
+    const totalProductsPerSupplier = await getTotalProductsPerSupplier();
+    res.json(totalProductsPerSupplier);
   } catch (error) {
-    console.error('Error fetching orders per week:', error);
+    console.error('Error fetching total products per supplier:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+// Function to get total quantity of products for each supplier
+async function getTotalProductsPerSupplier() {
+  try {
+    // Use Mongoose aggregation to calculate total quantity of products for each supplier
+    const totalProductsPerSupplierResult = await Product.aggregate([
+      {
+        $group: {
+          _id: '$supplierName',
+          totalQuantity: { $sum: '$quantityInStock' },
+        },
+      },
+    ]);
+
+    return totalProductsPerSupplierResult;
+  } catch (error) {
+    console.error('Error calculating total products per supplier:', error);
     throw error;
   }
 }
 
-// Helper function to get ISO week number for a given date
-function getISOWeekNumber(date) {
-  const startOfYear = new Date(date.getFullYear(), 0, 1);
-  const diff = (date - startOfYear) / (24 * 3600 * 1000 * 7);
-  return Math.ceil(diff) + 1;
+// Function to get sales data for each product category
+async function getSalesPerCategory() {
+  try {
+    const salesPerCategoryResult = await Order.aggregate([
+      {
+        $unwind: '$products',
+      },
+      {
+        $group: {
+          _id: '$products.category',
+          totalSales: { $sum: '$products.quantity' },
+        },
+      },
+    ]);
+
+    return salesPerCategoryResult.map(({ _id, totalSales }) => ({
+      category: _id,
+      totalSales,
+    }));
+  } catch (error) {
+    console.error('Error calculating sales per category:', error);
+    throw error;
+  }
 }
 
+// API endpoint to get sales data for each product category
+router.get('/salesPerCategory', async (req, res) => {
+  try {
+    const salesPerCategoryData = await getSalesPerCategory();
+    res.json(salesPerCategoryData);
+  } catch (error) {
+    console.error('Error calculating sales per category:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
 
 
 module.exports = router;
