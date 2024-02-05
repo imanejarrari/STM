@@ -6,9 +6,7 @@ const  MainSupp = () => {
     return (
         <div className="main-page">
             <Sidebar />
-           <Supplier/>
-           
-            
+            <Supplier/>
         </div>
 
     );

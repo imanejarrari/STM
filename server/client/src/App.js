@@ -3,14 +3,12 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import LoginPage from './components/LoginPage/LoginPage';
 import StockPage from './components/stock/productsIn/StockPage';
 import MainPage from './components/stock/products/MainPage';
+import ExeclPage from './components/ExcelFile/ExcelPage';
+import MainSupp from './components/suppliers/MainSupp';
 import MainOrder from './components/orders/allOrders/orderMain';
-import MainSupp from './components/Suppliers/MainSupp';
 import NewOrder from './components/orders/NewOrder/NewOrderMain';
 import Details from './components/orders/NewOrder/DetailsMain';
 import MainDash from './components/dashboard/mainDash';
-
-
-
 
 function App() {
   const [isLoggedIn, setisLoggedIn] = useState(false);
@@ -23,35 +21,33 @@ function App() {
   }, []);
 
   return (
-      <Router>
-        <div className="App">
-          <Routes>
-            <Route
-              path="/"
-              element={isLoggedIn ? <Navigate to="/productlist" /> : <LoginPage setisLoggedIn={setisLoggedIn} />}
-            />
-            {isLoggedIn && (
-              <>
-                <Route path="/productlist" element={<MainPage />} />
+    <>
+        <Router>
+          <div className="App">
+            <Routes>
+              <Route
+                path="/"
+                element={isLoggedIn ? <Navigate to="/dashboard" /> : <LoginPage setisLoggedIn={setisLoggedIn} />}
+              />
+              {isLoggedIn && (
+                <>
+                    <Route path="/main" element={<MainPage />} />
+                    <Route path="/stock" element={<StockPage />}  />
+                    <Route path="/convertExcel" element={<ExeclPage />}  />
+                    <Route path="/suppliers" element={<MainSupp />} />
+                    <Route path="/productlist" element={<MainPage />} />
                 <Route path="/stock" element={<StockPage />}  />
                 <Route path='/allOrders' element={<MainOrder /> } />
                 <Route path='/productsBySupplier' element={<MainSupp /> } />
                 <Route path='/placeOrder' element={<NewOrder/>} />
                 <Route path='/orderDetails/:orderId' element={<Details/>} />
                 <Route path='/dashboard' element={<MainDash/>} />
-               
-               
-               
-        
-
-                
-               
-                
-              </>
-            )}
-          </Routes>
-        </div>
-      </Router>
+                </>
+              )}
+            </Routes>
+          </div>
+        </Router>
+    </>
   );
 }
 

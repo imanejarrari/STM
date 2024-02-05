@@ -6,7 +6,6 @@ import './order.css';
 const CustomerOrdersList = () => {
   const [allOrders, setAllOrders] = useState([]);
   const [selectedOrder, setSelectedOrder] = useState(null);
-  const [orderProducts, setOrderProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [error, setError] = useState(null);
@@ -157,7 +156,7 @@ const handleViewDetails = (orderId) => {
         <div className="text-danger">{error}</div>
       ) : (
       
-        <table className='table'>
+        <table className='table table-hover shadow p-1 mb-4 bg-body rounded'>
           <thead> 
       
             <tr>

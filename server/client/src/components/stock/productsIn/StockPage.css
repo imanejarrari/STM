@@ -22,14 +22,13 @@
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
-  margin-left:10px;
-  
 }
 
 #add-product:hover {
   background-color:#89cff0;
-  color: #0d172a;
+  color: whitesmoke;
 }
+
 
 @media (min-width: 768px) {
 #add-product {

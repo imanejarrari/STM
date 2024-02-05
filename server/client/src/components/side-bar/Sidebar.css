@@ -1,18 +1,14 @@
 .sidebar-link li:hover {
+  background-color: #89cff0;
   color: #fff;
   cursor: pointer;
-  background-color: #89cff0;
-  border-radius:30px;
-  font-size:large;
-  font-weight: bold;
-  
-
+  border: #fff 1px solid;
 
 }
-.sidebar-link li{
-  transition: all .3s linear;
-  
-  
+
+.labelDesign{
+  border: none; 
+  border-radius: 40px;
+  font-family:sans-serif;
+  word-spacing: 4px;
 }
-
-

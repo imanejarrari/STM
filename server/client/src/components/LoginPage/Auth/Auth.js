@@ -1,7 +1,8 @@
 import React, { useState} from 'react';
 import axios from 'axios';
 import "./Auth.css";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const AuthForm = ({ setisLoggedIn}) => {
@@ -43,8 +44,12 @@ const AuthForm = ({ setisLoggedIn}) => {
 
       localStorage.setItem('authToken', response.data.token);
       localStorage.setItem('userName', response.data.name);
-      setisLoggedIn(true);
 
+      if (authMode === 'signin') {
+        setisLoggedIn(true);
+        
+      }
+      
       setFormData({
         name: '',
         email: '',
@@ -54,6 +59,7 @@ const AuthForm = ({ setisLoggedIn}) => {
   
       if (authMode === 'signup') {
         setAuthMode('signin');
+        toast.success("Congratulations! Your account has been successfully created!");
       }
     } catch (error) {
       if (error.response && error.response.data) {
@@ -156,6 +162,18 @@ const AuthForm = ({ setisLoggedIn}) => {
           </div>
         </div>
       </form>
+      <ToastContainer
+position="top-center"
+autoClose={5000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+theme="light"
+/>
     </div>
   );
 };

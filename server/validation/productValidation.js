@@ -39,7 +39,6 @@ module.exports = function validateNewProductInput(data) {
     errors.supplierContactInfo = "Supplier Contact Info field is required";
   }
 
-
   // Cost Price checks
   if (Validator.isEmpty(data.costPrice)) {
     errors.costPrice = "Cost Price field is required";

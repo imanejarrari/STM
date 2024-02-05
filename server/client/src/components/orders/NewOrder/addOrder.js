@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import './AddOrder.css';
 import { FaTimes } from 'react-icons/fa';
 
+
+
 const NewOrderForm = ({ products, onSubmit }) => {
   const [customerName, setCustomerName] = useState('');
   const [customerAddress, setCustomerAddress] = useState('');
@@ -59,6 +61,9 @@ const NewOrderForm = ({ products, onSubmit }) => {
         delivereyDate: formattedDate,
         products: selectedProducts,
       });
+      
+
+
       setCustomerName('');
       setCustomerAddress('');
       setCodePostal('');
@@ -66,14 +71,16 @@ const NewOrderForm = ({ products, onSubmit }) => {
       setSelectedProducts([]);
     } else {
       console.error('Please fill in all required fields');
-      // Optionally, you can display an error message to the user
+      
+
+      
     }
   };
   
 
   return (
     <form onSubmit={handleSubmit}  className='New'>
-      <table>
+      <table >
        <thead>
           <tr>
           <th className='frm'>
@@ -177,6 +184,10 @@ const NewOrderForm = ({ products, onSubmit }) => {
        </thead>
       </table>
       
+
+
+ 
+
       
     </form>
   );

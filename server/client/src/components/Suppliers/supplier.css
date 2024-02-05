@@ -20,33 +20,31 @@
 .link .selected {
     color:#89cff0;
 }
-.table{
-    margin-top:50px;
-    
-}
-
 .view{
     border: none;
     border-radius: 50px;
-    background-color:#89cff0;
+    background-color:#007fff;
     font-family: 'Times New Roman', Times, serif;
     font-size: small;
+    color:  #f0f8ff ;
 }
 .total{
     width:150px;
-    padding-left:20px;
-    border: 1px solid whitesmoke;
+    border: 1px solid #f0f8ff ;
     border-radius:30px;
-    background-color: whitesmoke;
-    color: black;
+    background-color: #007fff;
+    color:  #f0f8ff ;
     
 }
 .quantity{
-    width:220px;
-    padding-left:20px;
-    border: 1px solid whitesmoke;
+    width:150px;
+    border: 1px solid  #f0f8ff;
     border-radius:30px;
-    background-color: whitesmoke;
-    color: black;
-    margin-top:10px;
+    background-color:#007fff;
+    color:  #f0f8ff;
 }
+.close-model{
+    margin-bottom: 4px;
+}
+
+

@@ -3,6 +3,8 @@ import NewOrderForm from './addOrder';
 import { useNavigate } from 'react-router-dom';
 import './AddOrder.css';
 import { Link } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const NewOrderPage = () => {
   const [products, setProducts] = useState([]); // Fetch products from the server
@@ -46,11 +48,12 @@ const NewOrderPage = () => {
         const result = await response.json();
         console.log('Order placed successfully:', result.order);
         // Handle success, e.g., redirect to order details page
-        navigate('/allOrders');
+        toast.success('Order placed successfully!');
       } else {
         const errorData = await response.json(); // Parse error response
         console.error('Failed to place order:', errorData.error);
         // Handle failure, e.g., show an error message to the user
+        toast.error('Failed to place order');
       }
     } catch (error) {
       console.error('Error placing order:', error);
@@ -61,6 +64,19 @@ const NewOrderPage = () => {
     <div>
             <div className='div1'><Link to="/allOrders" exact={true}  className='orders' style={{fontFamily:'sans-serif' , fontWeight:'bold' , color:'black' }}>BACK</Link></div>
       <NewOrderForm products={products} onSubmit={handlePlaceOrder} />
+
+      <ToastContainer
+  position="top-center"
+  autoClose={5000}
+  hideProgressBar={false}
+  newestOnTop={false}
+  closeOnClick={false}
+  rtl={false}
+  pauseOnFocusLoss
+  draggable
+  pauseOnHover
+  theme="light"
+/>
     </div>
   );
 };

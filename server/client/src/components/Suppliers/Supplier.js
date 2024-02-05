@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
 import { FaTimes } from 'react-icons/fa';
 
+
 const SuppliersList = () => {
   const [uniqueSuppliers, setUniqueSuppliers] = useState([]);
   const [selectedSupplier, setSelectedSupplier] = useState(null);
@@ -10,6 +11,8 @@ const SuppliersList = () => {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [error, setError] = useState(null);
+  const [sortColumn, setSortColumn] = useState(null);
+  const [sortOrder, setSortOrder] = useState('asc');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -40,7 +43,6 @@ const SuppliersList = () => {
       const data = await response.json();
       console.log('Fetched products:', data);
 
-      // Append the new products to the existing list
       setSupplierProducts((prevProducts) => [...prevProducts, ...data]);
     } catch (error) {
       console.error('Error fetching products:', error);
@@ -64,7 +66,45 @@ const SuppliersList = () => {
   const filteredSuppliers = uniqueSuppliers.filter((supplier) =>
     supplier.supplierName.toLowerCase().includes(searchTerm.toLowerCase())
   );
+  const changeDateFormat = (e) =>{
+    const parsedDate = new Date(e);
+    if (isNaN(parsedDate.getTime())) {
+     return "Invalid Date";
+    }
+    const options = {
+     year: "numeric",
+     month: "2-digit",
+     day: "2-digit",
+   };
+    const formattedInputDate = parsedDate.toLocaleString("fr-FR", options);
+    return formattedInputDate;
+  }  
 
+  const handleSort = (column) => {
+    if (sortColumn === column) {
+      setSortOrder((prevOrder) => (prevOrder === 'asc' ? 'desc' : 'asc'));
+    } else {
+      setSortColumn(column);
+      setSortOrder('asc');
+    }
+  };
+
+  const sortedSuppliers = [...filteredSuppliers].sort((a, b) => {
+    if (sortColumn) {
+      if (sortOrder === 'asc') {
+        return a[sortColumn].localeCompare(b[sortColumn]);
+      } else {
+        return b[sortColumn].localeCompare(a[sortColumn]);
+      }
+    }
+    return 0;
+  });
+  const getSortIcon = (column) => {
+    if (sortColumn === column) {
+      return sortOrder === 'asc' ? '▲' : '▼';
+    }
+    return null;
+  };
   return (
     <div className="container mt-4">
       <div className="p-1 bg-light rounded rounded-pill shadow-sm mb-4 ml-5 " style={{ marginRight: "250px", marginLeft: "250px" }}>
@@ -88,30 +128,44 @@ const SuppliersList = () => {
       ) : error ? (
         <div className="text-danger">{error}</div>
       ) : (
-        <table className='table'>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Contact info</th>
-              <th>Registration Date</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredSuppliers.map((supplier) => (
-              <tr key={supplier._id}>
-                <td>{supplier.supplierName}</td>
-                <td>{supplier.supplierContactInfo}</td>
-                <td>{supplier.date}</td>
-                <td>
+        <div className="container" style={{maxHeight: "520px", overflowY: "auto", width:"1000px"}}>
+        <table className='table table-hover shadow p-1 mb-4 bg-body rounded'>
+        <thead style={{cursor:"pointer"}}>
+          <tr>
+            <th onClick={() => handleSort('supplierName')}>
+              Name {getSortIcon('supplierName')}
+            </th>
+            <th onClick={() => handleSort('supplierContactInfo')}>
+              Contact info {getSortIcon('supplierContactInfo')}
+            </th>
+            <th onClick={() => handleSort('date')}>
+              <center>Registration Date {getSortIcon('date')}</center>
+            </th>
+            <th>
+              <center>Action</center>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {sortedSuppliers.map((supplier) => (
+            <tr key={supplier._id}>
+              <td>{supplier.supplierName}</td>
+              <td>{supplier.supplierContactInfo}</td>
+              <td>
+                <center>{changeDateFormat(supplier.date)}</center>
+              </td>
+              <td>
+                <center>
                   <button onClick={() => openModal(supplier)} className='view'>
                     View Products
                   </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+                </center>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+        </div>
       )}
 
       <Modal
@@ -126,11 +180,11 @@ const SuppliersList = () => {
             bottom: 'auto',
             marginRight: '-50%',
             transform: 'translate(-50%, -50%)',
-            width: '80%', // Adjust the width as needed
-            maxWidth: '600px',
+            width: '60%', 
+            Width: '600px',
             padding: '20px',
             boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)',
-            overflow: 'visible', // Set overflow to visible to ensure modal is visible even if content exceeds the height
+            overflow:"visible", 
           },
           overlay: {
             backgroundColor: 'rgba(0, 0, 0, 0.5)',
@@ -139,10 +193,10 @@ const SuppliersList = () => {
       >
         <div className="modal-header">
         <h4> {selectedSupplier && selectedSupplier.supplierName}'s Product List :</h4>
-        
-            <button className="close-icon" onClick={closeModal} ><FaTimes /></button>
+            <button className="close-icon btn btn-primary" onClick={closeModal} ><FaTimes className='close-model' /></button>
         </div>
-        <table className='table'>
+        <div style={{maxHeight:"350px", overflowY:"auto"}} className='mt-3 mb-3'>
+          <table className='table table-hover'>
           <thead>
             <tr>
               <th>Name</th>
@@ -164,10 +218,15 @@ const SuppliersList = () => {
             ))}
           </tbody>
         </table>
-        <div className='total'>Total Products: {totalProducts}</div>
-        <div className='quantity'>Total Quantity in Stock: {totalQuantityInStock}</div>
+        </div>
+        <div className='container'>
+          <div className='row align-item-center'>
+        <div className='total col text-center p-1 text-uppercase'>Total Products: {totalProducts}</div>
+        <div className='quantity col text-center p-1 text-uppercase'>Total Quantity in Stock: {totalQuantityInStock}</div>
+        </div>
+        </div>
       </Modal>
-    </div>
+     </div>
   );
 };
 

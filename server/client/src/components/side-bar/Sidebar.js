@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   CDBSidebar,
   CDBSidebarContent,
@@ -9,61 +9,48 @@ import {
 } from 'cdbreact';
 import { NavLink } from 'react-router-dom';
 import "./Sidebar.css";
-
+import ImageAvatars from"./ImageAvatars"
 
 const Sidebar = () => {
 
+  const [avatreDiv, setAvatareDiv] = useState(true);
 
-  const userName = localStorage.getItem('userName');
-  const LogOut = () => {
-    localStorage.removeItem('authToken');
-    localStorage.removeItem("userName");
-    window.location.href = "/";
-    };
-
-   
-
-  
   return (
-    <div style={{ display: 'flex', height: '100vh', overflow: 'scroll initial'}}>
-      <CDBSidebar textColor="#fff" backgroundColor="rgb(67, 111, 255)">
-        <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>
+    <div style={{ display: 'flex', height: '100vh', overflow: 'scroll initial' }}>
+      <CDBSidebar textColor="#fff" backgroundColor="rgb(67, 111, 255)" >
+        <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>} >
           <a href="/" className="text-decoration-none" style={{ color: 'inherit' }}>
-            ST-MG
+            OpTiStock
           </a>
         </CDBSidebarHeader>
 
         <CDBSidebarContent className="sidebar-content">
           <CDBSidebarMenu>
-          <NavLink exact to={"/dashboard"} className="sidebar-link">
+            <NavLink exact to="/dashboard" className="sidebar-link">
               <CDBSidebarMenuItem icon='chart-line'>Dashboard</CDBSidebarMenuItem>
             </NavLink>
-            <NavLink exact to={"/productlist"} className="sidebar-link" >
+            <NavLink exact to="/main" className="sidebar-link" >
               <CDBSidebarMenuItem icon='list'>Products</CDBSidebarMenuItem>
             </NavLink>
-            <NavLink exact to={"/stock"}  className="sidebar-link">
+            <NavLink exact to="/stock"  className="sidebar-link">
               <CDBSidebarMenuItem icon="list-alt">Stock In</CDBSidebarMenuItem>
             </NavLink>
             <NavLink exact to={"/allOrders"}  className="sidebar-link">
               <CDBSidebarMenuItem icon="file-alt">Orders</CDBSidebarMenuItem>
             </NavLink>
-           <NavLink  exact to={"/productsBySupplier"} className="sidebar-link">
-            <CDBSidebarMenuItem icon="users">All Suppliers </CDBSidebarMenuItem> 
-           </NavLink>
-            
-       
-      
-            <NavLink exact to={"/convert"} className="sidebar-link">
-              <CDBSidebarMenuItem icon="file-excel" >Convert Excel File</CDBSidebarMenuItem>
+            <NavLink exact to="/suppliers"  className="sidebar-link">
+              <CDBSidebarMenuItem icon="users">Suppliers</CDBSidebarMenuItem>
             </NavLink>
-            <NavLink  onClick={LogOut}  className="sidebar-link">
-              <CDBSidebarMenuItem icon="door-open">Log Out</CDBSidebarMenuItem>
+            <NavLink exact to="/convertExcel" className="sidebar-link">
+              <CDBSidebarMenuItem icon="file-excel">Convert Excel File</CDBSidebarMenuItem>
             </NavLink>
           </CDBSidebarMenu>
         </CDBSidebarContent>
 
-        <CDBSidebarFooter style={{ textAlign: 'center' }}>
-          <div style={{ padding: '20px 5px' }}>{userName}</div>
+           <CDBSidebarFooter>
+          <div className='mx-auto mb-2' style={{ width: avatreDiv ? "40px": "200px" ,transition: 'width 0.5s',}} onClick={handlAvatreDiv => {setAvatareDiv(!avatreDiv)}}>
+            <ImageAvatars />
+          </div>
         </CDBSidebarFooter>
       </CDBSidebar>
     </div>
@@ -71,4 +58,3 @@ const Sidebar = () => {
 };
 
 export default Sidebar;
-
