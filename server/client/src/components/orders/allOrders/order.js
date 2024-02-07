@@ -90,6 +90,19 @@ const handleViewDetails = (orderId) => {
   setSelectedOrder(orderId);
 };
  
+const changeDateFormat = (e) =>{
+  const parsedDate = new Date(e);
+  if (isNaN(parsedDate.getTime())) {
+   return "Invalid Date";
+  }
+  const options = {
+   year: "numeric",
+   month: "2-digit",
+   day: "2-digit",
+ };
+  const formattedInputDate = parsedDate.toLocaleString("fr-FR", options);
+  return formattedInputDate;
+}
 
   return (
     <div className="container mt-4">
@@ -177,7 +190,7 @@ const handleViewDetails = (orderId) => {
             return (
               <tr key={order._id}>
                 <td>{order.customerName}</td>
-                <td>{order.delivereyDate}</td>
+                <td>{changeDateFormat(order.delivereyDate)}</td>
                 <td>{order.totalQuantity}</td>
                 <td>${order.totalPrice}</td>
                 <td >
