@@ -25,14 +25,10 @@ const NewOrderPage = () => {
   }, []);
 
   const handlePlaceOrder = async (orderData) => {
-    console.log('Order Data:', orderData); 
-    console.log('Deliverey Date:', orderData.delivereyDate);
-  console.log('Code Postal:', orderData.codePostal);
-
     try {
       if (!orderData.delivereyDate || !orderData.codePostal) {
-        console.error('Please provide deliveryDate and CodePostal');
-        // Optionally, you can display an error message to the user
+        // Show an error toast if required fields are missing
+        toast.error('Please provide delivery date and code postal');
         return;
       }
 
@@ -44,39 +40,43 @@ const NewOrderPage = () => {
         body: JSON.stringify(orderData),
       });
 
-      if (response.ok) {
-        const result = await response.json();
-        console.log('Order placed successfully:', result.order);
-        // Handle success, e.g., redirect to order details page
-        toast.success('Order placed successfully!');
+      if (!response.ok) {
+        const errorData = await response.json();
+        if (errorData.productName) {
+          // Product-specific error, display custom message
+          toast.error(`Not enough stock for product : ${errorData.productName}`);
+        } else {
+          // General error
+          toast.error(`Failed to place order: ${errorData.error}`);
+        }
       } else {
-        const errorData = await response.json(); // Parse error response
-        console.error('Failed to place order:', errorData.error);
-        // Handle failure, e.g., show an error message to the user
-        toast.error('Failed to place order');
+        // Order placed successfully
+        toast.success('Order placed successfully!');
       }
     } catch (error) {
       console.error('Error placing order:', error);
+      toast.error('An unexpected error occurred. Please try again later.');
     }
+  
   };
 
   return (
     <div>
-            <div className='div1'><Link to="/allOrders" exact={true}  className='orders' style={{fontFamily:'sans-serif' , fontWeight:'bold' , color:'black' }}>BACK</Link></div>
+      <div className='div1'><Link to="/allOrders" exact={true}  className='orders' style={{fontFamily:'sans-serif' , fontWeight:'bold' , color:'black' }}>BACK</Link></div>
       <NewOrderForm products={products} onSubmit={handlePlaceOrder} />
 
       <ToastContainer
-  position="top-center"
-  autoClose={5000}
-  hideProgressBar={false}
-  newestOnTop={false}
-  closeOnClick={false}
-  rtl={false}
-  pauseOnFocusLoss
-  draggable
-  pauseOnHover
-  theme="light"
-/>
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 };

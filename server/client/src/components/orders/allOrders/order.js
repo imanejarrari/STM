@@ -36,49 +36,64 @@ const CustomerOrdersList = () => {
   }, []);
 
 
-// Function to check if the delivery date is the current day or in the past
-const isDeliveryDelivered = (deliveryDate) => {
-  const formattedToday = new Date().toISOString().split('T')[0];
-  return formattedToday >= deliveryDate.split('T')[0];
-};
 
-// Update the status automatically based on delivery date
-const updateStatusBasedOnDeliveryDate = (order) => {
-  if (isDeliveryDelivered(order.delivereyDate)) {
-    // If delivery date is today or in the past, update the status to 'Delivered'
-    order.Status = 'Delivered';
-  }
-};
+  // Function to check if the delivery date is the current day or in the past
+  const isDeliveryDelivered = (deliveryDate) => {
+    const formattedToday = new Date().toISOString().split('T')[0];
+    return formattedToday >= deliveryDate.split('T')[0];
+  };
 
 
-useEffect(() => {
-  // Function to filter orders based on status and date range
-  const filterOrders = () => {
-    let filtered = allOrders;
 
-    // Filter by customer name
-    filtered = filtered.filter((order) =>
+  // Update the status automatically based on delivery date and update in the database
+  const updateStatusBasedOnDeliveryDate = async (order) => {
+    if (isDeliveryDelivered(order.delivereyDate) && order.Status !== 'Delivered') {
+      order.Status = 'Delivered';
+      try {
+        // Send a request to update the order status in the backend
+        await fetch(`http://localhost:5000/api/orders/updateStatus/${order._id}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ status: 'Delivered' }),
+        });
+      } catch (error) {
+        console.error('Error updating status:', error);
+        // Handle error appropriately
+      }
+    }
+  };
+
+
+   useEffect(() => {
+      // Function to filter orders based on status and date range
+     const filterOrders = () => {
+      let filtered = allOrders;
+
+       // Filter by customer name
+      filtered = filtered.filter((order) =>
       order.customerName.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+      );
 
-    // Filter by status
-    if (selectedStatus !== 'All') {
-      filtered = filtered.filter((order) => order.Status === selectedStatus);
-    }
+      // Filter by status
+        if (selectedStatus !== 'All') {
+        filtered = filtered.filter((order) => order.Status === selectedStatus);
+      }
 
-    // Filter by date range
-    if (startDate && endDate) {
-      filtered = filtered.filter((order) => {
-        const orderDate = new Date(order.delivereyDate).getTime();
-        const start = new Date(startDate).getTime();
-        const end = new Date(endDate).getTime();
+     // Filter by date range
+     if (startDate && endDate) {
+        filtered = filtered.filter((order) => {
+            const orderDate = new Date(order.delivereyDate).getTime();
+            const start = new Date(startDate).getTime();
+            const end = new Date(endDate).getTime();
 
-        return orderDate >= start && orderDate <= end;
-      });
-    }
+           return orderDate >= start && orderDate <= end;
+       });
+      }
 
     setFilteredOrders(filtered);
-  };
+};
 
   filterOrders();
 }, [allOrders, searchTerm, selectedStatus, startDate, endDate]);

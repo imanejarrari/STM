@@ -22,6 +22,14 @@ const Dashboard = () => {
         const totalProductsPerSupplierData = await totalProductsPerSupplierResponse.json();
         setTotalProductsPerSupplier(totalProductsPerSupplierData);
 
+                // Update order status based on delivery date
+                data.latestOrders.forEach(order => {
+                  if (isDeliveryDelivered(order.delivereyDate) && order.Status !== 'Delivered') {
+                    updateOrderStatus(order._id, 'Delivered');
+                  }
+                });
+        
+
       } catch (error) {
         console.error('Error fetching dashboard data:', error);
       }
@@ -29,6 +37,26 @@ const Dashboard = () => {
 
     fetchData();
   }, []);
+
+  const updateOrderStatus = async (orderId, status) => {
+    try {
+      await fetch(`http://localhost:5000/api/orders/updateStatus/${orderId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ status }),
+      });
+    } catch (error) {
+      console.error('Error updating status:', error);
+      // Handle error appropriately
+    }
+  };
+
+  const isDeliveryDelivered = (deliveryDate) => {
+    const formattedToday = new Date().toISOString().split('T')[0];
+    return formattedToday >= deliveryDate.split('T')[0];
+  };
 
   const handleViewDetails = (orderId) => {
     setSelectedOrder(orderId);
@@ -126,7 +154,7 @@ const Dashboard = () => {
              
              
                  <td className='icn'>
-                    <FaUser />{' '}
+                    <FaUser />
                   </td>
                   <td className='name'> {supplier.supplierName} </td>
                   <td className='contact'>{supplier.supplierContactInfo} </td>

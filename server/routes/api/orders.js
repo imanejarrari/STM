@@ -85,7 +85,9 @@ router.post('/placeOrder', async (req, res) => {
       }
 
       if (quantity > product.quantityInStock) {
-        return res.status(400).json({ error: `Not enough stock for product ${productId}. Available stock: ${product.quantityInStock}` });
+        return res.status(400).json({ error: `Not enough stock for product ${product.name}. Available stock: ${product.quantityInStock}`,
+        productName: product.name 
+      });
       }
 
       // Update the quantity in stock
@@ -146,8 +148,5 @@ router.delete('/deleteOrder/:orderId', async (req, res) => {
     res.status(500).json({ error: `Internal Server Error: ${error.message}` });
   }
 });
-
-
-
 
 module.exports = router;

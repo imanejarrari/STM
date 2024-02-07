@@ -239,4 +239,6 @@ router.get('/salesPerCategory', async (req, res) => {
 });
 
 
+
+
 module.exports = router;
