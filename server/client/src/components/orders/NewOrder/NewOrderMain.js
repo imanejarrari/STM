@@ -6,10 +6,7 @@ const  NewOrder = () => {
     return (
         <div className="form">
             <Sidebar />
-            <NewOrderPage/>
-           
-            
-        
+            <NewOrderPage/>  
         </div>
     );
 }

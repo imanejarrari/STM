@@ -1,14 +1,11 @@
-.sections{
-    display: flex;
-}
 .customers{
     border:1px solid #EEF5FF;
     background-color: #EEF5FF;
     justify-content: space-between;
     margin-top:20px;
-    margin-left:50px;
-    width: 250px;
-    height:100px;
+    margin-left:30px;
+    width: 200px;
+    height:90px;
     box-shadow: 0 4px 6px #DCF2F1;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
@@ -16,26 +13,23 @@
     color:grey;
     font-family: 'Times New Roman', Times, serif;
     font-size: large;
-    padding-top:10px;
 }
 p>.totalC{
-    margin-left:65px;
     color:black;
     width:60px;
     height:25px;
 }
 .customers>h6{
     padding-left:30px;
-    
 }
 .sales{
-    justify-content: space-between;
-    margin-top:20px;
-    margin-left:50px;
     border:1px solid #EEF5FF;
     background-color: #EEF5FF;
-    width: 250px;
-    height:100px;
+    justify-content: space-between;
+    margin-top:20px;
+    margin-left:30px;
+    width: 200px;
+    height:90px;
     box-shadow: 0 4px 6px #DCF2F1;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
     
@@ -50,19 +44,19 @@ p>.totalC{
     padding-left:30px;
 }
 p>.totalS{
-    margin-left:110px;
+    margin-left:70px;
     color:black;
     width:60px;
     height:25px;
 }
 .order{
-    justify-content: space-between;
-    margin-top:20px;
-    margin-left:50px;
     border:1px solid #EEF5FF;
     background-color: #EEF5FF;
-    width: 250px;
-    height:100px;
+    justify-content: space-between;
+    margin-top:20px;
+    margin-left:30px;
+    width: 200px;
+    height:90px;
     box-shadow: 0 4px 6px #DCF2F1;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
@@ -70,10 +64,8 @@ p>.totalS{
     color:grey;
     font-family: 'Times New Roman', Times, serif;
     font-size: large;
-    padding-top:10px;
 }
 p>.totalO{
-    margin-left:100px;
     color:black;
     width:60px;
     height:25px;
@@ -100,7 +92,7 @@ p>.totalO{
 
 }
 p>.totalE{
-    margin-left:80px;
+    margin-left:40px;
     color:black;
     width:60px;
     height:25px;
@@ -112,45 +104,33 @@ p>.totalE{
     background-color: #DCF2F1;
     box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); 
 }
-.order:hover{
-    background-color: #DCF2F1;
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); 
-}.earning:hover{
-    background-color: #DCF2F1;
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); 
-}.sales:hover{
-    background-color: #DCF2F1;
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); 
-}
-.Obar >h4{
-    margin-left:20px;
-    margin-top:5px;
+
+.dashClass h4{
     font-family: 'Times New Roman', Times, serif;
     color:#365486;
-
+margin: 0%;
+padding: 0%;
+}
+.dashClass h4:hover{
+    color: #709ae2;
 }
 
 .chart{
     border:1px solid #DCF2F1;
-    width:400px;
+    width:250px;
     height:290px;
-    margin-left:480px;
     margin-top:15px;
     box-shadow: 0 4px 6px #DCF2F1;
 }
 
 .latestorders{
     border:1px solid #DCF2F1;
-    width:830px;
-    margin-top:20px;
-    margin-left:50px;
+    width: auto;
     box-shadow: 0 4px 6px #DCF2F1;
-    
-   
 }
 #latestOrders{
     width:800px;
-    height:100px;
+    height:10px;
     margin-top:20px;
 }
 #latestO{
@@ -158,8 +138,8 @@ p>.totalE{
 }
 .client{
     border:3px solid #DCF2F1;
-    height:150px;
-    width:140px;
+    height:140px;
+    width:200px;
     margin-left:20px;
     padding-bottom:30px;
     border-radius:10px;
@@ -169,20 +149,18 @@ p>.totalE{
     color:grey;
     font-family: 'Times New Roman', Times, serif;
     font-size: large;
-   margin-top:12px;
+    margin-left: 8px;
 }
 .status{
     border-radius:20px;
-    height:22px;
-    width:120px;
-    
-    
-    
+    height:16px;
+    width:200px;
+    color: #EEF5FF;
+    padding: 12px;
 }
-#price{
-    margin-top:5px;
-   
-}
+/* #price{
+    margin-top:5px;  
+} */
 .icon{
     margin-right:3px;
     color:black;
@@ -196,7 +174,7 @@ p>.totalE{
 }
 .latestcustomers{
     width:300px;
-    margin-left:900px;
+    margin-left:880px;
     position: absolute;
     top:140px;
     height:530px;
@@ -252,12 +230,8 @@ p>.totalE{
 }
 .bar{
     border:1px solid #DCF2F1;
-    width:400px;
     height:290px;
-    margin-left:50px;
-    position: absolute;
-    top:380px;
+    margin-left:40px;
     box-shadow: 0 4px 6px #DCF2F1;
-    padding-top:50px;
-    
+    padding-top: 90px;
 }

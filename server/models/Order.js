@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const OrderSchema = new Schema({
-    
    customerName: {
      type: String,
      required: true
@@ -11,8 +10,8 @@ const OrderSchema = new Schema({
      type: String,
      required: true
    },
-   codePostal: {
-     type: Number,
+   delivereyDate: {
+     type: Date,
      required: true
    },
    products: [
@@ -24,25 +23,11 @@ const OrderSchema = new Schema({
        quantity: Number,
      },
    ],
-
-   productNames: [
-     {
-       type: String,
-       required: true
-     },
-   ],
-
    totalPrice: {
      type: Number,
      require: true
    },
-
-   delivereyDate: {
-     type: Date,
-     required: true
-   },
-
-   Status: {
+   status: {
      type: String,
      default: 'Not Delivered'
    },

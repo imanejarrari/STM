@@ -1,10 +1,9 @@
 .customer{
     border:2px solid rgb(67, 111, 255);
-   
-    width:1200px;
-    height:200px;
-    margin-left:20px;
-    margin-top:130px;
+    width:1050px;
+    height:150px;
+    margin-left:0px;
+    margin-top:100px;
 }
 .FaUser{
     color:  rgb(67, 111, 255);
@@ -16,13 +15,13 @@
 }
 .User{
  padding-left:50px;
- padding-top:50px;
+ padding-top:20px;
 }
 
 .Info{
     margin-left:350px;
     position: absolute;
-    top:180px;
+    top:120px;
 }
 p{
     margin-top:10px;
@@ -35,12 +34,11 @@ p{
 .Deliver{
     margin-left:800px;
     position: absolute;
-    top:180px;
+    top:120px;
 }
 #display{
-    width:1200px;
-    margin-left:20px;
-    margin-top:0px;
+    width:1050px;
+    margin-top:10px;
 }
 #display th{
     background-color: rgb(67, 111, 255);
@@ -59,9 +57,8 @@ p{
 .nag{
     background-color: rgb(67, 111, 255);
     border-color: rgb(67, 111, 255);
-    margin-left:30px;
     position: absolute;
-    top:50px;
+    top:20px;
 }
 .nag:hover{
     background-color: #89cff0;

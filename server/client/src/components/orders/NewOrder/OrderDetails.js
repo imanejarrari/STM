@@ -4,12 +4,24 @@ import './details.css';
 import { FaUser ,FaInfoCircle ,FaTruck  ,FaTrash  } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
+function extractDateFromTimestamp(timestamp) {
+  const dateObject = new Date(timestamp);
+  const year = dateObject.getUTCFullYear();
+  const month = dateObject.getUTCMonth() + 1; // Months are zero-based
+  const day = dateObject.getUTCDate();
+
+  // Create a string in the 'YYYY-MM-DD' format
+  const formattedDate = `${year}-${month < 10 ? '0' : ''}${month}-${day < 10 ? '0' : ''}${day}`;
+
+  return formattedDate;
+}
 
 const OrderDetails = () => {
   const { orderId } = useParams();
   const [orderDetails, setOrderDetails] = useState({});
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate(); 
+
 
   useEffect(() => {
     const fetchOrderDetails = async () => {
@@ -49,7 +61,7 @@ const OrderDetails = () => {
 
 
   return (
-    <div>
+    <div className='container m-0'>
       {loading ? (
         <div>Loading...</div>
       ) : (
@@ -57,7 +69,6 @@ const OrderDetails = () => {
           <button className='nag'><Link to='/allOrders' exact={true}  className='link'>Back To Orders</Link></button> 
           
             <div className='customer'> 
-               
                 <div className='User'>
                   <h5><FaUser className='FaUser'/>Customer :</h5>
                    <p>FullName:  {orderDetails.customerName}</p>
@@ -65,13 +76,11 @@ const OrderDetails = () => {
                  <div className='Info'>
                   <h5><FaInfoCircle className='FaUser' />Order Info :</h5>
                   <p>Order ID: {orderDetails._id}</p>
-                  <p>Delivery Date : {orderDetails.delivereyDate}</p>
+                  <p>Delivery Date : {extractDateFromTimestamp(orderDetails.delivereyDate)}</p>
                  </div>
                  <div className='Deliver'>
                       <h5><FaTruck className='FaUser' /> Deliver to :</h5>
                       <p>Address : {orderDetails.customerAddress}</p>
-                      <p>code Postal :{orderDetails.codePostal}</p>
-
                  </div>     
 
             </div>
@@ -89,20 +98,19 @@ const OrderDetails = () => {
                   <tbody>
                     <tr>
                     <td>
-                      <ul>
-                      {orderDetails.products.map((product) => (
-                        <li key={product.productId}>
-                          {product.quantity} <b>products of </b> {product.productId}
-                        </li>
-                      ))}
-
-                      </ul>
+                    <ul>
+        {orderDetails.products?.map((product) => (
+          <li key={product.productId._id}>
+            {product.quantity} <b>products of </b> {product.productId}
+          </li>
+        ))}
+      </ul>
                      </td>
                      <td>
                      {orderDetails.totalQuantity}
                       </td>
-                     <td>${orderDetails.totalPrice}</td>
-                     <td> <FaTrash  className='trash'   onClick={handleDeleteOrder} />  
+                     <td>{orderDetails.totalPrice} MAD</td>
+                     <td > <FaTrash  style={{cursor:"pointer"}} className='trash'   onClick={handleDeleteOrder} />  
                     </td>
                     </tr>
                  

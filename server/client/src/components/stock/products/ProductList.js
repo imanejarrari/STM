@@ -19,7 +19,6 @@ const ProductList = () => {
   const [isFullWidth, setIsFullWidth] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [openModification, setOpenModification] = useState(false);
 
   const fetchProducts = async () => {
     try {
@@ -106,11 +105,10 @@ const ProductList = () => {
     products.filter((product) => {
       const lowerCaseSearchTerm = searchTerm.toLowerCase();
       const lowerCaseProductName = product.name.toLowerCase();
-      const lowerCaseProductID = product._id.toLowerCase();
       const lowerCaseCategory = product.category.toLowerCase();
   
       return (
-        lowerCaseProductName.includes(lowerCaseSearchTerm) || lowerCaseCategory.includes(lowerCaseSearchTerm)|| lowerCaseProductID.includes(lowerCaseSearchTerm)
+        lowerCaseProductName.includes(lowerCaseSearchTerm) || lowerCaseCategory.includes(lowerCaseSearchTerm)
       );
     }),
     sortOption
@@ -121,14 +119,16 @@ const ProductList = () => {
     setLoading(true);
     fetchProducts();
   }, []);
-
-  const openModificationModal = () => {
-    setOpenModification(true);
-  }
-
-  const closeModification = () => {
-    setOpenModification(false);
-  }
+  
+  const handleSaveChanges = (updatedProduct) => {
+    setProducts((prevProducts) => {
+      const updatedProducts = prevProducts.map((product) =>
+        product._id === updatedProduct._id ? updatedProduct : product
+      );
+      return updatedProducts;
+    });
+    setSelectedProduct(updatedProduct);
+  };
 
   return (
     <div className={`container mt-4 ${isFullWidth ? 'w-100' : ''}`}>
@@ -188,7 +188,7 @@ const ProductList = () => {
                   className={`badge bg-primary text-wrap rounded-start-pill p-3 ${
                     product.quantityInStock === 0
                       ? 'bg-danger'
-                      : product.quantityInStock < 5
+                      : product.quantityInStock < 10
                         ? 'bg-warning'
                         : ''
                   }`}
@@ -207,7 +207,7 @@ const ProductList = () => {
           {selectedProduct && 
            <div className='row'>
            <div className="col p-2"  style={{ marginLeft: "58px", marginTop: "10px" }}>
-             <ProductModificationDialog showModal={openModification} selectedProduct={selectedProduct} closeModal={closeModification} />
+             <ProductModificationDialog selectedProduct={selectedProduct} onSaveChanges={handleSaveChanges}  />
            </div>
            <div className="col mr-2">
              <button

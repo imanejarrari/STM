@@ -106,7 +106,7 @@ const SuppliersList = () => {
     return null;
   };
   return (
-    <div className="container mt-4">
+    <div className="container mt-4" >
       <div className="p-1 bg-light rounded rounded-pill shadow-sm mb-4 ml-5 " style={{ marginRight: "250px", marginLeft: "250px" }}>
         <div className="input-group">
           <input
@@ -128,7 +128,7 @@ const SuppliersList = () => {
       ) : error ? (
         <div className="text-danger">{error}</div>
       ) : (
-        <div className="container" style={{maxHeight: "520px", overflowY: "auto", width:"1000px"}}>
+        <div className="container border-light" style={{maxHeight: "450px", overflowY: "auto", width:"1000px"}}>
         <table className='table table-hover shadow p-1 mb-4 bg-body rounded'>
         <thead style={{cursor:"pointer"}}>
           <tr>

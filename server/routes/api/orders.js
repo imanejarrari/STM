@@ -30,11 +30,9 @@ router.get('/allOrders', async (req, res) => {
 // API endpoint for fetching order details by orderId
 router.get('/orderDetails/:orderId', async (req, res) => {
   const { orderId } = req.params;
-
   try {
     // Fetch order details based on orderId from the database
     const orderDetails = await Order.findById(orderId);
-
     // If the order is not found, return an error
     if (!orderDetails) {
       return res.status(404).json({ error: 'Order details not found' });
@@ -60,21 +58,18 @@ router.get('/orderDetails/:orderId', async (req, res) => {
 
 // API endpoint for placing an order
 router.post('/placeOrder', async (req, res) => {
-  const { customerName, customerAddress, codePostal, delivereyDate, products } = req.body;
+  console.log('Request Payload:', req.body);
+
+  const { customerName, customerAddress, delivereyDate, products } = req.body;
 
   try {
     // Check if required fields are missing or empty
-    if (!customerName || !customerAddress || !codePostal || !delivereyDate || !products || products.length === 0) {
+    if (!customerName || !customerAddress || !delivereyDate || !products || products.length === 0) {
       return res.status(400).json({ error: 'Missing or invalid order data.' });
     }
 
     // Calculate total price
     const totalPrice = await calculateTotalPrice(products);
-
-    // Validate deliveryDate, customerAddress, and codePostal
-    if (!delivereyDate || !customerAddress || !codePostal) {
-      return res.status(400).json({ error: 'Delivery date, customer address, and code postal are required fields.' });
-    }
 
     // Validate and update product quantities in stock
     for (const { productId, quantity } of products) {
@@ -85,9 +80,7 @@ router.post('/placeOrder', async (req, res) => {
       }
 
       if (quantity > product.quantityInStock) {
-        return res.status(400).json({ error: `Not enough stock for product ${product.name}. Available stock: ${product.quantityInStock}`,
-        productName: product.name 
-      });
+        return res.status(400).json({ error: `Not enough stock for product ${productId}. Available stock: ${product.quantityInStock}` });
       }
 
       // Update the quantity in stock
@@ -96,9 +89,9 @@ router.post('/placeOrder', async (req, res) => {
       // Save the updated product
       await product.save();
     }
-     
 
-    const order = new Order({ customerName, customerAddress, codePostal, delivereyDate, products, totalPrice  });
+    // Create and save the order
+    const order = new Order({ customerName, customerAddress, delivereyDate, products, totalPrice });
     await order.save();
 
     res.status(201).json({ success: true, order });
@@ -106,7 +99,6 @@ router.post('/placeOrder', async (req, res) => {
     console.error('Error placing order:', error);
 
     if (error.name === 'ValidationError') {
-      // Handle validation error
       const validationErrors = Object.values(error.errors).map(err => err.message);
       return res.status(400).json({ error: `Validation Error: ${validationErrors.join(', ')}` });
     }
@@ -114,6 +106,7 @@ router.post('/placeOrder', async (req, res) => {
     res.status(500).json({ error: `Internal Server Error: ${error.message}` });
   }
 });
+
 
 
 // Function to calculate the total price of products in an order
@@ -146,6 +139,19 @@ router.delete('/deleteOrder/:orderId', async (req, res) => {
   } catch (error) {
     console.error(`Error deleting order ${orderId}:`, error);
     res.status(500).json({ error: `Internal Server Error: ${error.message}` });
+  }
+});
+
+
+router.put('/updateStatus', async (req, res) => {
+  const { orderId, newStatus } = req.body;
+
+  try {
+    const updatedOrder = await Order.findByIdAndUpdate(orderId, { status: newStatus }, { new: true });
+    res.json(updatedOrder);
+  } catch (error) {
+    console.error('Error updating order status:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 

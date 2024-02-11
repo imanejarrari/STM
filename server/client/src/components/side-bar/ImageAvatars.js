@@ -29,7 +29,7 @@ export default function ImageAvatars() {
     }
   };
   const notificationCount = ProductData.reduce((count, product) => {
-    if (product.quantityInStock === 0 || product.quantityInStock < 50) {
+    if (product.quantityInStock === 0 || product.quantityInStock < 10) {
       return count + 1;
     }
     return count;
@@ -40,7 +40,7 @@ export default function ImageAvatars() {
   useEffect(() => {
     setCountValue(notificationCount);
     fetchProductData();
-  }, [notificationCount])
+  })
 
   const LogOut = () => {
     localStorage.removeItem('authToken');

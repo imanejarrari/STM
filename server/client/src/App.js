@@ -27,7 +27,7 @@ function App() {
             <Routes>
               <Route
                 path="/"
-                element={isLoggedIn ? <Navigate to="/dashboard" /> : <LoginPage setisLoggedIn={setisLoggedIn} />}
+                element={isLoggedIn ? <Navigate to="/main" /> : <LoginPage setisLoggedIn={setisLoggedIn} />}
               />
               {isLoggedIn && (
                 <>
@@ -35,13 +35,13 @@ function App() {
                     <Route path="/stock" element={<StockPage />}  />
                     <Route path="/convertExcel" element={<ExeclPage />}  />
                     <Route path="/suppliers" element={<MainSupp />} />
-                    <Route path="/productlist" element={<MainPage />} />
-                <Route path="/stock" element={<StockPage />}  />
-                <Route path='/allOrders' element={<MainOrder /> } />
-                <Route path='/productsBySupplier' element={<MainSupp /> } />
-                <Route path='/placeOrder' element={<NewOrder/>} />
-                <Route path='/orderDetails/:orderId' element={<Details/>} />
-                <Route path='/dashboard' element={<MainDash/>} />
+                    <Route path="/stock" element={<StockPage />}  />
+                    <Route path='/allOrders' element={<MainOrder /> } />
+                    <Route path='/productsBySupplier' element={<MainSupp /> } />
+                    <Route path='/placeOrder' element={<NewOrder/>} />
+                    <Route path='/orderDetails/:orderId' element={<Details/>} />
+                    <Route path='/dashboard' element={<MainDash/>} />
+                
                 </>
               )}
             </Routes>

@@ -108,7 +108,7 @@ function NewProductForm() {
               </div>
     
               <div className={inputGroupClassName}>
-                <span className="input-group-text"><FontAwesomeIcon icon={faLayerGroup}/></span>
+                <span class="input-group-text"><FontAwesomeIcon icon={faLayerGroup}/></span>
                 <input
                   type="text"
                   className="form-control form-control-sm"
@@ -145,7 +145,7 @@ function NewProductForm() {
               </div>
     
               <div className={inputGroupClassName}>
-                <span className="input-group-text"><FontAwesomeIcon icon={faEdit}/></span>
+                <span class="input-group-text"><FontAwesomeIcon icon={faEdit}/></span>
                 <textarea
                   className="form-control form-control-sm"
                   name="description"
@@ -161,7 +161,7 @@ function NewProductForm() {
     
             <div className='col mt-5 border-left border-top border-light'>
               <div className={inputGroupClassName}>
-                <span className="input-group-text"><FontAwesomeIcon icon={faUser}/></span>
+                <span class="input-group-text"><FontAwesomeIcon icon={faUser}/></span>
                 <input
                   type="text"
                   className="form-control form-control-sm"

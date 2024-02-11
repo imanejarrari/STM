@@ -8,7 +8,7 @@ const ProductDetails = ({ product }) => {
   return (
     <div className="container mt-3 ">
       <div className="card shadow-sm p-1 rounded">
-        <div className="card-body " style={{padding:"28px"}}>
+        <div className="card-body " style={{padding:"5px"}}>
           
           <p className="card-text labelDesign border-bottom  border-dark-subtle ">
             <FontAwesomeIcon icon={faTag}  style={{marginRight:"12px", marginLeft:"8px"}}/><strong>Name:</strong> {product.name}
@@ -20,7 +20,7 @@ const ProductDetails = ({ product }) => {
             <FontAwesomeIcon icon={faBuilding} style={{marginRight:"12px", marginLeft:"8px"}} /> <strong>Brand:</strong> {product.brand}
           </p>
           <p className="card-text labelDesign border-bottom border-dark-subtle " >
-            <FontAwesomeIcon icon={faUser} style={{marginRight:"12px", marginLeft:"8px"}} /> <strong> Supplier Name:</strong> {product.supplierName}
+            <FontAwesomeIcon icon={faUser} style={{marginRight:"12px", marginLeft:"8px"}} /> <strong> Supplier:</strong> {product.supplierName}
           </p>
           <p className="card-text labelDesign border-bottom border-dark-subtle ">
             <FontAwesomeIcon icon={faInfoCircle} style={{marginRight:"12px", marginLeft:"8px"}} /> <strong>Supplier Infos:</strong> {product.supplierContactInfo}

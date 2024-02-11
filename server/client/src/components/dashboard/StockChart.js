@@ -2,18 +2,14 @@ import React, { useEffect, useRef, useState } from 'react';
 import Chart from 'chart.js/auto';
 import 'chartjs-plugin-datalabels';
 
-const determineBackgroundColor = (quantity) => {
-  if (quantity > 50) {
-    return '#365486'; 
-  } else if (quantity > 20) {
-    return '#7FC7D9'; 
-  } else if (quantity > 0) {
-    return '#B4D4FF'; 
-  } else {
-    return '#CCCCCC'; // Color for quantity less than or equal to 0
-  } 
-};
-
+function getRandomColor() {
+  const letters = '0123456789ABCDEF';
+  let color = '#';
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
 
 const StockChart = () => {
   const chartRef = useRef(null);
@@ -34,7 +30,9 @@ const StockChart = () => {
 
         const labels = result.map(product => product.category);
         const data = result.map(product => product.quantityInStock);
-        const backgroundColor = data.map(determineBackgroundColor);
+
+        // Generate random colors for each category
+        const backgroundColor = labels.map(() => getRandomColor());
 
         if (chartRef.current) {
           const ctx = chartRef.current.getContext('2d');
@@ -60,8 +58,8 @@ const StockChart = () => {
               plugins: {
                 title: {
                   display: true,
-                  text: 'Stock Level', 
-                  fontSize: 16,
+                  text: 'Stock Level',
+                  fontSize: 8,
                 },
                 datalabels: {
                   formatter: (value, context) => {

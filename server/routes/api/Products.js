@@ -44,6 +44,25 @@ router.post("/deleteproduct", async (req, res) => {
   }
 });
 
+router.put('/updateproduct', async (req, res) => {
+  try {
+    const { _id, ...updatedFields } = req.body;
+
+    const product = await Product.findById(_id);
+
+    Object.keys(updatedFields).forEach(field => {
+      product[field] = updatedFields[field];
+    });
+
+    const updatedProduct = await product.save();
+
+    res.json(updatedProduct);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
 router.post('/newproducts', async (req, res) => {
   try {
     const { products } = req.body;
@@ -69,5 +88,24 @@ router.get("/productsBySupplier/:supplierName", (req, res) => {
     .then((products) => res.json(products))
     .catch((err) => res.status(500).json({ error: "Internal Server Error" }));
 });
+
+
+router.post('/getProductsByIds', async (req, res) => {
+  const { productIds } = req.body;
+
+  try {
+    if (!Array.isArray(productIds) || !productIds.every(mongoose.Types.ObjectId.isValid)) {
+      return res.status(400).json({ error: 'Invalid product IDs.' });
+    }
+
+    const products = await Product.find({ _id: { $in: productIds } });
+
+    res.status(200).json({ products });
+  } catch (error) {
+    console.error('Error fetching products by IDs:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
 
 module.exports = router;

@@ -11,6 +11,7 @@ router.get('/dashboardData', async (req, res) => {
     const sales = await calculateSales();
     const totalOrders = await Order.countDocuments();
     const totalCustomers = await getTotalCustomers();
+    const customerNames  = await getCustomerNamesFromOrders();
     const stockGraphData = await getStockGraphData();
     const latestOrders = await Order.find().sort({ date: -1 }).limit(5);
     const latestSupplier = await getLatestSupplier();
@@ -26,6 +27,7 @@ router.get('/dashboardData', async (req, res) => {
       latestOrders,
       latestSupplier,
       salesPerCategory, 
+      customerNames,
     });
 
     // Return the dashboard data as a JSON response
@@ -37,7 +39,8 @@ router.get('/dashboardData', async (req, res) => {
       stockGraphData,
       latestOrders,
       latestSupplier,
-      salesPerCategory, 
+      salesPerCategory,
+      customerNames, 
     });
 
   } catch (error) {
@@ -45,7 +48,20 @@ router.get('/dashboardData', async (req, res) => {
     res.status(500).json({ error: `Internal Server Error: ${error.message}` });
   }
 });
-
+async function getCustomerNamesFromOrders() {
+  try {
+    const orders = await Order.find({}, 'customerName customerAddress');
+    const customerData = orders.map(order => ({
+      name: order.customerName,
+      address: order.customerAddress,
+    }));
+    console.log('Customer Data:', customerData);
+    return customerData;
+  } catch (error) {
+    console.error('Error fetching customer data:', error);
+    throw error;
+  }
+}
 // Function to get the total number of unique customers
 async function getTotalCustomers() {
   try {
@@ -85,7 +101,7 @@ async function calculateEarnings() {
     const totalEarningsResult = await Order.aggregate([
       {
         $match: {
-          Status:'Delivered',
+          status:'Delivered',
         },
       },
       {
@@ -140,12 +156,27 @@ async function getStockGraphData() {
       category: product.category,
       quantityInStock: product.quantityInStock,
     }));
-    return stockData;
+
+    // Create a Set to filter out duplicate categories
+    const uniqueCategories = new Set(stockData.map((product) => product.category));
+
+    // Create an array with unique categories and their corresponding quantityInStock
+    const uniqueStockData = Array.from(uniqueCategories).map((category) => {
+      const productsWithSameCategory = stockData.filter((product) => product.category === category);
+      const totalQuantityInStock = productsWithSameCategory.reduce(
+        (total, product) => total + product.quantityInStock,
+        0
+      );
+      return { category, quantityInStock: totalQuantityInStock };
+    });
+
+    return uniqueStockData;
   } catch (error) {
     console.error('Error fetching stock graph data:', error);
     throw error;
   }
 }
+
 
 // API endpoint to get stock graph data
 router.get('/stockGraphData', async (req, res) => {
@@ -181,6 +212,27 @@ router.get('/totalProductsPerSupplier', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
+router.get('/ordersByDate', async (req, res) => {
+  try {
+    const ordersByDate = await Order.aggregate([
+      {
+        $group: {
+          _id: { $dateToString: { format: '%Y-%m-%d', date: '$date' } },
+          totalOrders: { $sum: 1 },
+        },
+      },
+    ]);
+
+    console.log('Orders by Date:', ordersByDate); // Log the data
+
+    res.json(ordersByDate);
+  } catch (error) {
+    console.error('Error fetching orders by date:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
 
 // Function to get total quantity of products for each supplier
 async function getTotalProductsPerSupplier() {
@@ -237,8 +289,6 @@ router.get('/salesPerCategory', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
-
-
 
 
 module.exports = router;

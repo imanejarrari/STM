@@ -7,9 +7,6 @@ const  MainOrder = () => {
         <div className="main-page">
             <Sidebar />
             <CustomerOrdersList/>
-           
-            
-        
         </div>
     );
 }
